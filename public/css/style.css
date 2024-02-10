@@ -1,0 +1,434 @@
+@charset "UTF-8";
+/* 共通 
+----------------------- */
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック", "YuGothic", "Meiryo", "メイリオ", "Lucida Grande", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "sans-serif" !important;
+}
+
+p {
+  line-height: 1.8;
+  letter-spacing: .1em;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+/* サイドメニュー 
+----------------------- */
+.sidebar {
+  position: fixed;
+  text-align: center;
+  height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(#7AC8E4), to(#54E0E9));
+  background: linear-gradient(180deg, #7AC8E4 0%, #54E0E9 100%);
+  padding: 32px 30px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.sidebar::before {
+  position: absolute;
+  content: '';
+  display: inline-block;
+  width: 29vh;
+  height: 36vh;
+  background-image: url(../img/dec-side.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  right: 0;
+  bottom: 40px;
+}
+
+.logo {
+  position: relative;
+  padding-bottom: 40px;
+  margin: 0 auto 40px;
+}
+
+.logo::before {
+  position: absolute;
+  content: '';
+  max-width: 90%;
+  height: 2px;
+  background: #a4e4ed;
+  margin: 0 auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.sign-up-btn {
+  display: block;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: .1em;
+  background: -webkit-gradient(linear, left top, right top, from(#FFD56C), to(#FFBA31));
+  background: linear-gradient(90deg, #FFD56C 0%, #FFBA31 100%);
+  padding: 16px 0;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 14px #46ADD2;
+          box-shadow: 0 0 14px #46ADD2;
+  margin: 0 auto 28px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.sign-up-btn i {
+  font-size: 13px;
+  padding-right: 4px;
+}
+
+.sign-up-btn:hover {
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.75;
+}
+
+.top-page-btn {
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: .1em;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.top-page-btn i {
+  font-size: 15px;
+  padding-right: 4px;
+}
+
+.top-page-btn:hover {
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.75;
+}
+
+/* 右側全体
+----------------------- */
+.r-column {
+  background: #EDF7FA;
+  padding: 0;
+  margin-left: 16.666667%;
+  /* .col-md-2のwidthの値をいれています。 */
+}
+
+.wrapper {
+  padding: 30px 42px 84px;
+  margin-top: 80px;
+}
+
+/* ヘッダー
+----------------------- */
+.header {
+  position: fixed;
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 16px 42px;
+  -webkit-box-shadow: 0 0 20px rgba(82, 182, 218, 0.21);
+          box-shadow: 0 0 20px rgba(82, 182, 218, 0.21);
+  z-index: 99;
+}
+
+.input-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 320px;
+  color: #BDBDBD;
+  font-size: 16px;
+  background: #F0F0F0;
+  padding: 11px 22px 11px 30px;
+  border-radius: 30px;
+  border: none;
+}
+
+.input-btn input {
+  width: 80%;
+  border: none;
+  font-size: 16px;
+  background: #F0F0F0;
+}
+
+.input-btn input:focus-visible {
+  outline: none;
+}
+
+.input-btn input::-webkit-input-placeholder {
+  color: #BDBDBD;
+}
+
+.input-btn input:-ms-input-placeholder {
+  color: #BDBDBD;
+}
+
+.input-btn input::-ms-input-placeholder {
+  color: #BDBDBD;
+}
+
+.input-btn input::placeholder {
+  color: #BDBDBD;
+}
+
+.input-btn i {
+  font-size: 18px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  cursor: pointer;
+}
+
+.input-btn i:hover {
+  opacity: 0.55;
+}
+
+/* トップページ 生徒リスト
+----------------------- */
+.result {
+  color: #BDBDBD;
+  padding-left: 20px;
+}
+
+.contents-area {
+  background: #ffffff;
+  padding: 22px 32px 4px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 20px rgba(82, 182, 218, 0.21);
+          box-shadow: 0 0 20px rgba(82, 182, 218, 0.21);
+}
+
+.contents-area table {
+  margin-bottom: 0;
+}
+
+.contents-area tr {
+  padding: 0 24px;
+}
+
+.contents-area thead th {
+  color: #52B6DA;
+  font-weight: normal;
+  border: none;
+  padding: 0 0 18px;
+}
+
+.contents-area thead th:first-of-type {
+  padding-left: 24px;
+}
+
+.contents-area thead th:last-of-type {
+  padding-right: 24px;
+}
+
+.contents-area tbody td {
+  width: 5%;
+  vertical-align: middle;
+  font-size: 14px;
+  padding: 20px 0 10px;
+  border-top: 2px solid #eee;
+}
+
+.contents-area tbody td:first-of-type {
+  padding-left: 24px;
+}
+
+.contents-area tbody td:last-of-type {
+  padding-right: 24px;
+}
+
+.contents-area tbody td:nth-of-type(2) {
+  width: 3%;
+}
+
+.contents-area tbody td:nth-of-type(5) {
+  width: 6%;
+}
+
+.tb-btn-wrap {
+  text-align: center;
+}
+
+.tb-btn {
+  width: 64px;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: .25em;
+  padding: 9px 0;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.tb-btn:hover {
+  opacity: 0.75;
+}
+
+.tb-btn-edit {
+  color: #52B6DA;
+  background-color: #EDF7FA;
+  margin-right: 5px;
+}
+
+.tb-btn-del {
+  color: #ee8485;
+  background-color: #FAEDED;
+}
+
+/* トップページ ページャー
+----------------------- */
+.pager {
+  margin-top: 56px;
+}
+
+.pager .page-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.pager .page-item.active .page-link {
+  color: #ffffff;
+  background-color: #FFCF5F;
+}
+
+.pager .page-item .page-link {
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  color: #BDBDBD;
+  line-height: 1.5;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  margin-right: 8px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.pager .page-item .page-link:hover {
+  opacity: 0.75;
+}
+
+.pager i {
+  color: #BDBDBD;
+  padding-left: 8px;
+}
+
+/* 新規登録画面
+----------------------- */
+.sign-up .contents-area {
+  padding: 30px 32px 88px;
+}
+
+.sign-up h2 {
+  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  color: #BDBDBD;
+  letter-spacing: .3em;
+  padding: 0 0 24px 8px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 0;
+}
+
+.form-inner {
+  padding: 32px 15px 56px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  color: #52B6DA;
+  padding-left: 10px;
+  margin-bottom: 6px;
+}
+
+.form-group select {
+  color: #BDBDBD;
+  padding: 16px 20px;
+}
+
+.form-control {
+  height: 55px;
+  font-size: 15px;
+  padding: 16px 20px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: #BDBDBD;
+  font-size: 15px;
+}
+
+.form-control:-ms-input-placeholder {
+  color: #BDBDBD;
+  font-size: 15px;
+}
+
+.form-control::-ms-input-placeholder {
+  color: #BDBDBD;
+  font-size: 15px;
+}
+
+.form-control::placeholder {
+  color: #BDBDBD;
+  font-size: 15px;
+}
+
+.form-btn-wrap {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-btn {
+  width: 100%;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: .4em;
+  background-color: #FFCF5F;
+  padding: 20px 0;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.form-btn i {
+  font-size: 16px;
+}
