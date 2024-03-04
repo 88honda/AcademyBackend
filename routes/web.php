@@ -1,6 +1,8 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;  
+use App\Http\Controllers\UserController;
+use App\Models\Student;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+
+// });
 Route::get('/sign-up', function () {
     return view('sign-up');
 });
+
+
+
+Route::get('/log', [StudentController::class, 'index']);
+Route::get('/', [StudentController::class, 'index']);
