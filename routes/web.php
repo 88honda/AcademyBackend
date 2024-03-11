@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Student;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,5 @@ Route::get('/sign-up', function () {
 });
 
 
-
-Route::get('/log', [StudentController::class, 'index']);
-Route::get('/', [StudentController::class, 'index']);
+// Route::get('/search', [SearchController::class, 'index'])->name('search');
+Route::get('/', [StudentController::class, 'index'])->name('index');

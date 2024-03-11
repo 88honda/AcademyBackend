@@ -10,18 +10,17 @@ use Illuminate\Support\Facades\Log;
 
 class StudentController extends Controller
 {
-    // public function showPage(){
-    //     return view('index');   
-    // }
+    public function index(Request $request){
 
-    public function index(){
-    // データベースからユーザー情報を取得
-    $students = Student::all();
-    
-    // 変数の内容を確認
-    Log::info($students);
-    
-    return view('index', ['students' => $students]);
+        // データベースからユーザー情報を取得
+        $keyword = $request->input('keyword');
+        $query = Student::query();
 
+        if(!empty($keyword)) {
+            $query->where('name', 'LIKE', "%{$keyword}%");
+        }
+        $students = $query->get();
+
+        return view('index', compact('students', 'keyword'));
     }
 }

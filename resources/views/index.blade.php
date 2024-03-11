@@ -33,16 +33,16 @@
       </ul>
     </nav>
   </div>
-  <!-- /.col-sm-2 .sidebar -->
 
   <div class="r-column col-sm-10">
     <div class="header col-sm-10">
-      <button class="input-btn col-sm-4" type="submit">
-        <input type="text" placeholder="TEL検索">
-        <i class="fas fa-search"></i>
-      </button>
+      <form action="{{ route('index') }}" method="get">
+        <botton class="input-btn col-sm-4" type="submit">
+            <input type="text" placeholder="NAME検索" name="keyword">
+          <i class="fas fa-search"></i>
+        </botton>
+      </form>
     </div>
-    <!-- /.header .col-sm-10 -->
 
     <main class="student-list">
       <div class="container-fluid wrapper">
@@ -62,22 +62,21 @@
             </thead>
             <tbody>
               @foreach($students as $students)
-              <tr>
-                <td>{{$students->name}}</td> 
-                <td>{{$students->age}}</td>
-                <td>{{$students->birthday}}</td>
-                <td>{{$students->email}}</td>
-                <td>{{$students->tel}}</td>
-                <td>{{$students->plan}}</td>
-                <td>
-                  <button class="tb-btn tb-btn-edit">編集</button>
-                  <button class="tb-btn tb-btn-del">削除</button>
-                </td>
-              </tr>
+                <tr>
+                  <td>{{$students->name}}</td> 
+                  <td>{{$students->age}}</td>
+                  <td>{{$students->birthday}}</td>
+                  <td>{{$students->email}}</td>
+                  <td>{{$students->tel}}</td>
+                  <td>{{$students->plan}}</td>
+                  <td>
+                    <button class="tb-btn tb-btn-edit">編集</button>
+                    <button class="tb-btn tb-btn-del">削除</button>
+                  </td>
+                </tr>
               @endforeach
             </tbody>
           </table>
-          
         </section>
         <!-- /.container-fluid .contents-area -->
         <nav class="pager">
