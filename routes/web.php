@@ -16,14 +16,9 @@ use App\Http\Controllers\SearchController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('index');
-
-// });
-Route::get('/sign-up', function () {
+Route::get('sign-up', function () {
     return view('sign-up');
 });
 
-
-// Route::get('/search', [SearchController::class, 'index'])->name('search');
+Route::post('/sign-up/add', [StudentController::class, 'add'])->name('sign-up.add');
 Route::get('/', [StudentController::class, 'index'])->name('index');

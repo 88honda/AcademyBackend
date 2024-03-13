@@ -20,7 +20,29 @@ class StudentController extends Controller
             $query->where('name', 'LIKE', "%{$keyword}%");
         }
         $students = $query->get();
-
         return view('index', compact('students', 'keyword'));
     }
+
+    public function add(Request $request){
+
+        $students = new Student();
+        $request->validate([
+            'name' => ['required'], 
+            'age' => ['required'],   
+            'birthday' => ['required'],   
+            'email' => ['required'],   
+            'tel' => ['required'], 
+            'plan' => ['required'],   
+        ]);
+
+        $students->name = $request['name'];
+        $students->age = $request['age'];
+        $students->birthday = $request['birthday'];
+        $students->email = $request['email'];
+        $students->tel = $request['tel'];
+        $students->plan = $request['plan'];
+        $students->save();
+
+        return redirect('/');
+    }   
 }

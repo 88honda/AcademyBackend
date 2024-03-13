@@ -48,44 +48,44 @@
         <section class="container-fluid contents-area">
           <h2>新規登録画面</h2>
 
-          <form>
+          <form action="{{ url('/sign-up/add') }}" method="post">
+            @csrf
             <div class="form-inner">
               <div class="row">
                 <div class="form-group col-sm-5">
                   <label for="name">名前</label>
-                  <input type="text" class="form-control" id="name" placeholder="阿部 隆">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="阿部 隆" value="{{(old('name'))}}">
                 </div>
                 <div class="form-group col-sm-2">
                   <label for="age">年齢</label>
-                  <input type="text" class="form-control" id="age" placeholder="21">
+                  <input type="text" name="age" class="form-control" id="age" placeholder="21" value="{{(old('age'))}}">
                 </div>
                 <div class="form-group col-sm-5">
                   <label for="birthday">生年月日</label>
-                  <input type="text" class="form-control" id="birthday" placeholder="2000/6/21">
+                  <input type="text" name="birthday" class="form-control" id="birthday" placeholder="2000/6/21" value="{{(old('birthday'))}}">
                 </div>
                 <div class="form-group col-sm-12">
                   <label for="email">e-mail</label>
-                  <input type="email" class="form-control" id="email" placeholder="abe-takashi0622@email.com">
+                  <input type="email" name="email" class="form-control" id="email" placeholder="abe-takashi0622@email.com" value="{{(old('email'))}}">
                 </div>
                 <div class="form-group col-sm-6">
                   <label for="tel">TEL</label>
-                  <input type="tel" class="form-control" id="tel" placeholder="080-1234-5678">
+                  <input type="tel" name="tel" class="form-control" id="tel" placeholder="080-1234-5678" value="{{(old('tel'))}}">
                 </div>
                 <div class="form-group col-sm-6">
                   <label for="plan">プラン名</label>
-                  <select class="form-control" id="plan">
+                  <select class="form-control" id="plan" name="plan" value="{{(old('plan'))}}">
                     <option>---</option>
                     <option>PPREMIUM</option>
                     <option>STANDARD</option>
                   </select>
                 </div>
-
               </div>
               <!-- /.row -->
           </div>
           <!-- /.form-inner -->
 
-          <div class="form-btn-wrap"><button type="submit" class="form-btn"><i class="fas fa-plus"></i>新規登録</button></div>
+          <div class="form-btn-wrap"><button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>新規登録</button></div>
 
           </form>
         </section>

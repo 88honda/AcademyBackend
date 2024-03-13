@@ -39,7 +39,7 @@
       <form action="{{ route('index') }}" method="get">
         <botton class="input-btn col-sm-4" type="submit">
             <input type="text" placeholder="NAME検索" name="keyword">
-          <i class="fas fa-search"></i>
+            <i class="fas fa-search"></i>
         </botton>
       </form>
     </div>
