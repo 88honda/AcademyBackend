@@ -6,13 +6,13 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class StudentsSeeder extends Seeder
-{
+class UsersSeeder extends Seeder
+{   
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        \App\Models\Student::factory(15)->create();
+        \App\Models\User::factory(15)->create();
     }
 }
