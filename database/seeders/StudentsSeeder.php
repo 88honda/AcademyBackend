@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Student;
+use Illuminate\Support\Facades\Schema;
 
 class StudentsSeeder extends Seeder
 {
@@ -13,6 +13,9 @@ class StudentsSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Student::factory(15)->create();
+        Schema::disableForeignKeyConstraints(); 
+        Student::query()->truncate();
+        Student::factory(15)->create();
+        Schema::enableForeignKeyConstraints();
     }
 }

@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\UserTag;
+use Illuminate\Support\Facades\Schema;
+
 
 class UserTagsSeeder extends Seeder
 {
@@ -13,6 +14,9 @@ class UserTagsSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\UserTag::factory(15)->create();
+        Schema::disableForeignKeyConstraints(); 
+        UserTag::query()->truncate();
+        UserTag::factory(15)->create();
+        Schema::enableForeignKeyConstraints();
     }
 }

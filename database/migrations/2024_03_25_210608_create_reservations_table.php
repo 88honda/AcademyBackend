@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->integer('student_id');
-            $table->integer('time_slot_id');
+            $table->foreignId('student_id')->constrained('users');
+            $table->foreignId('time_slot_id')->constrained('time_slots');
             $table->timestamps();
         });
     }

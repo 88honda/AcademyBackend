@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Mentor;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -22,7 +23,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'password' => Hash::make('password'),
             'role'=>fake()->randomElement(['student', 'mentor']),
-            'detail_id'=>\App\Models\Mentor::factory(),
+            'detail_id'=>Mentor::factory(),
         ];
     }
 }

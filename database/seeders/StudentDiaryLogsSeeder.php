@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\StudentDiarylog;
+use Illuminate\Support\Facades\Schema;
+
 
 class StudentDiaryLogsSeeder extends Seeder
 {
@@ -13,6 +14,9 @@ class StudentDiaryLogsSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\StudentDiarylog::factory(15)->create();
+        Schema::disableForeignKeyConstraints(); 
+        StudentDiarylog::query()->truncate();
+        StudentDiarylog::factory(15)->create();
+        Schema::enableForeignKeyConstraints();
     }
 }

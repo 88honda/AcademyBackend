@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Reservation;
+use Illuminate\Support\Facades\Schema;
+
 
 class ReservationsSeeder extends Seeder
 {
@@ -13,6 +14,9 @@ class ReservationsSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Reservation::factory(15)->create();
+        Schema::disableForeignKeyConstraints(); 
+        Reservation::query()->truncate();
+        Reservation::factory(15)->create();
+        Schema::enableForeignKeyConstraints();
     }
 }

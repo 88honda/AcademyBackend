@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Student;
+use App\Models\Tag;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserTag>
@@ -17,8 +19,8 @@ class UserTagFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'=>\App\Models\Student::factory(),
-            'tag_id'=>\App\Models\Tag::factory(),
+            'user_id'=>Student::factory(),
+            'tag_id'=>Tag::factory(),
         ];
     }
 }

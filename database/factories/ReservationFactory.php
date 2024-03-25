@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\TimeSlot;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Reservation>
@@ -17,8 +19,8 @@ class ReservationFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_id'=>\App\Models\User::factory(),
-            'time_slot_id'=>\App\Models\TimeSlot::factory(),
+            'student_id'=>User::factory(),
+            'time_slot_id'=>TimeSlot::factory(),
         ];
     }
 }

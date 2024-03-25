@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Illuminate\Support\Facades\Schema;
+
 
 class UsersSeeder extends Seeder
 {   
@@ -13,6 +14,9 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(15)->create();
+        Schema::disableForeignKeyConstraints(); 
+        User::query()->truncate();
+        User::factory(15)->create();
+        Schema::enableForeignKeyConstraints();
     }
 }

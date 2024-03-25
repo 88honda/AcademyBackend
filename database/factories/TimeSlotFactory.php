@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TimeSlot>
@@ -17,7 +18,7 @@ class TimeSlotFactory extends Factory
     public function definition(): array
     {
         return [
-            'mentor_id'=>\App\Models\User::factory(),
+            'mentor_id'=>User::factory(),
             'start_time'=>fake()->date(),
             'end_time'=>fake()->date(),
             'status'=>fake()->randomElement(['available', 'booked']),

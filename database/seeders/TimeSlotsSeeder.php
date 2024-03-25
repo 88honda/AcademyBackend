@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\TimeSlot;
+use Illuminate\Support\Facades\Schema;
+
 
 class TimeSlotsSeeder extends Seeder
 {
@@ -13,6 +14,9 @@ class TimeSlotsSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\TimeSlot::factory(15)->create();
+        Schema::disableForeignKeyConstraints(); 
+        TimeSlot::query()->truncate();
+        TimeSlot::factory(15)->create();
+        Schema::enableForeignKeyConstraints();
     }
 }
