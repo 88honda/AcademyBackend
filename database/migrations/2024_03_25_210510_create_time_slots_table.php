@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('time_slots', function (Blueprint $table) {
             $table->id();
-            $table->integer('mentor_id');
+            $table->foreignId('mentor_id');
             $table->timestamp('start_time');
             $table->timestamp('end_time');
             $table->enum('status', ['available', 'booked']);

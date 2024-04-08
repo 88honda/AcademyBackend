@@ -18,8 +18,8 @@ class StudentDiaryLogFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_id'=>User::factory(),
-            'content'=>fake()->word(),
+            'student_id' => User::factory(),
+            'content' => fake()->word(),
         ];
     }
 }

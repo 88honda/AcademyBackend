@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use App\Models\StudentDiarylog;
-use Illuminate\Support\Facades\Schema;
 
 
 class StudentDiaryLogsSeeder extends Seeder
@@ -12,11 +12,17 @@ class StudentDiaryLogsSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        Schema::disableForeignKeyConstraints(); 
-        StudentDiarylog::query()->truncate();
-        StudentDiarylog::factory(15)->create();
-        Schema::enableForeignKeyConstraints();
+        // $UserData = User::all();
+        
+        // foreach ($UserData as $UserData) {
+        //     StudentDiaryLog::create([
+        //         'student_id' => $UserData->id, // 他のモデルのIDを使って関連付ける
+        //         'content'=>fake()->word(),
+        //     ]);
+        // }
+
+        StudentDiaryLog::factory(15) -> create();
     }
 }

@@ -3,11 +3,13 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Student;
+use App\Models\UserTags;
+use App\Models\User;
 use App\Models\Tag;
+use Faker\Generator as Faker;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserTag>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TimeSlot>
  */
 class UserTagFactory extends Factory
 {
@@ -19,8 +21,8 @@ class UserTagFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'=>Student::factory(),
-            'tag_id'=>Tag::factory(),
-        ];
+            'user_id' => User::factory(),
+            'tag_id' => Tag::factory(),
+            ];
     }
 }

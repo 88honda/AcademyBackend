@@ -17,9 +17,9 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'=>fake()->name(),
-            'learning_language'=>fake()->randomElement(['PHP', 'JavaScript', 'Python', 'GO', 'Kotlin', 'Java', 'Swift', 'Ruby', 'C#', 'C++']),
-            'experience_level'=>fake()->randomElement(['beginner', 'intermediate', 'advanced']),
+            'name' => fake()->name(),
+            'learning_language' => fake() -> randomElement(['PHP', 'JavaScript', 'Python', 'GO', 'Kotlin', 'Java', 'Swift', 'Ruby', 'C#', 'C++']),
+            'experience_level' => fake() -> randomElement(['beginner', 'intermediate', 'advanced']),
         ];
     }
 }

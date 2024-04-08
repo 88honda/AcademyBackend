@@ -19,8 +19,8 @@ class ReservationFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_id'=>User::factory(),
-            'time_slot_id'=>TimeSlot::factory(),
+            'student_id' => User::factory(),
+            'time_slot_id' => TimeSlot::factory(),
         ];
     }
 }

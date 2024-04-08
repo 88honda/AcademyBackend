@@ -30,17 +30,11 @@ class StudentController extends Controller
             'name' => ['required'], 
             'learning_languagege' => ['required'],   
             'experience_level' => ['required'],   
-            'email' => ['required'],   
-            'tel' => ['required'], 
-            'plan' => ['required'],   
         ]);
 
         $students->name = $request['name'];
         $students->learning_languagege = $request['learning_languagege'];
         $students->experience_level = $request['experience_level'];
-        $students->email = $request['email'];
-        $students->tel = $request['tel'];
-        $students->plan = $request['plan'];
         $students->save();
 
         return redirect('/');
