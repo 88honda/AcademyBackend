@@ -10,7 +10,7 @@ use App\Models\TimeSlot;
 class Reservation extends Model
 {
     use HasFactory;
-    public function Users()
+    public function reservations()
     {
         return $this -> belongsTo(User::class);
         return $this -> belongsTo(TimeSlot::class);

@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
+
 class Mentor extends Model
 {
-        public function user(): BelongsTo
+        public function mentors()
     {
         return $this->belongsTo(User::class);
     }

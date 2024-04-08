@@ -10,7 +10,7 @@ class Student extends Model
 {
     use HasFactory;
 
-    public function tags()
+    public function students()
     {
         return $this -> hasMany(User::class);
     }
