@@ -14,15 +14,6 @@ class StudentDiaryLogsSeeder extends Seeder
      */
     public function run()
     {
-        // $UserData = User::all();
-        
-        // foreach ($UserData as $UserData) {
-        //     StudentDiaryLog::create([
-        //         'student_id' => $UserData->id, // 他のモデルのIDを使って関連付ける
-        //         'content'=>fake()->word(),
-        //     ]);
-        // }
-
-        StudentDiaryLog::factory(15) -> create();
+        StudentDiaryLog::factory(15)->create();
     }
 }

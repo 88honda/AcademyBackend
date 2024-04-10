@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Models\Student;
 use App\Models\Mentor;
 use Faker\Generator as Faker;
 
@@ -24,9 +24,9 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => Hash::make('password'),
-            'role' => fake() -> randomElement(['student', 'mentor']),
-            'detail_id' => Mentor::factory(),
-            
+            'role' => fake()->randomElement(['student', 'mentor']),
+            'detail_id' => Student::factory()->make(),
+            'detail_id' => Mentor::factory()->make(),
         ];
     }
 }

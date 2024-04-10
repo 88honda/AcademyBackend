@@ -13,6 +13,7 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
+        // User::factory()->count(3)->create();
         User::factory(15)->create();
     }
 }

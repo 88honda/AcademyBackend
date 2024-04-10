@@ -9,8 +9,9 @@ use App\Models\User;
 
 class Mentor extends Model
 {
-        public function mentors()
+    use HasFactory;
+        public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 }

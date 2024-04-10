@@ -18,10 +18,10 @@ class TimeSlotFactory extends Factory
     public function definition(): array
     {
         return [
-            'mentor_id' => Mentor::factory(),
-            'start_time' => fake() -> date(),
-            'end_time' => fake() -> date(),
-            'status' => fake() -> randomElement(['available', 'booked']),
+            // 'mentor_id' => Mentor::factory(),
+            'start_time' => fake()->date(),
+            'end_time' => fake()->date(),
+            'status' => fake()->randomElement(['available', 'booked']),
         ];
     }
 }

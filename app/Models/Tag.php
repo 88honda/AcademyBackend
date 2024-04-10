@@ -11,6 +11,6 @@ class Tag extends Model
     use HasFactory;
     public function tags()
     {
-        return $this -> belongsToMany(User::class, 'user_tags');
+        return $this->belongsToMany(User::class, 'user_tags');
     }
 }

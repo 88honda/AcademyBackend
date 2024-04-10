@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('student_diary_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id');
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('student_id')->references('id')->on('users');
             $table->string('content');
             $table->timestamps();
         });
@@ -22,8 +23,10 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('student_diary_logs');
+        Schema::tabel('student_diary_logs', function(Blueprint $table){
+            $table->dropColumn('student_id');
+        });
     }
 };

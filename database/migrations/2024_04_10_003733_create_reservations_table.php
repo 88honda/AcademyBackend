@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id') -> constrained('students');
-            $table->foreignId('time_slot_id') -> constrained('time_slots');
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('student_id')->references('id')->on('users');
+            $table->unsignedBigInteger('time_slot_id');
+            $table->foreign('time_slot_id')->references('id')->on('time_slots');
             $table->timestamps();
         });
     }
@@ -24,6 +26,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reservations');
+        Schema::tabel('reservations', function(Blueprint $table){
+            $table->dropColumn('student_id');
+            $table->dropColumn('time_slot_id');
+        });
     }
 };

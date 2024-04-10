@@ -15,8 +15,5 @@ class TimeSlotsSeeder extends Seeder
      */
     public function run(): void
     {
-
-        // TimeSlot::query()->truncate();
-        // TimeSlot::factory(15)->create();
     }
 }

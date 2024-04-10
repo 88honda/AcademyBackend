@@ -10,9 +10,12 @@ use App\Models\Tag;
 class UserTag extends Model
 {
     use HasFactory;
-    public function usertags()
+    public function user()
     {
-        return $this -> belongsTo(User::class);
-        return $this -> belongsTo(Tag::class);
+        return $this->belongsTo(User::class);
+    }
+    public function tag()
+    {
+        return $this->belongsTo(Tag::class);
     }
 }

@@ -9,8 +9,8 @@ use App\Models\User;
 class StudentDiaryLog extends Model
 {
 	use HasFactory;
-    public function studentdiarylogs()
+    public function users()
     {
-        return $this -> belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 }

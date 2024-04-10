@@ -21,8 +21,8 @@ class UserTagFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'tag_id' => Tag::factory(),
+            'user_id' => User::factory()->make(),
+            'tag_id' => Tag::factory()->make(),
             ];
     }
 }
