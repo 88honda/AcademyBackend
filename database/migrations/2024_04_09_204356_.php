@@ -18,9 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['student', 'mentor']);
             $table->unsignedBigInteger('detail_id');
-            $table->foreign('detail_id')->references('id')->on('students','memtors');
             $table->timestamps();
-            
         });
     }
 
@@ -32,5 +30,6 @@ return new class extends Migration
         Schema::tabel('users', function(Blueprint $table){
             $table->dropColumn('detail_id');
         });
+
     }
 };

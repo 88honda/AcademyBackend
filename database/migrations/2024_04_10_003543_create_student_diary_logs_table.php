@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('student_diary_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('users');
             $table->string('content');
             $table->timestamps();
         });

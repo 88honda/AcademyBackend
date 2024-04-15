@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\StudentDiaryLog;
 
 class Student extends Model
 {
@@ -13,5 +14,9 @@ class Student extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+    public function studentdiarylogs()
+    {
+        return $this->hasMany(StudentDiaryLog::class);
     }
 }

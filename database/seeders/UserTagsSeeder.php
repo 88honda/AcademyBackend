@@ -3,8 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Tag;
-use App\Models\UserTag;
+use Illuminate\Support\Facades\DB;
 
 class UserTagsSeeder extends Seeder
 {
@@ -13,6 +12,18 @@ class UserTagsSeeder extends Seeder
      */
     public function run()
     {
-        UserTag::factory(15)->create();
+        DB::table('user_tags')->insert([
+            [
+                'user_id'=> 1,
+                'tag_id'=> 1,
+            ],
+            [
+                'user_id'=> 1,
+                'tag_id'=> 2,
+            ],            
+            [
+                'user_id'=> 2,
+                'tag_id'=> 2,
+            ]]);
     }
 }

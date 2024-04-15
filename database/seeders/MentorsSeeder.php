@@ -3,15 +3,15 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Student;
+use App\Models\Mentor;
 
-class StudentsSeeder extends Seeder
+class MentorsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Student::factory(5)->create();
+        Mentor::factory(5)->create();
     }
 }

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\User;
+use App\Models\Student;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\StudentDiaryLog>
@@ -18,7 +18,6 @@ class StudentDiaryLogFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_id' => User::factory(),
             'content' => fake()->word(),
         ];
     }
