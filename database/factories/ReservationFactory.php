@@ -18,9 +18,11 @@ class ReservationFactory extends Factory
      */
     public function definition(): array
     {
+        $students = Student::all();
+        $timeslots = TimeSlot::all();
         return [
-            // 'student_id' => Student::factory(),
-            // 'time_slot_id' => TimeSlot::factory(),
+            'student_id' => $students->random()->id,
+            'time_slot_id' => $timeslots->random()->id,
         ];
     }
 }

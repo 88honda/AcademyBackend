@@ -10,7 +10,7 @@ use App\Models\Mentor;
 use App\Models\Tag;
 use App\Models\TimeSlot;
 use App\Models\Reservation;
-
+use Illuminate\Support\Facades\DB;
 
 class User extends Model
 {
@@ -18,7 +18,8 @@ class User extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        $users = User::with('students', 'mentors')->get();
+        return $this->belongsTo(Student::class, 'id', 'student_id');
     }
     public function mentor()
     {
@@ -28,16 +29,5 @@ class User extends Model
     {
         return $this->hasMany(Usertag::class);
     }
-    public function timeslots()
-    {
-        return $this->hasMany(TimeSlot::class);
-    }
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class);
-    }
+    
 }

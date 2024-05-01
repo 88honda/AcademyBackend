@@ -15,13 +15,14 @@ class TimeSlotFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
-        return [
-            // 'mentor_id' => Mentor::factory(),
-            'start_time' => fake()->date(),
-            'end_time' => fake()->date(),
-            'status' => fake()->randomElement(['available', 'booked']),
-        ];
+        $mentors = Mentor::all();
+            return [
+                    'mentor_id'=> $mentors->random()->id,
+                    'start_time'=> fake()->date(),
+                    'end_time'=> fake()->date(),
+                    'status'=> fake()->randomElement(['available', 'booked']),
+            ];
     }
 }

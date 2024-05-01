@@ -20,9 +20,11 @@ class UserTagFactory extends Factory
      */
     public function definition(): array
     {
+        $users = User::all();
+        $tags = Tag::all();
         return [
-            // 'user_id' => User::factory()->make(),
-            // 'tag_id' => Tag::factory()->make(),
-            ];
+            'user_id' => $users->random()->id,
+            'tag_id' => $tags->random()->id,
+        ];
     }
 }
