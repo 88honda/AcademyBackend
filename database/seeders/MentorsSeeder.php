@@ -12,6 +12,6 @@ class MentorsSeeder extends Seeder
      */
     public function run(): void
     {
-        Mentor::factory(10)->create();
+        Mentor::factory(5)->create();
     }
 }

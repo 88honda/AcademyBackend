@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mentors', function (Blueprint $table) {
-            $table -> id();
-            $table -> string('name');
-            $table -> string('teaching_languages');
-            $table -> integer('experience_years');
-            $table -> text('introduction');
-            $table -> timestamps();
+            $table->id();
+            $table->string('name');
+            $table->string('teaching_languages');
+            $table->integer('experience_years');
+            $table->text('introduction');
+            $table->timestamps();
         });
     }
 

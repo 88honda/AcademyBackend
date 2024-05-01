@@ -24,7 +24,7 @@ class UserTagFactory extends Factory
         $tags = Tag::all();
         return [
             'user_id' => $users->random()->id,
-            'tag_id' => $tags->random()->id,
+            'tag_id'  => $tags->random()->id,
         ];
     }
 }
