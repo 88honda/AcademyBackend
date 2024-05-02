@@ -54,9 +54,6 @@
                 <th>名前</th>
                 <th>プログラミング言語</th>
                 <th>経験レベル</th>
-                <th>e-mail</th>
-                <th>TEL</th>
-                <th>プラン名</th>
                 <th></th>
               </tr>
             </thead>
@@ -64,11 +61,8 @@
               @foreach($students as $students)
                 <tr>
                   <td>{{$students->name}}</td> 
-                  <td>{{$students->learning_languagege}}</td>
+                  <td>{{$students->learning_language}}</td>
                   <td>{{$students->experience_level}}</td>
-                  <td>{{$students->email}}</td>
-                  <td>{{$students->tel}}</td>
-                  <td>{{$students->plan}}</td>
                   <td>
                     <button class="tb-btn tb-btn-edit">編集</button>
                     <button class="tb-btn tb-btn-del">削除</button>

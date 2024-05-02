@@ -56,28 +56,17 @@
                   <label for="name">名前</label>
                   <input type="text" name="name" class="form-control" id="name" placeholder="阿部 隆" value="{{(old('name'))}}">
                 </div>
-                <div class="form-group col-sm-2">
-                  <label for="age">年齢</label>
-                  <input type="text" name="age" class="form-control" id="age" placeholder="21" value="{{(old('age'))}}">
+                <div class="form-group col-sm-5">
+                  <label for="learning_language">プログラミング言語</label>
+                  <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value="{{(old('learning_language'))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="birthday">生年月日</label>
-                  <input type="text" name="birthday" class="form-control" id="birthday" placeholder="2000/6/21" value="{{(old('birthday'))}}">
-                </div>
-                <div class="form-group col-sm-12">
-                  <label for="email">e-mail</label>
-                  <input type="email" name="email" class="form-control" id="email" placeholder="abe-takashi0622@email.com" value="{{(old('email'))}}">
-                </div>
-                <div class="form-group col-sm-6">
-                  <label for="tel">TEL</label>
-                  <input type="tel" name="tel" class="form-control" id="tel" placeholder="080-1234-5678" value="{{(old('tel'))}}">
-                </div>
-                <div class="form-group col-sm-6">
-                  <label for="plan">プラン名</label>
-                  <select class="form-control" id="plan" name="plan" value="{{(old('plan'))}}">
+                  <label for="experience_level">経験レベル</label>
+                  <select class="form-control" id="experience_level" name="experience_level" value="{{(old('experience_level'))}}">
                     <option>---</option>
-                    <option>PPREMIUM</option>
-                    <option>STANDARD</option>
+                    <option>beginner</option>
+                    <option>intermediate</option>
+                    <option>advanced</option>
                   </select>
                 </div>
               </div>

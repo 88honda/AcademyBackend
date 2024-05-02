@@ -22,3 +22,4 @@ Route::get('sign-up', function () {
 
 Route::post('/sign-up/add', [StudentController::class, 'add'])->name('sign-up.add');
 Route::get('/', [StudentController::class, 'index'])->name('index');
+Route::get('/', [StudentController::class, 'edit'])->name('index.edit');

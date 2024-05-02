@@ -28,12 +28,12 @@ class StudentController extends Controller
         $students = new Student();
         $request->validate([
             'name' => ['required'], 
-            'learning_languagege' => ['required'],   
+            'learning_language' => ['required'],   
             'experience_level' => ['required'],   
         ]);
 
         $students->name = $request['name'];
-        $students->learning_languagege = $request['learning_languagege'];
+        $students->learning_language = $request['learning_language'];
         $students->experience_level = $request['experience_level'];
         $students->save();
 
