@@ -19,7 +19,6 @@ class StudentDiaryLogFactory extends Factory
     {
         $students = Student::all();
         return [
-            'student_id' => $students->random()->id,
             'content'    => fake()->word(),
         ];
     }

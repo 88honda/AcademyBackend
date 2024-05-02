@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use App\Models\Mentor;
 use App\Models\TimeSlot;
+use App\Models\Mentor;
 
 
 class TimeSlotsSeeder extends Seeder
@@ -15,6 +14,12 @@ class TimeSlotsSeeder extends Seeder
      */
     public function run(): void
     {
-        TimeSlot::factory(5)->create();
+        $mentors = Mentor::all();
+
+        foreach($mentors as $mentor){
+            TimeSlot::factory()->create([
+                'mentor_id' => $mentor->id,
+            ]);
+        }
     }
 }

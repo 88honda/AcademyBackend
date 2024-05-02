@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\StudentDiaryLog;
+use App\Models\Student;
 
 
 class StudentDiaryLogsSeeder extends Seeder
@@ -13,6 +14,11 @@ class StudentDiaryLogsSeeder extends Seeder
      */
     public function run()
     {
-        StudentDiaryLog::factory(10)->create();
+        $students = Student::all();
+        foreach($students as $student){
+            StudentDiaryLog::factory()->create([
+                'student_id' => $student->id,
+            ]);
+        }
     }
 }

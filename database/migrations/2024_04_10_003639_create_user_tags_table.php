@@ -1,6 +1,4 @@
-Schema::tabel('users', function(Blueprint $table){
-            $table->dropColumn('detail_id');
-        });<?php
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

@@ -16,7 +16,6 @@ class UsersSeeder extends Seeder
     {
         $students = Student::all();
         $mentors = Mentor::all();
-
         foreach($students as $student){
             User::factory()->create([
                 'role' => 'student', 
