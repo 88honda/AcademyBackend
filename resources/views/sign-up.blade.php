@@ -59,7 +59,7 @@
           @endif
 
           @if(isset($editMode) && $editMode)
-          <form method="post" action="{{ route('update')}}">
+          <form method="post" action="{{ route('update', ['id' => $students->id]) }}">
             @csrf
             <div class="form-inner">
               <div class="row">
