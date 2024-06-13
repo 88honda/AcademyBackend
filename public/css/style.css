@@ -294,9 +294,12 @@ ul {
 }
 
 .tb-btn-edit {
-  color: #52B6DA;
   background-color: #EDF7FA;
   margin-right: 5px;
+}
+.tb-btn-edit a {
+  color: #52B6DA;
+  text-decoration: none;
 }
 
 .tb-btn-del {

@@ -26,7 +26,13 @@
     <h1 class="logo"><a href="{{url('/')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        <li><a href="{{url('/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a></li>
+        <li>
+          @if(isset($editMode) && $editMode)
+            <a href="{{url('/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>編集登録画面</a>
+          @else
+            <a href="{{url('/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
+          @endif
+        </li>
         <li><a href="{{url('/')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
       </ul>
     </nav>
@@ -46,23 +52,28 @@
     <main class="sign-up">
       <div class="container-fluid wrapper">
         <section class="container-fluid contents-area">
-          <h2>新規登録画面</h2>
+          @if(isset($editMode) && $editMode)
+              <h2>編集登録画面</h2>
+          @else
+              <h2>新規登録画面</h2>
+          @endif
 
-          <form action="{{ url('/sign-up/add') }}" method="post">
+          @if(isset($editMode) && $editMode)
+          <form method="post" action="{{ route('update')}}">
             @csrf
             <div class="form-inner">
               <div class="row">
                 <div class="form-group col-sm-5">
                   <label for="name">名前</label>
-                  <input type="text" name="name" class="form-control" id="name" placeholder="阿部 隆" value="{{(old('name'))}}">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value={{$students->name}}>
                 </div>
                 <div class="form-group col-sm-5">
                   <label for="learning_language">プログラミング言語</label>
-                  <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value="{{(old('learning_language'))}}">
+                  <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value={{$students->learning_language}}>
                 </div>
                 <div class="form-group col-sm-5">
                   <label for="experience_level">経験レベル</label>
-                  <select class="form-control" id="experience_level" name="experience_level" value="{{(old('experience_level'))}}">
+                  <select class="form-control" id="experience_level" name="experience_level" placeholder="beginner" value={{$students->experience_level}}>
                     <option>---</option>
                     <option>beginner</option>
                     <option>intermediate</option>
@@ -74,9 +85,51 @@
           </div>
           <!-- /.form-inner -->
 
-          <div class="form-btn-wrap"><button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>新規登録</button></div>
+          <div class="form-btn-wrap">
+            @if(isset($editMode) && $editMode)
+              <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>編集登録</button>
+            @else
+              <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>新規登録</button>
+            @endif
+          </div>
 
           </form>
+          @else
+          <form action="{{ url('/sign-up/add') }}" method="post">
+            @csrf
+            <div class="form-inner">
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label for="name">名前</label>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value="{{(old('name'))}}">
+                </div>
+                <div class="form-group col-sm-5">
+                  <label for="learning_language">プログラミング言語</label>
+                  <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value="{{(old('name'))}}">
+                </div>
+                <div class="form-group col-sm-5">
+                  <label for="experience_level">経験レベル</label>
+                  <select class="form-control" id="experience_level" name="experience_level" placeholder="beginner" value="{{(old('experience_level'))}}">
+                    <option>---</option>
+                    <option>beginner</option>
+                    <option>intermediate</option>
+                    <option>advanced</option>
+                  </select>
+                </div>
+              </div>
+              <!-- /.row -->
+          </div>
+          <!-- /.form-inner -->
+
+          <div class="form-btn-wrap">
+            @if(isset($editMode) && $editMode)
+              <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>編集登録</button>
+            @else
+              <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>新規登録</button>
+            @endif
+          </div>
+          </form>
+          @endif
         </section>
         <!-- /.container-fluid .contents-area -->
 

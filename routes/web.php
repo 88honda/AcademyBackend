@@ -1,10 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;  
-use App\Models\Student;
-use App\Models\User;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\UserController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +15,7 @@ use App\Http\Controllers\UserController;
 Route::get('sign-up', function () {
     return view('sign-up');
 });
-
+Route::post('/update/{id}', [StudentController::class, 'update'])->name('update');
+Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('edit');
 Route::post('/sign-up/add', [StudentController::class, 'add'])->name('sign-up.add');
 Route::get('/', [StudentController::class, 'index'])->name('index');
-Route::get('/', [StudentController::class, 'edit'])->name('index.edit');

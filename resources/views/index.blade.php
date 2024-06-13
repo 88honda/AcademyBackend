@@ -64,7 +64,8 @@
                   <td>{{$students->learning_language}}</td>
                   <td>{{$students->experience_level}}</td>
                   <td>
-                    <button class="tb-btn tb-btn-edit">編集</button>
+
+                    <a href="{{ route('edit', ['id' => $students->id]) }}"><button class="tb-btn tb-btn-edit" method="get">編集</button></a>
                     <button class="tb-btn tb-btn-del">削除</button>
                   </td>
                 </tr>
@@ -85,15 +86,11 @@
           </ul>
         </nav>
         <!-- /.pager -->
-
       </div>
       <!-- /.container-fluid .wrapper-->
     </main>
-
   </div>
   <!-- /.r-column .col-sm-10 -->
-
-
 </div>
 <!-- /.row -->
 </div>

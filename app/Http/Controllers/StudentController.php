@@ -39,4 +39,21 @@ class StudentController extends Controller
 
         return redirect('/');
     }   
+    public function edit($id)
+    {
+        $students = Student::findOrFail($id);
+        $editMode = true;
+        return view('sign-up', compact('students', 'editMode'));
+    }
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $students = Student::findOrFail($id);
+        $students->name = $data['name'];
+        $students->learning_language = $data['learning_language'];
+        $students->experience_level = $data['experience_level'];
+        $students->save();
+
+        return redirect('/');
+    }
 }
