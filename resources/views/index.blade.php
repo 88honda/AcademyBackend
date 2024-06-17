@@ -64,7 +64,6 @@
                   <td>{{$students->learning_language}}</td>
                   <td>{{$students->experience_level}}</td>
                   <td>
-
                     <a href="{{ route('edit', ['id' => $students->id]) }}"><button class="tb-btn tb-btn-edit" method="get">編集</button></a>
                     <button class="tb-btn tb-btn-del">削除</button>
                   </td>

@@ -26,18 +26,19 @@ class StudentController extends Controller
     public function add(Request $request){
 
         $students = new Student();
-        $request->validate([
-            'name' => ['required'], 
-            'learning_language' => ['required'],   
-            'experience_level' => ['required'],   
+        $inputs = $request->validate([
+            'name' => 'required',  
+            'learning_language' => 'required',   
+            'experience_level' => 'required',   
         ]);
 
-        $students->name = $request['name'];
-        $students->learning_language = $request['learning_language'];
-        $students->experience_level = $request['experience_level'];
+        // $students->name = $request['name'];
+        $students->name = $inputs['name'];
+        $students->learning_language = $inputs['learning_language'];
+        $students->experience_level = $inputs['experience_level'];
         $students->save();
 
-        return redirect('/');
+        return redirect('/')->back()->with('success', 'Form submitted successfully!');
     }   
     public function edit($id)
     {
@@ -47,11 +48,17 @@ class StudentController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $inputs = $request->validate([
+            'name' => 'required',  
+            'learning_language' => 'required',   
+            'experience_level' => 'required',   
+        ]);
+
         $data = $request->all();
         $students = Student::findOrFail($id);
-        $students->name = $data['name'];
-        $students->learning_language = $data['learning_language'];
-        $students->experience_level = $data['experience_level'];
+        $students->name = $inputs['name'];
+        $students->learning_language = $inputs['learning_language'];
+        $students->experience_level = $inputs['experience_level'];
         $students->save();
 
         return redirect('/');
