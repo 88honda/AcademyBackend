@@ -70,6 +70,7 @@
           @if(isset($editMode) && $editMode)
           <form method="post" action="{{ route('update', ['id' => $students->id]) }}">
             @csrf
+
             <div class="form-inner">
             @foreach ($errors->all() as $error)
               <li>{{$error}}</li>
@@ -78,16 +79,17 @@
                 <div class="form-group col-sm-5">
                   <label for="name">名前</label>
                   <div>{{ $errors->first('message') }}</div>
-                  <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value={{$students->name}}>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value="{{(old('name', $students->name))}}">
                 </div>
                 <div class="form-group col-sm-5">
                   <label for="learning_language">プログラミング言語</label>
-                  <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value={{$students->learning_language}}>
+                  <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value="{{(old('learning_language', $students->learning_language))}}">
+                  
                 </div>
                 <div class="form-group col-sm-5">
                   <label for="experience_level">経験レベル</label>
-                  <select class="form-control" id="experience_level" name="experience_level" placeholder="beginner" value={{$students->experience_level}}>
-                    <option>---</option>
+                  <select class="form-control" id="experience_level" name="experience_level" placeholder="beginner" value="{{(old('experience_level', $students->experience_level))}}">
+                    <option></option>
                     <option>beginner</option>
                     <option>intermediate</option>
                     <option>advanced</option>
@@ -124,11 +126,12 @@
                 <div class="form-group col-sm-5">
                   <label for="learning_language">プログラミング言語</label>
                   <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value="{{(old('name'))}}">
+                  {{-- value="{{ old('menu_name', $data->learning_language) }}" --}}
                 </div>
                 <div class="form-group col-sm-5">
                   <label for="experience_level">経験レベル</label>
                   <select class="form-control" id="experience_level" name="experience_level" placeholder="beginner" value="{{(old('experience_level'))}}">
-                    <option>---</option>
+                    <option></option>
                     <option>beginner</option>
                     <option>intermediate</option>
                     <option>advanced</option>

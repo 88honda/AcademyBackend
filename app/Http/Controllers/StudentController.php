@@ -44,9 +44,9 @@ class StudentController extends Controller
     public function update(StudentRequest $request, $id)
     {
         $inputs = $request->validate([
-            'name' => 'required',  
-            'learning_language' => 'required',   
-            'experience_level' => 'required',   
+            'name' => 'required',
+            'learning_language' => 'required',
+            'experience_level' => 'required',
         ]);
         $data = $request->all();
         $students = Student::findOrFail($id);
@@ -57,6 +57,7 @@ class StudentController extends Controller
 
         return redirect('/');
     }
+
     // public function destroy($id)
     // {
     //     // 指定されたIDのユーザーを検索
