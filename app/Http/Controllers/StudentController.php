@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\StudentRequest;
 
 class StudentController extends Controller
 {
@@ -23,22 +24,16 @@ class StudentController extends Controller
         return view('index', compact('students', 'keyword'));
     }
 
-    public function add(Request $request){
+    public function add(StudentRequest $request){
 
         $students = new Student();
-        $inputs = $request->validate([
-            'name' => 'required',  
-            'learning_language' => 'required',   
-            'experience_level' => 'required',   
-        ]);
 
-        // $students->name = $request['name'];
-        $students->name = $inputs['name'];
-        $students->learning_language = $inputs['learning_language'];
-        $students->experience_level = $inputs['experience_level'];
+        $students->name = $request['name'];
+        $students->learning_language = $request['learning_language'];
+        $students->experience_level = $request['experience_level'];
         $students->save();
 
-        return redirect('/')->back()->with('success', 'Form submitted successfully!');
+        return redirect('/');
     }   
     public function edit($id)
     {
@@ -46,21 +41,31 @@ class StudentController extends Controller
         $editMode = true;
         return view('sign-up', compact('students', 'editMode'));
     }
-    public function update(Request $request, $id)
+    public function update(StudentRequest $request, $id)
     {
         $inputs = $request->validate([
             'name' => 'required',  
             'learning_language' => 'required',   
             'experience_level' => 'required',   
         ]);
-
         $data = $request->all();
         $students = Student::findOrFail($id);
-        $students->name = $inputs['name'];
-        $students->learning_language = $inputs['learning_language'];
-        $students->experience_level = $inputs['experience_level'];
+        $students->name = $data['name'];
+        $students->learning_language = $data['learning_language'];
+        $students->experience_level = $data['experience_level'];
         $students->save();
 
         return redirect('/');
+    }
+    public function destroy($id)
+    {
+        // 指定されたIDのユーザーを検索
+        $user = Student::findOrFail($id);
+
+        // ユーザーを削除
+        $user->delete();
+
+        // 成功レスポンスを返す
+        return response()->json(['message' => 'User deleted successfully'], 200);
     }
 }

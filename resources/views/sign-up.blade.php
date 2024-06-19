@@ -20,7 +20,7 @@
 
 <body>
 <div class="container-fluid">
-  @if($errors->any())
+  {{-- @if($errors->any())
   <div class="alert alert-danger">
     <ul>
       @foreach($errors->all() as $error)
@@ -28,7 +28,7 @@
       @endforeach
     </ul>
   </div>
-  @endif
+  @endif --}}
 
 <div class="row">
   <div class="col-sm-2 sidebar">
@@ -50,12 +50,12 @@
 
   <div class="r-column col-sm-10">
 
-    <div class="header col-sm-10">
+    {{-- <div class="header col-sm-10">
       <button class="input-btn col-sm-4" type="submit">
         <input type="text" placeholder="TEL検索">
         <i class="fas fa-search"></i>
       </button>
-    </div>
+    </div> --}}
     <!-- /.header .col-sm-10 -->
 
     <main class="sign-up">
@@ -71,9 +71,13 @@
           <form method="post" action="{{ route('update', ['id' => $students->id]) }}">
             @csrf
             <div class="form-inner">
+            @foreach ($errors->all() as $error)
+              <li>{{$error}}</li>
+            @endforeach
               <div class="row">
                 <div class="form-group col-sm-5">
                   <label for="name">名前</label>
+                  <div>{{ $errors->first('message') }}</div>
                   <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value={{$students->name}}>
                 </div>
                 <div class="form-group col-sm-5">
@@ -95,11 +99,13 @@
           <!-- /.form-inner -->
 
           <div class="form-btn-wrap">
+            
             @if(isset($editMode) && $editMode)
               <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>編集登録</button>
             @else
               <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>新規登録</button>
             @endif
+            
           </div>
 
           </form>
@@ -107,6 +113,9 @@
           <form action="{{ url('/sign-up/add') }}" method="post">
             @csrf
             <div class="form-inner">
+            @foreach ($errors->all() as $error)
+              <li>{{$error}}</li>
+            @endforeach
               <div class="row">
                 <div class="form-group col-sm-5">
                   <label for="name">名前</label>
