@@ -65,7 +65,7 @@
                   <td>{{$students->experience_level}}</td>
                   <td>
                     <a href="{{ route('edit', ['id' => $students->id]) }}"><button class="tb-btn tb-btn-edit" method="get">編集</button></a>
-                    <a href="{{ route('delete', ['id' => $students->id]) }}"><button class="tb-btn tb-btn-del" method="post">削除</button></a>
+                    <button class="tb-btn tb-btn-del">削除</button>
                   </td>
                 </tr>
               @endforeach
