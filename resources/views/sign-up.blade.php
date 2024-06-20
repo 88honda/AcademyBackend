@@ -20,16 +20,6 @@
 
 <body>
 <div class="container-fluid">
-  {{-- @if($errors->any())
-  <div class="alert alert-danger">
-    <ul>
-      @foreach($errors->all() as $error)
-      <li>{{$error}}</li>
-      @endforeach
-    </ul>
-  </div>
-  @endif --}}
-
 <div class="row">
   <div class="col-sm-2 sidebar">
     <h1 class="logo"><a href="{{url('/')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
@@ -70,7 +60,6 @@
           @if(isset($editMode) && $editMode)
           <form method="post" action="{{ route('update', ['id' => $students->id]) }}">
             @csrf
-
             <div class="form-inner">
             @foreach ($errors->all() as $error)
               <li>{{$error}}</li>
@@ -89,11 +78,11 @@
                 <div class="form-group col-sm-5">
                   <label for="experience_level">経験レベル</label>
                   <select class="form-control" id="experience_level" name="experience_level" placeholder="beginner" value="{{(old('experience_level', $students->experience_level))}}">
-                    <option></option>
-                    <option>beginner</option>
-                    <option>intermediate</option>
-                    <option>advanced</option>
-                  </select>
+                    {{-- <option value="" {{ old() == '' ? 'selected' : '' }}></option> --}}
+                    @foreach($experienceLevels as $key => $value)
+                      <option value="{{ $key }}" {{ $students->experience_level == $key ? 'selected' : '' }}@if(old('experience_level') == $students->id) selected @endif>{{ $value }}</option>
+                    @endforeach
+                  </select> 
                 </div>
               </div>
               <!-- /.row -->

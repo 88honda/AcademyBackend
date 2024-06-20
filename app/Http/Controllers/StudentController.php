@@ -39,15 +39,16 @@ class StudentController extends Controller
     {
         $students = Student::findOrFail($id);
         $editMode = true;
-        return view('sign-up', compact('students', 'editMode'));
+        $experienceLevels = [
+            '' => '---',
+            'beginner' => 'beginner',
+            'intermediate' => 'intermediate',
+            'advanced' => 'advanced',
+        ];
+        return view('sign-up', compact('students', 'editMode', 'experienceLevels'));
     }
     public function update(StudentRequest $request, $id)
     {
-        $inputs = $request->validate([
-            'name' => 'required',
-            'learning_language' => 'required',
-            'experience_level' => 'required',
-        ]);
         $data = $request->all();
         $students = Student::findOrFail($id);
         $students->name = $data['name'];
