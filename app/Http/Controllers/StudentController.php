@@ -57,15 +57,15 @@ class StudentController extends Controller
         return redirect('/');
     }
 
-    // public function destroy($id)
-    // {
-    //     // 指定されたIDのユーザーを検索
-    //     $user = Student::findOrFail($id);
+    public function destroy($id)
+    {
+        // 指定されたIDのユーザーを検索
+        $students = Student::findOrFail($id);
 
-    //     // ユーザーを削除
-    //     $user->delete();
+        // ユーザーを削除
+        $students->delete();
 
-    //     // 成功レスポンスを返す
-    //     return response()->json(['message' => 'User deleted successfully'], 200);
-    // }
+        // 成功レスポンスを返す
+        return redirect('/');
+    }
 }

@@ -64,8 +64,15 @@
                   <td>{{$students->learning_language}}</td>
                   <td>{{$students->experience_level}}</td>
                   <td>
-                    <a href="{{ route('edit', ['id' => $students->id]) }}"><button class="tb-btn tb-btn-edit" method="get">編集</button></a>
-                    <button class="tb-btn tb-btn-del">削除</button>
+                    <a href="{{ route('edit', ['id' => $students->id]) }}">
+                      <button class="tb-btn tb-btn-edit" method="get">編集</button>
+                    </a>
+                  
+                    <form action="{{ route('delete', ['id' => $students->id]) }}" method="POST" style="display: inline;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="tb-btn tb-btn-del">削除</button>
+                    </form>
                   </td>
                 </tr>
               @endforeach
@@ -94,6 +101,6 @@
 <!-- /.row -->
 </div>
 <!-- /.container-fluid -->
-
+<script src="{{ asset('js/alert.js') }}"></script>
 </body>
 </html>

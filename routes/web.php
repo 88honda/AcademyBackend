@@ -15,8 +15,9 @@ use App\Http\Controllers\StudentController;
 Route::get('sign-up', function () {
     return view('sign-up');
 });
-// Route::post('/delete/{id}', [StudentController::class, 'destroy']);
+
 Route::post('/update/{id}', [StudentController::class, 'update'])->name('update');
 Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('edit');
+Route::delete('/delete/{id}', [StudentController::class, 'destroy'])->name('delete');
 Route::post('/sign-up/add', [StudentController::class, 'add'])->name('sign-up.add');
 Route::get('/', [StudentController::class, 'index'])->name('index');
