@@ -58,6 +58,9 @@
               </tr>
             </thead>
             <tbody>
+              @if(session('message'))
+              <div class="alert alert-success">{{ session('message') }}</div>
+              @endif
               @foreach($students as $students)
                 <tr>
                   <td>{{$students->name}}</td> 
