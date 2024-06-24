@@ -61,6 +61,6 @@ class StudentController extends Controller
     {
         $students = Student::findOrFail($id);
         $students->delete();
-        return redirect('/')->with('message', '名前を削除しました');
+        return redirect('/')->with('message', '削除しました');
     }
 }

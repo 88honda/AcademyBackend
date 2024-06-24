@@ -18,6 +18,6 @@ Route::get('sign-up', function () {
 
 Route::post('/update/{id}', [StudentController::class, 'update'])->name('update');
 Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('edit');
-Route::delete('/delete/{id}', [StudentController::class, 'destroy'])->name('delete');
+Route::post('/delete/{id}', [StudentController::class, 'destroy'])->name('delete');
 Route::post('/sign-up/add', [StudentController::class, 'add'])->name('sign-up.add');
 Route::get('/', [StudentController::class, 'index'])->name('index');

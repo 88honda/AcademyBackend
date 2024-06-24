@@ -73,7 +73,7 @@
                   
                     <form action="{{ route('delete', ['id' => $students->id]) }}" method="POST" style="display: inline;">
                       @csrf
-                      @method('DELETE')
+                      {{-- @method('DELETE') --}}
                       <button type="submit" class="tb-btn tb-btn-del">削除</button>
                     </form>
                   </td>
@@ -104,6 +104,16 @@
 <!-- /.row -->
 </div>
 <!-- /.container-fluid -->
-<script src="{{ asset('js/alert.js') }}"></script>
+@section('scripts')
+<script>
+$(function(){
+            $(".tb-btn-del").click(function(){
+                if(confirm("本当に削除しますか？")){
+                    }else {
+                return false;
+                }
+            });
+        });
+</script>
 </body>
 </html>
