@@ -308,7 +308,21 @@ ul {
   background-color: #FAEDED;
 }
 
+.modal-btn {
+  width: 100px;
+  padding: 10px 0;
 
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: .25em;
+
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
 /* トップページ ページャー
 ----------------------- */
 .pager {
