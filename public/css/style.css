@@ -78,11 +78,11 @@ ul {
   letter-spacing: .1em;
   background: -webkit-gradient(linear, left top, right top, from(#FFD56C), to(#FFBA31));
   background: linear-gradient(90deg, #FFD56C 0%, #FFBA31 100%);
-  padding: 16px 0;
+  padding: 16px 9px;
   border-radius: 4px;
   -webkit-box-shadow: 0 0 14px #46ADD2;
           box-shadow: 0 0 14px #46ADD2;
-  margin: 0 auto 28px;
+  margin: 0;
   -webkit-transition: all .3s;
   transition: all .3s;
 }
@@ -97,6 +97,36 @@ ul {
   text-decoration: none;
   opacity: 0.75;
 }
+
+.student-btn, .mentor-btn {
+  display: block;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: .1em;
+  background: -webkit-gradient(linear, left top, right top, from(#7AC8E4), to(#54E0E9
+  ));
+  background: linear-gradient(100deg, #54E0E9 0%, #7AC8E4 100%);
+  padding: 16px 0;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 14px #46ADD2;
+          box-shadow: 0 0 14px #46ADD2;
+  margin: 0 auto 28px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.student-btn i, .mentor-btn i {
+  font-size: 13px;
+  padding-right: 4px;
+}
+
+.student-btn:hover, .mentor-btn:hover {
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.75;
+}
+
 
 .top-page-btn {
   color: #fff;
@@ -142,7 +172,7 @@ ul {
   display: flex;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
-          justify-content: flex-end;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -211,6 +241,10 @@ ul {
 
 /* トップページ 生徒リスト
 ----------------------- */
+.screen-title {
+  font-weight: 600;
+  color: #7AC8E4;
+}
 .result {
   color: #BDBDBD;
   padding-left: 20px;

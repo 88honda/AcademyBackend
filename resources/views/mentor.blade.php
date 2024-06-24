@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
   <!-- Optional JavaScript -->
-
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -51,7 +50,7 @@
 
     <main class="student-list">
       <div class="container-fluid wrapper">
-        <h4 class="screen-title">生徒画面</h4>
+        <h4 class="screen-title">メンター画面</h4>
         <p class="result">15件</p>
         <section class="container-fluid contents-area">
           <table class="table">
@@ -59,7 +58,7 @@
               <tr>
                 <th>名前</th>
                 <th>プログラミング言語</th>
-                <th>経験レベル</th>
+                <th>経験年数</th>
                 <th></th>
               </tr>
             </thead>
@@ -67,17 +66,17 @@
               @if(session('message'))
               <div class="alert alert-success">{{ session('message') }}</div>
               @endif
-              @foreach($students as $students)
+              @foreach($mentors as $mentors)
                 <tr>
-                  <td>{{$students->name}}</td> 
-                  <td>{{$students->learning_language}}</td>
-                  <td>{{$students->experience_level}}</td>
+                  <td>{{$mentors->name}}</td> 
+                  <td>{{$mentors->teaching_languages}}</td>
+                  <td>{{$mentors->experience_years}}</td>
                   <td>
-                    <a href="{{ route('edit', ['id' => $students->id]) }}">
+                    <a href="{{ route('edit', ['id' => $mentors->id]) }}">
                       <button class="tb-btn tb-btn-edit" method="get">編集</button>
                     </a>
                   
-                    <form action="{{ route('delete', ['id' => $students->id]) }}" method="POST" style="display: inline;">
+                    <form action="{{ route('delete', ['id' => $mentors->id]) }}" method="POST" style="display: inline;">
                       @csrf
                       {{-- @method('DELETE') --}}
                       <button type="submit" class="tb-btn tb-btn-del">削除</button>
