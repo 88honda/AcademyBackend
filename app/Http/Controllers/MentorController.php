@@ -23,17 +23,18 @@ class MentorController extends Controller
         return view('/mentor', compact('mentors', 'keyword'));
     }
 
-    // public function add(StudentRequest $request){
+    //
+     public function add(StudentRequest $request){
 
-    //     $mentors = new Student();
+        $mentors = new Student();
 
-    //     $mentors->name = $request['name'];
-    //     $mentors->learning_language = $request['learning_language'];
-    //     $mentors->experience_level = $request['experience_level'];
-    //     $mentors->save();
+        $mentors->name = $request['name'];
+        $mentors->teaching_languages = $request['teaching_languages'];
+        $mentors->experience_years = $request['experience_years'];
+        $mentors->save();
 
-    //     return redirect('/');
-    // }   
+        return redirect('/');
+    }   
     // public function edit($id)
     // {
     //     $students = Student::findOrFail($id);
@@ -46,17 +47,17 @@ class MentorController extends Controller
     //     ];
     //     return view('sign-up', compact('students', 'editMode', 'experienceLevels'));
     // }
-    // public function update(StudentRequest $request, $id)
-    // {
-    //     $data = $request->all();
-    //     $students = Student::findOrFail($id);
-    //     $students->name = $data['name'];
-    //     $students->learning_language = $data['learning_language'];
-    //     $students->experience_level = $data['experience_level'];
-    //     $students->save();
+    public function update(StudentRequest $request, $id)
+    {
+        $data = $request->all();
+        $students = Student::findOrFail($id);
+        $students->name = $data['name'];
+        $students->learning_language = $data['learning_language'];
+        $students->experience_level = $data['experience_level'];
+        $students->save();
 
-    //     return redirect('/');
-    // }
+        return redirect('/');
+    }
 
     // public function destroy($id)
     // {

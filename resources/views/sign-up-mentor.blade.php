@@ -49,7 +49,7 @@
           @if(isset($editMode) && $editMode)
               <h2>編集登録画面</h2>
           @else
-              <h2>新規登録画面</h2>
+              <h2>新規登録画面（メンター）</h2>
           @endif
 
           @if(isset($editMode) && $editMode)
@@ -66,17 +66,12 @@
                   <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value="{{(old('name', $students->name))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="learning_language">プログラミング言語</label>
-                  <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value="{{(old('learning_language', $students->learning_language))}}">
-                  
+                  <label for="teaching_languages">プログラミング言語</label>
+                  <input type="text" name="teaching_languages" class="form-control" id="teaching_languages" placeholder="PHP" value="{{(old('teaching_languages', $students->teaching_languages))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="experience_level">経験レベル</label>
-                  <select class="form-control" id="experience_level" name="experience_level" placeholder="beginner" value="{{(old('experience_level', $students->experience_level))}}">
-                    @foreach($experienceLevels as $key => $value)
-                      <option value="{{ $key }}" {{ $students->experience_level == $key ? 'selected' : '' }}@if(old('experience_level') == $students->id) selected @endif>{{ $value }}</option>
-                    @endforeach
-                  </select> 
+                  <label for="experience_years">経験年数</label>
+                  <input type="text" name="experience_years" class="form-control" id="experience_years" placeholder="1" value="{{(old('experience_years', $students->experience_years))}}">
                 </div>
               </div>
               <!-- /.row -->
@@ -107,18 +102,22 @@
                   <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value="{{(old('name'))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="learning_language">プログラミング言語</label>
-                  <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value="{{(old('learning_language'))}}">
+                  <label for="teaching_languages">プログラミング言語</label>
+                  <input type="text" name="teaching_languages" class="form-control" id="teaching_languages" placeholder="PHP" value="{{(old('teaching_languages'))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="experience_level">経験レベル</label>
-                  <select class="form-control" id="experience_level" name="experience_level">
-                    <option name="experience_level" value="" {{ old('experience_level') == '' ? 'selected' : '' }}>---</option>
-                    <option name="experience_level" value="beginner" {{ old('experience_level') == 'beginner' ? 'selected' : '' }}>beginner</option>
-                    <option name="experience_level" value="intermediate" {{ old('experience_level') == 'intermediate' ? 'selected' : '' }}>intermediate</option>
-                    <option name="experience_level" value="advanced" {{ old('experience_level') == 'advanced' ? 'selected' : '' }}>advanced</option>
-                  </select>
+                  <label for="experience_years">経験年数</label>
+                  <input type="text" name="experience_years" class="form-control" id="experience_years" placeholder="1" value="{{(old('experience_years'))}}">
                 </div>
+                {{-- <div class="form-group col-sm-5">
+                  <label for="experience_years">経験年数</label>
+                  <select class="form-control" id="experience_years" name="experience_years">
+                    <option name="experience_years" value="" {{ old('experience_years') == '' ? 'selected' : '' }}>---</option>
+                    <option name="experience_years" value="1" {{ old('experience_years') == 'beginner' ? 'selected' : '' }}>beginner</option>
+                    <option name="experience_years" value="intermediate" {{ old('experience_years') == 'intermediate' ? 'selected' : '' }}>intermediate</option>
+                    <option name="experience_years" value="advanced" {{ old('experience_years') == 'advanced' ? 'selected' : '' }}>advanced</option>
+                  </select>
+                </div> --}}
               </div>
               <!-- /.row -->
           </div>

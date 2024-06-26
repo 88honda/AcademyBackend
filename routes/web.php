@@ -16,13 +16,17 @@ use App\Http\Controllers\MentorController;
 Route::get('sign-up', function () {
     return view('sign-up');
 });
+Route::get('sign-up/mentor', function () {
+    return view('sign-up-mentor');
+});
 Route::get('mentor', function () {
     return view('mentor');
 });
-
+Route::post('/update/mentor/{id}', [StudentController::class, 'update'])->name('update.mentor');
 Route::post('/update/{id}', [StudentController::class, 'update'])->name('update');
 Route::get('/edit/{id}', [StudentController::class, 'edit'])->name('edit');
 Route::post('/delete/{id}', [StudentController::class, 'destroy'])->name('delete');
+Route::post('/sign-up/mentor/add', [MentorController::class, 'mentor'])->name('sign-up.mentor.add');
 Route::post('/sign-up/add', [StudentController::class, 'add'])->name('sign-up.add');
 Route::get('/mentor', [MentorController::class, 'mentor'])->name('mentor');
 Route::get('/', [StudentController::class, 'index'])->name('index');

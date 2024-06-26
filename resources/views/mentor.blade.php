@@ -38,7 +38,7 @@
   <div class="r-column col-sm-10">
     <div class="header col-sm-10">
       <div>
-        <a href="{{url('/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
+        <a href="{{url('/sign-up/mentor')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
       </div>
       <form action="{{ route('index') }}" method="get">
         <botton class="input-btn col-sm-4" type="submit">
