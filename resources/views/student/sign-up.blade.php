@@ -88,7 +88,7 @@
 
           </form>
           @else
-          <form action="{{ url('/student/add') }}" method="post">
+          <form action="{{ url('/student/sign-up/add') }}" method="post">
             @csrf
             <div class="form-inner">
             @foreach ($errors->all() as $error)

@@ -32,7 +32,7 @@ class MentorController extends Controller
         
         $mentors->save();
 
-        return redirect('/mentor');
+        return redirect('/mentor')->with('message', '追加しました');
     }   
     public function edit($id)
     {
@@ -50,7 +50,7 @@ class MentorController extends Controller
         $mentors->experience_years = $data['experience_years'];
         $mentors->save();
 
-        return redirect('/mentor');
+        return redirect('/mentor')->with('message', '編集しました');
     }
 
     public function destroy($id)

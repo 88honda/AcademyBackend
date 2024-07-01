@@ -42,7 +42,7 @@
       </div>
       <form action="{{ route('student') }}" method="get">
         <botton class="input-btn col-sm-4" type="submit">
-            <input type="text" placeholder="NAME検索" name="keyword">
+            <input type="text" placeholder="NAME検索" name="keyword" value="{{ old('keyword', $keyword) }}">
             <i class="fas fa-search"></i>
         </botton>
       </form>

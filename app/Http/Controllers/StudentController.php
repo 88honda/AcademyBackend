@@ -31,7 +31,7 @@ class StudentController extends Controller
         $students->experience_level = $request['experience_level'];
         $students->save();
 
-        return redirect('/student');
+        return redirect('/student')->with('message', '追加しました');
     }   
     public function edit($id)
     {
@@ -54,7 +54,7 @@ class StudentController extends Controller
         $students->experience_level = $data['experience_level'];
         $students->save();
 
-        return redirect('/student');
+        return redirect('/student')->with('message', '編集しました');
     }
 
     public function destroy($id)
