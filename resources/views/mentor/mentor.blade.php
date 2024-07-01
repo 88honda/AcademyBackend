@@ -24,13 +24,12 @@
 <div class="row">
 
   <div class="col-sm-2 sidebar">
-    <h1 class="logo"><a href="{{url('/')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
+    <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        {{-- <li><a href="{{url('/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a></li> --}}
-        <li><a href="{{url('/')}}" class="student-btn"><i class="fas"></i>生徒画面</a></li>
+        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒画面</a></li>
         <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター画面</a></li>
-        <li><a href="{{url('/')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
+        <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
       </ul>
     </nav>
   </div>
@@ -38,12 +37,12 @@
   <div class="r-column col-sm-10">
     <div class="header col-sm-10">
       <div>
-        <a href="{{url('/sign-up/mentor')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
+        <a href="{{url('/mentor/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
       </div>
-      <form action="{{ route('index') }}" method="get">
+      <form action="{{ route('mentor') }}" method="get">
         <botton class="input-btn col-sm-4" type="submit">
             <input type="text" placeholder="NAME検索" name="keyword">
-            <i class="fas fa-search"></i>
+            <i action="{{ route('mentor') }}" class="fas fa-search"></i>
         </botton>
       </form>
     </div>
@@ -59,7 +58,6 @@
                 <th>名前</th>
                 <th>プログラミング言語</th>
                 <th>経験年数</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -72,13 +70,12 @@
                   <td>{{$mentors->teaching_languages}}</td>
                   <td>{{$mentors->experience_years}}</td>
                   <td>
-                    <a href="{{ route('edit', ['id' => $mentors->id]) }}">
+                    <a href="{{ route('mentor.edit', ['id' => $mentors->id]) }}">
                       <button class="tb-btn tb-btn-edit" method="get">編集</button>
                     </a>
                   
-                    <form action="{{ route('delete', ['id' => $mentors->id]) }}" method="POST" style="display: inline;">
+                    <form action="{{ route('mentor.delete', ['id' => $mentors->id]) }}" method="POST" style="display: inline;">
                       @csrf
-                      {{-- @method('DELETE') --}}
                       <button type="submit" class="tb-btn tb-btn-del">削除</button>
                     </form>
                   </td>

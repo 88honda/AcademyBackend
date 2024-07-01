@@ -149,7 +149,9 @@ return [
     'attributes' => [
         'name' => '名前',  
         'learning_language' => 'プログラミング言語',   
-        'experience_level' => '経験レベル',   
+        'experience_level' => '経験レベル',  
+        'teaching_languages' => 'プログラミング言語',   
+        'experience_years' => '経験年数',  
     ],
 
 ];

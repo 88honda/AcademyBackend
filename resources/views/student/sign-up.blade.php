@@ -22,19 +22,12 @@
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-2 sidebar">
-    <h1 class="logo"><a href="{{url('/')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
+    <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        {{-- <li>
-          @if(isset($editMode) && $editMode)
-            <a href="{{url('/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>編集登録画面</a>
-          @else
-            <a href="{{url('/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
-          @endif
-        </li> --}}
-        <li><a href="{{url('/')}}" class="student-btn"><i class="fas"></i>生徒画面</a></li>
+        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒画面</a></li>
         <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター画面</a></li>
-        <li><a href="{{url('/')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
+        <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
       </ul>
     </nav>
   </div>
@@ -49,11 +42,11 @@
           @if(isset($editMode) && $editMode)
               <h2>編集登録画面</h2>
           @else
-              <h2>新規登録画面（メンター）</h2>
+              <h2>新規登録画面</h2>
           @endif
 
           @if(isset($editMode) && $editMode)
-          <form method="post" action="{{ route('update', ['id' => $students->id]) }}">
+          <form method="post" action="{{ route('student.update', ['id' => $students->id]) }}">
             @csrf
             <div class="form-inner">
             @foreach ($errors->all() as $error)
@@ -66,12 +59,17 @@
                   <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value="{{(old('name', $students->name))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="teaching_languages">プログラミング言語</label>
-                  <input type="text" name="teaching_languages" class="form-control" id="teaching_languages" placeholder="PHP" value="{{(old('teaching_languages', $students->teaching_languages))}}">
+                  <label for="learning_language">プログラミング言語</label>
+                  <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value="{{(old('learning_language', $students->learning_language))}}">
+                  
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="experience_years">経験年数</label>
-                  <input type="text" name="experience_years" class="form-control" id="experience_years" placeholder="1" value="{{(old('experience_years', $students->experience_years))}}">
+                  <label for="experience_level">経験レベル</label>
+                  <select class="form-control" id="experience_level" name="experience_level" placeholder="beginner" value="{{(old('experience_level', $students->experience_level))}}">
+                    @foreach($experienceLevels as $key => $value)
+                      <option value="{{ $key }}" {{ $students->experience_level == $key ? 'selected' : '' }}@if(old('experience_level') == $students->id) selected @endif>{{ $value }}</option>
+                    @endforeach
+                  </select> 
                 </div>
               </div>
               <!-- /.row -->
@@ -90,7 +88,7 @@
 
           </form>
           @else
-          <form action="{{ url('/sign-up/add') }}" method="post">
+          <form action="{{ url('/student/add') }}" method="post">
             @csrf
             <div class="form-inner">
             @foreach ($errors->all() as $error)
@@ -102,22 +100,18 @@
                   <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value="{{(old('name'))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="teaching_languages">プログラミング言語</label>
-                  <input type="text" name="teaching_languages" class="form-control" id="teaching_languages" placeholder="PHP" value="{{(old('teaching_languages'))}}">
+                  <label for="learning_language">プログラミング言語</label>
+                  <input type="text" name="learning_language" class="form-control" id="learning_language" placeholder="PHP" value="{{(old('learning_language'))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="experience_years">経験年数</label>
-                  <input type="text" name="experience_years" class="form-control" id="experience_years" placeholder="1" value="{{(old('experience_years'))}}">
-                </div>
-                {{-- <div class="form-group col-sm-5">
-                  <label for="experience_years">経験年数</label>
-                  <select class="form-control" id="experience_years" name="experience_years">
-                    <option name="experience_years" value="" {{ old('experience_years') == '' ? 'selected' : '' }}>---</option>
-                    <option name="experience_years" value="1" {{ old('experience_years') == 'beginner' ? 'selected' : '' }}>beginner</option>
-                    <option name="experience_years" value="intermediate" {{ old('experience_years') == 'intermediate' ? 'selected' : '' }}>intermediate</option>
-                    <option name="experience_years" value="advanced" {{ old('experience_years') == 'advanced' ? 'selected' : '' }}>advanced</option>
+                  <label for="experience_level">経験レベル</label>
+                  <select class="form-control" id="experience_level" name="experience_level">
+                    <option name="experience_level" value="" {{ old('experience_level') == '' ? 'selected' : '' }}>---</option>
+                    <option name="experience_level" value="beginner" {{ old('experience_level') == 'beginner' ? 'selected' : '' }}>beginner</option>
+                    <option name="experience_level" value="intermediate" {{ old('experience_level') == 'intermediate' ? 'selected' : '' }}>intermediate</option>
+                    <option name="experience_level" value="advanced" {{ old('experience_level') == 'advanced' ? 'selected' : '' }}>advanced</option>
                   </select>
-                </div> --}}
+                </div>
               </div>
               <!-- /.row -->
           </div>

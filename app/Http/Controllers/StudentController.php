@@ -9,7 +9,7 @@ use App\Http\Requests\StudentRequest;
 
 class StudentController extends Controller
 {
-    public function index(Request $request){
+    public function student(Request $request){
 
         // データベースからユーザー情報を取得
         $keyword = $request->input('keyword');
@@ -19,7 +19,7 @@ class StudentController extends Controller
             $query->where('name', 'LIKE', "%{$keyword}%");
         }
         $students = $query->get();
-        return view('index', compact('students', 'keyword'));
+        return view('/student/student', compact('students', 'keyword'));
     }
 
     public function add(StudentRequest $request){
@@ -31,7 +31,7 @@ class StudentController extends Controller
         $students->experience_level = $request['experience_level'];
         $students->save();
 
-        return redirect('/');
+        return redirect('/student');
     }   
     public function edit($id)
     {
@@ -43,7 +43,7 @@ class StudentController extends Controller
             'intermediate' => 'intermediate',
             'advanced' => 'advanced',
         ];
-        return view('sign-up', compact('students', 'editMode', 'experienceLevels'));
+        return view('/student/sign-up', compact('students', 'editMode', 'experienceLevels'));
     }
     public function update(StudentRequest $request, $id)
     {
@@ -54,13 +54,13 @@ class StudentController extends Controller
         $students->experience_level = $data['experience_level'];
         $students->save();
 
-        return redirect('/');
+        return redirect('/student');
     }
 
     public function destroy($id)
     {
         $students = Student::findOrFail($id);
         $students->delete();
-        return redirect('/')->with('message', '削除しました');
+        return redirect('/student')->with('message', '削除しました');
     }
 }
