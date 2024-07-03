@@ -6,6 +6,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -18,7 +19,12 @@ class StudentController extends Controller
         if(!empty($keyword)) {
             $query->where('name', 'LIKE', "%{$keyword}%");
         }
-        $students = $query->get();
+        $students = DB::table('users')
+        ->join('students', 'users.detail_id', '=', 'students.id')
+        ->where('users.role', '=', 'student')
+        ->select('students.*', 'users.name', 'users.email')
+        ->get();
+
         return view('/student/student', compact('students', 'keyword'));
     }
 

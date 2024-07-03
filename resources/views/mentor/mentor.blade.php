@@ -56,6 +56,7 @@
             <thead>
               <tr>
                 <th>名前</th>
+                <th>email</th>
                 <th>プログラミング言語</th>
                 <th>経験年数</th>
               </tr>
@@ -67,6 +68,7 @@
               @foreach($mentors as $mentors)
                 <tr>
                   <td>{{$mentors->name}}</td> 
+                  <td>{{$mentors->email}}</td> 
                   <td>{{$mentors->teaching_languages}}</td>
                   <td>{{$mentors->experience_years}}</td>
                   <td>

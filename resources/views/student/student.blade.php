@@ -57,6 +57,7 @@
             <thead>
               <tr>
                 <th>名前</th>
+                <th>email</th>
                 <th>プログラミング言語</th>
                 <th>経験レベル</th>
               </tr>
@@ -66,8 +67,10 @@
               <div class="alert alert-success">{{ session('message') }}</div>
               @endif
               @foreach($students as $students)
+              {{-- @foreach($users as $users) --}}
                 <tr>
                   <td>{{$students->name}}</td> 
+                  <td>{{$students->email}}</td> 
                   <td>{{$students->learning_language}}</td>
                   <td>{{$students->experience_level}}</td>
                   <td>
@@ -82,6 +85,7 @@
                     </form>
                   </td>
                 </tr>
+                {{-- @endforeach --}}
               @endforeach
             </tbody>
           </table>

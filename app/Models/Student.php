@@ -14,7 +14,7 @@ class Student extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'detail_id', 'id');
     }
     public function reservations()
     {

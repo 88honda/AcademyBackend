@@ -6,6 +6,7 @@ use App\Models\Mentor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MentorRequest;
+use Illuminate\Support\Facades\DB;
 
 class MentorController extends Controller
 {
@@ -18,7 +19,11 @@ class MentorController extends Controller
         if(!empty($keyword)) {
             $query->where('name', 'LIKE', "%{$keyword}%");
         }
-        $mentors = $query->get();
+        $mentors = DB::table('users')
+        ->join('mentors', 'users.detail_id', '=', 'mentors.id')
+        ->where('users.role', '=', 'mentor')
+        ->select('mentors.*', 'users.name', 'users.email')
+        ->get();
         return view('/mentor/mentor', compact('mentors', 'keyword'));
     }
 

@@ -19,7 +19,7 @@ class User extends Model
     public function student()
     {
         $users = User::with('students', 'mentors')->get();
-        return $this->belongsTo(Student::class, 'id', 'student_id');
+        return $this->belongsTo(Student::class, 'id', 'detail_id');
     }
     public function mentor()
     {
