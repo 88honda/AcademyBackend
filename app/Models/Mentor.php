@@ -10,8 +10,8 @@ use App\Models\User;
 class Mentor extends Model
 {
     use HasFactory;
-        public function users()
+        public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->hasOne(User::class, 'detail_id');
     }
 }

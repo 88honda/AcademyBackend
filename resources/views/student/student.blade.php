@@ -66,26 +66,23 @@
               @if(session('message'))
               <div class="alert alert-success">{{ session('message') }}</div>
               @endif
-              @foreach($students as $students)
-              {{-- @foreach($users as $users) --}}
+              @foreach($user as $user)
                 <tr>
-                  <td>{{$students->name}}</td> 
-                  <td>{{$students->email}}</td> 
-                  <td>{{$students->learning_language}}</td>
-                  <td>{{$students->experience_level}}</td>
+                  <td>{{$user->name}}</td> 
+                  <td>{{$user->email}}</td>
+                  <td>{{$user->student->learning_language}}</td>
+                  <td>{{$user->student->experience_level}}</td>
                   <td>
-                    <a href="{{ route('student.edit', ['id' => $students->id]) }}">
+                    <a href="{{ route('student.edit', ['id' => $user->id]) }}">
                       <button class="tb-btn tb-btn-edit" method="get">編集</button>
                     </a>
                   
-                    <form action="{{ route('student.delete', ['id' => $students->id]) }}" method="POST" style="display: inline;">
+                    <form action="{{ route('student.delete', ['id' => $user->id]) }}" method="POST" style="display: inline;">
                       @csrf
-                      {{-- @method('DELETE') --}}
                       <button type="submit" class="tb-btn tb-btn-del">削除</button>
                     </form>
                   </td>
                 </tr>
-                {{-- @endforeach --}}
               @endforeach
             </tbody>
           </table>

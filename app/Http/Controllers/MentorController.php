@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mentor;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MentorRequest;
-use Illuminate\Support\Facades\DB;
 
 class MentorController extends Controller
 {
@@ -19,12 +19,10 @@ class MentorController extends Controller
         if(!empty($keyword)) {
             $query->where('name', 'LIKE', "%{$keyword}%");
         }
-        $mentors = DB::table('users')
-        ->join('mentors', 'users.detail_id', '=', 'mentors.id')
-        ->where('users.role', '=', 'mentor')
-        ->select('mentors.*', 'users.name', 'users.email')
-        ->get();
-        return view('/mentor/mentor', compact('mentors', 'keyword'));
+
+        $user = User::where('users.role', '=', 'mentor')
+        ->get(); 
+        return view('/mentor/mentor', compact('user', 'keyword'));
     }
 
     public function add(MentorRequest $request){
@@ -49,7 +47,7 @@ class MentorController extends Controller
     public function update(MentorRequest $request, $id)
     {
         $data = $request->all();
-        $mentors = Mentor::findOrFail($id);
+        $mentors = User::findOrFail($id);
         $mentors->name = $data['name'];
         $mentors->teaching_languages = $data['teaching_languages'];
         $mentors->experience_years = $data['experience_years'];
@@ -60,7 +58,7 @@ class MentorController extends Controller
 
     public function destroy($id)
     {
-        $mentors = Mentor::findOrFail($id);
+        $mentors = User::findOrFail($id);
         $mentors->delete();
         return redirect('/mentor')->with('message', '削除しました');
     }

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
-use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -14,18 +14,16 @@ class StudentController extends Controller
 
         // データベースからユーザー情報を取得
         $keyword = $request->input('keyword');
-        $query = Student::query();
+        $query = User::query();
 
         if(!empty($keyword)) {
             $query->where('name', 'LIKE', "%{$keyword}%");
         }
-        $students = DB::table('users')
-        ->join('students', 'users.detail_id', '=', 'students.id')
-        ->where('users.role', '=', 'student')
-        ->select('students.*', 'users.name', 'users.email')
-        ->get();
 
-        return view('/student/student', compact('students', 'keyword'));
+        $user = User::where('users.role', '=', 'student')
+        ->get(); 
+
+        return view('/student/student',compact('user', 'keyword'));
     }
 
     public function add(StudentRequest $request){
@@ -41,7 +39,7 @@ class StudentController extends Controller
     }   
     public function edit($id)
     {
-        $students = Student::findOrFail($id);
+        $students = User::findOrFail($id);
         $editMode = true;
         $experienceLevels = [
             '' => '---',
@@ -54,7 +52,7 @@ class StudentController extends Controller
     public function update(StudentRequest $request, $id)
     {
         $data = $request->all();
-        $students = Student::findOrFail($id);
+        $students = User::findOrFail($id);
         $students->name = $data['name'];
         $students->learning_language = $data['learning_language'];
         $students->experience_level = $data['experience_level'];

@@ -12,9 +12,9 @@ class Student extends Model
 {
     use HasFactory;
 
-    public function users()
+    public function user()
     {
-        return $this->hasMany(User::class, 'detail_id', 'id');
+        return $this->hasOne(User::class, 'detail_id');
     }
     public function reservations()
     {
