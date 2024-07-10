@@ -12,16 +12,13 @@ class StudentController extends Controller
 {
     public function student(Request $request){
 
-        // データベースからユーザー情報を取得
         $keyword = $request->input('keyword');
-        $query = User::query();
 
-        if(!empty($keyword)) {
-            $query->where('name', 'LIKE', "%{$keyword}%");
-        }
-
-        $user = User::where('users.role', '=', 'student')
-        ->get(); 
+        $query = User::query()
+            ->where('users.role', '=', 'student')
+            ->where('users.name', 'LIKE', "%{$keyword}%");
+            
+        $user = $query -> get();
 
         return view('/student/student',compact('user', 'keyword'));
     }
