@@ -18,7 +18,7 @@ class StudentController extends Controller
             ->where('users.role', '=', 'student')
             ->where('users.name', 'LIKE', "%{$keyword}%");
             
-        $user = $query -> get();
+        $user = $query->get();
 
         return view('/student/student',compact('user', 'keyword'));
     }

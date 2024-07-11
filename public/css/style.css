@@ -24,6 +24,107 @@ ul {
   list-style: none;
 }
 
+/* ログイン画面 
+----------------------- */
+.lg-wrapper {
+  position: fixed;
+  text-align: center;
+  height: 100vh;
+  background: -webkit-gradient(linear, left top, left bottom, from(#7AC8E4), to(#54E0E9));
+  background: linear-gradient(180deg, #7AC8E4 0%, #54E0E9 100%);
+  padding: 32px 30px;
+  top: 10%;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+.lgheader {
+  position: relative;
+}
+.lgheader-container {
+  width: 120px;
+  margin-top: 10px;
+  position: absolute;
+  left: 100%;
+}
+.lgsign-up-btn {
+  display: block;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: .1em;
+  background: -webkit-gradient(linear, left top, right top, from(#FFD56C), to(#FFBA31));
+  background: linear-gradient(90deg, #FFD56C 0%, #FFBA31 100%);
+  padding: 16px 9px;
+  border-radius: 4px;
+  margin: 0;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.lgsign-up-btn i {
+  font-size: 13px;
+  padding-right: 4px;
+}
+
+.lgsign-up-btn:hover {
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.75;
+}
+.lgform-group {
+  margin: 0 auto 16px;
+}
+.lgform-control {
+  height: 55px;
+  width: 100%;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  color: #000;
+  padding: 20px 5px;
+}
+
+.lgform-control::-webkit-input-placeholder {
+  color: #BDBDBD;
+  font-size: 15px;
+}
+
+.lgform-control:-ms-input-placeholder {
+  color: #BDBDBD;
+  font-size: 15px;
+}
+
+.lgform-control::-ms-input-placeholder {
+  color: #BDBDBD;
+  font-size: 15px;
+}
+
+.lgform-control::placeholder {
+  color: #BDBDBD;
+  font-size: 15px;
+}
+
+.lgform-group label {
+  color: #52B6DA;
+  padding-left: 10px;
+  margin-bottom: 6px;
+}
+
+.lg-btn {
+  width: 100%;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: .4em;
+  background-color: #FFCF5F;
+  padding: 20px 0;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 /* サイドメニュー 
 ----------------------- */
 .sidebar {

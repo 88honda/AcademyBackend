@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;  
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\MentorController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +13,9 @@ use App\Http\Controllers\MentorController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/sign-in', function () {
+    return view('sign-in.sign-in');
+});
 Route::get('student/sign-up', function () {
     return view('student.sign-up');
 });
@@ -24,6 +27,9 @@ Route::get('mentor', function () {
 });
 Route::get('student', function () {
     return view('student');
+});
+Route::get('sign-in/sign-up', function () {
+    return view('sign-in.sign-up');
 });
 Route::post('/mentor/update/{id}', [MentorController::class, 'update'])->name('mentor.update');
 Route::post('/student/update/{id}', [StudentController::class, 'update'])->name('student.update');

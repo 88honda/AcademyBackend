@@ -102,7 +102,6 @@
                   <label for="experience_years">経験年数</label>
                   <input type="text" name="experience_years" class="form-control" id="experience_years" placeholder="1" value="{{(old('experience_years'))}}">
                 </div>
-
               </div>
               <!-- /.row -->
           </div>
