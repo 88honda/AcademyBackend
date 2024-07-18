@@ -28,7 +28,7 @@ Route::get('mentor', function () {
 Route::get('student', function () {
     return view('student');
 });
-Route::get('sign-in/sign-up', function () {
+Route::get('/sign-up', function () {
     return view('sign-in.sign-up');
 });
 Route::post('/mentor/update/{id}', [MentorController::class, 'update'])->name('mentor.update');
@@ -39,5 +39,6 @@ Route::post('/mentor/delete/{id}', [MentorController::class, 'destroy'])->name('
 Route::post('/student/delete/{id}', [StudentController::class, 'destroy'])->name('student.delete');
 Route::post('/mentor/sign-up/add', [MentorController::class, 'add'])->name('mentor.add');
 Route::post('/student/sign-up/add', [StudentController::class, 'add'])->name('student.add');
+Route::post('/sign-up/add', [UserController::class, 'add'])->name('sign-in.add');
 Route::get('/mentor', [MentorController::class, 'mentor'])->name('mentor');
 Route::get('/student', [StudentController::class, 'student'])->name('student');

@@ -124,6 +124,13 @@ ul {
   border-radius: 5px;
   cursor: pointer;
 }
+.additional-fields {
+  display: contents;
+}
+
+.radio-item {
+  display: inline;
+}
 
 /* サイドメニュー 
 ----------------------- */

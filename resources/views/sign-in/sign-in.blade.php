@@ -26,7 +26,7 @@
 
   <div class="lgheader col-sm-10">
     <div class="lgheader-container col-sm-10">
-      <a href="{{url('/sign-in/sign-up')}}" class="lgsign-up-btn"><i class="fas"></i>新規登録</a>
+      <a href="{{url('/sign-up')}}" class="lgsign-up-btn"><i class="fas"></i>新規登録</a>
     </div>
 
     <main class="sign-up">
