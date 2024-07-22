@@ -18,16 +18,30 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+
+            
+            $rules = [
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required',
-            'role' => 'required',
-            'learning_language' => 'required',
-            'experience_level' => 'required',
-            'teaching_languages' => 'required',
-            'experience_years' => 'required|integer',
-        ];
+            'password' => 'required|min:8',
+                'role' => 'required',
+            ];
+
+            if ($this->input('role') === 'student') {
+                $rules['name'] = 'required';
+                $rules['email'] = 'required';
+                $rules['password'] = 'required|min:8';
+                $rules['learning_language'] = 'required';
+                $rules['experience_level'] = 'required';
+            }
+            elseif ($this->input('role') === 'mentor') {
+                $rules['name'] = 'required';
+                $rules['email'] = 'required';
+                $rules['password'] = 'required|min:8';
+                $rules['teaching_languages'] = 'required';
+                $rules['experience_years'] = 'required';
+            }
+            return $rules;
     }
 
     /**
@@ -57,6 +71,7 @@ class UserRequest extends FormRequest
             'name.required' => ':attributeは必須項目です。',
             'email.required' => ':attributeは必須項目です。',
             'password.required' => ':attributeは必須項目です。',
+            'password.min' => ':attributeは8文字以上で入力してください。',
             'role.required' => ':attributeは必須項目です。',
             'learning_language.required' => ':attributeは必須項目です。',
             'experience_level.required' => ':attributeは必須項目です。',

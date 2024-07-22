@@ -10,7 +10,10 @@ use App\Models\User;
 class Mentor extends Model
 {
     use HasFactory;
+    protected $fillable = ['name','teaching_languages','experience_years','introduction'];
+
         public function user()
+        
     {
         return $this->hasOne(User::class, 'detail_id');
     }

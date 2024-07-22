@@ -11,7 +11,7 @@ use App\Models\Reservation;
 class Student extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['name','learning_language','experience_level'];
     public function user()
     {
         return $this->hasOne(User::class, 'detail_id');

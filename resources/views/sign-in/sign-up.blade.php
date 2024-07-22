@@ -41,22 +41,20 @@
             </div>
             <div class="form-group col-sm-5">
               <label>パスワード</label>
-              <input type="text" name="password" class="form-control" placeholder="tanakatarou" value="{{ old('password') }}">
+              <input type="password" name="password" class="form-control" placeholder="passowrd">
             </div>                       
             <div class="form-group col-sm-5">
               <label>役割</label><br>
 
-              <label for="option1" style="margin-right: 20px;">
-                <input type="radio" name="role" value="1"> 生徒
-              </label>
-              <label for="option2">
-                <input type="radio" name="role" value="2"> メンター
-              </label>
+              <input type="radio" id="student" name="role" value="student" onclick="toggleFields()">
+              <label for="student">生徒</label>
+              <input type="radio" id="mentor" name="role" value="mentor" onclick="toggleFields()">
+              <label for="mentor">メンター</label>
             </div>
       
             <div id="displayArea">
               
-              <div id="message1" class="message" style="display: none;">
+              <div id="studentFields" class="message" style="display: none;">
                 <div class="form-group col-sm-5">
                   <label>プログラミング言語</label>
                   <input type="learning_language" name="learning_language" class="form-control" placeholder="PHP" value="{{ old('learning_language') }}">
@@ -73,7 +71,7 @@
                 </div>
               </div>
 
-              <div id="message2" class="message" style="display: none;">
+              <div id="mentorFields" class="message" style="display: none;">
                   <div class="form-group col-sm-5">
                     <label>プログラミング言語</label>
                     <input type="teaching_languages" name="teaching_languages" class="form-control" placeholder="PHP" value="{{ old('teaching_languages') }}">
@@ -96,23 +94,37 @@
 
 
     <script>
-document.addEventListener('DOMContentLoaded', (event) => {
-    const radioButtons = document.querySelectorAll('input[name="role"]');
-    const messages = document.querySelectorAll('.message');
+// document.addEventListener('DOMContentLoaded', (event) => {
+//     const radioButtons = document.querySelectorAll('input[name="role"]');
+//     const messages = document.querySelectorAll('.message');
 
-    radioButtons.forEach(radio => {
-        radio.addEventListener('change', () => {
-            messages.forEach(message => {
-                message.style.display = 'none';
-            });
+//     radioButtons.forEach(radio => {
+//         radio.addEventListener('change', () => {
+//             messages.forEach(message => {
+//                 message.style.display = 'none';
+//             });
             
-            const selectedMessage = document.getElementById(`message${radio.value}`);
-            if (selectedMessage) {
-                selectedMessage.style.display = 'block';
-            }
-        });
-    });
-});
+//             const selectedMessage = document.getElementById(`message${radio.value}`);
+//             if (selectedMessage) {
+//                 selectedMessage.style.display = 'block';
+//             }
+//         });
+//     });
+// });
+function toggleFields() {
+    var studentFields = document.getElementById('studentFields');
+    var mentorFields = document.getElementById('mentorFields');
+    var studentRadio = document.getElementById('student');
+    var mentorRadio = document.getElementById('mentor');
+
+    if (studentRadio.checked) {
+        studentFields.style.display = 'block';
+        mentorFields.style.display = 'none';
+    } else if (mentorRadio.checked) {
+        mentorFields.style.display = 'block';
+        studentFields.style.display = 'none';
+    }
+}
     </script>
 
 </body>

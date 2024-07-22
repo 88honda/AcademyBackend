@@ -9,39 +9,60 @@ use App\Models\Student;
 use App\Models\Mentor;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
     public function add(UserRequest $request){
 
-        $users = new User();
-        $students = new Student();
-        $mentors = new Mentor();
+        if ($request['role'] == 'student') {
+            $student = new Student();
+            $student->fill(
+                [
+                    'name' => $request->input('name'),
+                    'learning_language' => $request['learning_language'],
+                    'experience_level' => $request['experience_level'],
+                ]
+            );
+            $student->save();
 
-        if ($request['role'] == '1') {
-            $students->name = $request['name'];            
-            $students->learning_language = $request['learning_language'];
-            $students->experience_level = $request['experience_level'];
-            $students->save();
-            $users->name = $request['name'];
-            $users->email = $request['email'];
-            $users->password = Hash::make($request['password']);
-            $users->role = "student";
-            $users->detail_id = $students->id;
-            $users->save();
+            $user = new User();
+            $user->fill(
+                [
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'password' => Hash::make($request->input('password')),
+                    'role' => $request->input('role'),
+                ]
+            );
+            $user->detail_id = $student->id;
+            
+            $user->save();
 
-        } elseif ($request['role'] == '2') {
-            $mentors->name = $request['name'];  
-            $mentors->teaching_languages = $request['teaching_languages'];
-            $mentors->experience_years = $request['experience_years'];
-            $mentors->introduction = "hogehoge";
-            $mentors->save();
-            $users->name = $request['name'];
-            $users->email = $request['email'];
-            $users->password = Hash::make($request['password']);
-            $users->role = "mentor";
-            $users->detail_id = $mentors->id;
-            $users->save();
+        } if ($request['role'] == 'mentor') {
+
+            $mentor = new Mentor();
+            $mentor->fill(
+                [
+                    'name' => $request->input('name'),
+                    'teaching_languages' => $request->input('teaching_languages'),
+                    'experience_years' => $request->input('experience_years'),
+                    'introduction' => "hogehoge",
+                ]
+            );
+            
+            $user = new User();
+            $user->fill(
+                [
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'password' => Hash::make($request->input('password')),
+                    'role' => $request->input('role'),
+                ]
+            );
+            $mentor->save();
+            $user->detail_id = $mentor->id;
+            $user->save();
         };
 
         return redirect('/sign-in')->with('message', '追加しました');
