@@ -15,6 +15,8 @@ class UserController extends Controller
 {
     public function add(UserRequest $request){
 
+        $detail_id = 0;
+        
         if ($request['role'] == 'student') {
             $student = new Student();
             $student->fill(
@@ -25,22 +27,9 @@ class UserController extends Controller
                 ]
             );
             $student->save();
+            $detail_id = $student->id;
 
-            $user = new User();
-            $user->fill(
-                [
-                    'name' => $request->input('name'),
-                    'email' => $request->input('email'),
-                    'password' => Hash::make($request->input('password')),
-                    'role' => $request->input('role'),
-                ]
-            );
-            $user->detail_id = $student->id;
-            
-            $user->save();
-
-        } if ($request['role'] == 'mentor') {
-
+        } else if ($request['role'] == 'mentor') {
             $mentor = new Mentor();
             $mentor->fill(
                 [
@@ -50,22 +39,21 @@ class UserController extends Controller
                     'introduction' => "hogehoge",
                 ]
             );
-            
-            $user = new User();
-            $user->fill(
-                [
-                    'name' => $request->input('name'),
-                    'email' => $request->input('email'),
-                    'password' => Hash::make($request->input('password')),
-                    'role' => $request->input('role'),
-                ]
-            );
             $mentor->save();
-            $user->detail_id = $mentor->id;
-            $user->save();
+            $detail_id = $mentor->id;
         };
 
+        $user = new User();
+        $user->fill(
+            [
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'role' => $request->input('role'),
+                'detail_id' => $detail_id,
+            ]
+        );
+        $user->save();
         return redirect('/sign-in')->with('message', '追加しました');
     }  
-
 }

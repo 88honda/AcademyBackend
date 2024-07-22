@@ -12,7 +12,7 @@ use App\Models\Mentor;
 class User extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','email','password','role'];
+    protected $fillable = ['name','email','password','role','detail_id'];
 
     public function student()
     {
