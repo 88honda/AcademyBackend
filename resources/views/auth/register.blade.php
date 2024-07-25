@@ -19,13 +19,26 @@
 </head>
 
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
     @csrf
         <main class="sign-up">
             <div class="container-fluid wrapper">
+                @if (Route::has('login'))
+                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+            
                 <section class="container-fluid contents-area">
-                {{-- <h2>ユーザー登録</h2>
-                <form action="{{ url('/sign-up/add') }}"  method="post"> --}}
+                <h2>ユーザー登録</h2>
+                <form action="{{ url('register') }}"  method="post">
                 <div class="form-inner">
                     @foreach ($errors->all() as $error)
                     <li>{{$error}}</li>
@@ -93,22 +106,8 @@
                         </div>
                     </div>
                 </div>
-{{-- 
-                <button type="submit"  value="送信" class="form-btn">登録する</button> --}}
-                {{-- </form> --}}
-                </section>
-            </div>
-        </main>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+                <button type="submit"  value="送信" class="form-btn">登録する</button>
     </form>
 
     @section('scripts')
