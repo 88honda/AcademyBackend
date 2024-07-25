@@ -18,13 +18,11 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-
-            
             $rules = [
             'name' => 'required',
             'email' => 'required',
             'password' => 'required|min:8',
-                'role' => 'required',
+            'role' => 'required',
             ];
 
             if ($this->input('role') === 'student') {

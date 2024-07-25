@@ -33,11 +33,14 @@
       <div class="container-fluid lg-wrapper">
         <h1 class="logo"><a href=""><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
 
-        <form method="get" action="">
+        <form method="post" action="{{ route('login') }}">
           <div class="form-inner">
             <div class="lgform-group col-sm-5">
               <input type="text" name="email" class="lgform-control" id="email" placeholder="メールアドレス" value="{{ old('email') }}">
             </div>
+            @error('email')
+            <div>{{ $message }}</div>
+            @enderror
             <div class="lgform-group col-sm-5">
               
               <input type="text" name="password" class="lgform-control" id="password" placeholder="パスワード" value="{{ old('password') }}">
@@ -45,6 +48,9 @@
             <div class="lgform-group col-sm-5">
               <button type="submit" value="送信" class="lg-btn"><i class="fas fa-plus"></i>ログイン</button>
             </div>
+            @error('password')
+            <div>{{ $message }}</div>
+            @enderror
           </div>
         </form>
       </div>
