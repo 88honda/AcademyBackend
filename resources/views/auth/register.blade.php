@@ -34,7 +34,7 @@
                         @endif
                     @endauth
                 </div>
-            @endif
+                @endif
             
                 <section class="container-fluid contents-area">
                 <h2>ユーザー登録</h2>
@@ -106,13 +106,10 @@
                         </div>
                     </div>
                 </div>
-
                 <button type="submit"  value="送信" class="form-btn">登録する</button>
-    </form>
+                </form>
 
     @section('scripts')
-
-
     <script>
     function toggleFields() {
         var studentFields = document.getElementById('studentFields');

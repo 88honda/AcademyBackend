@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Student;
 use App\Models\Usertag;
 use App\Models\Mentor;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
-class User extends Model
+class User extends Authenticatable
 {
     use HasFactory;
     protected $fillable = ['name','email','password','role','detail_id'];

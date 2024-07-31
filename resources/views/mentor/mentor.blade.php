@@ -39,6 +39,10 @@
       <div>
         <a href="{{url('/mentor/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
       </div>
+      <form method="POST" action="{{ route('logout') }}" class="sign-up-btn">
+        @csrf
+        <a type="submit" class="fas">Logout</a>
+      </form>
       <form action="{{ route('mentor') }}" method="get">
         <botton class="input-btn col-sm-4" type="submit">
             <input type="text" placeholder="NAME検索" name="keyword" value="{{ old('keyword', $keyword) }}">
@@ -69,8 +73,18 @@
                 <tr>
                   <td>{{$user->name}}</td> 
                   <td>{{$user->email}}</td> 
-                  <td>{{$user->mentor->teaching_languages}}</td>
-                  <td>{{$user->mentor->experience_years}}</td>
+                  {{-- <td>{{$user->mentor->teaching_languages}}</td> --}}
+                  <td>
+                    @if($user->mentor)
+                        {{$user->mentor->teaching_languages}}
+                    @endif
+                  </td>
+                  {{-- <td>{{$user->mentor->experience_years}}</td> --}}
+                  <td>
+                    @if($user->mentor)
+                        {{$user->mentor->experience_years}}
+                    @endif
+                  </td>
                   <td>
                     <a href="{{ route('mentor.edit', ['id' => $user->id]) }}">
                       <button class="tb-btn tb-btn-edit" method="get">編集</button>

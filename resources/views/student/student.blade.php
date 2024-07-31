@@ -33,13 +33,21 @@
         <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
       </ul>
     </nav>
+
+
   </div>
+
 
   <div class="r-column col-sm-10">
     <div class="header col-sm-10">
       <div>
         <a href="{{url('/student/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
       </div>
+      <form action="{{ route('logout') }}" method="POST" class="sign-up-btn">
+        @csrf
+        <button type="submit" class="fas" style="border: none; background: none; color: #fff;">Logout</button>
+      </form>
+
       <form action="{{ route('student') }}" method="get">
         <botton class="input-btn col-sm-4" type="submit">
             <input type="text" placeholder="NAME検索" name="keyword" value="{{ old('keyword', $keyword) }}">
@@ -70,8 +78,18 @@
                 <tr>
                   <td>{{$user->name}}</td> 
                   <td>{{$user->email}}</td>
-                  <td>{{$user->student->learning_language}}</td>
-                  <td>{{$user->student->experience_level}}</td>
+
+                  <td>
+                    @if($user->student)
+                        {{$user->student->learning_language}}
+                    @endif
+                  </td>
+                  <td>
+                    @if($user->student)
+                        {{$user->student->experience_level}}
+                    @endif
+                  </td>
+
                   <td>
                     <a href="{{ route('student.edit', ['id' => $user->id]) }}">
                       <button class="tb-btn tb-btn-edit" method="get">編集</button>
