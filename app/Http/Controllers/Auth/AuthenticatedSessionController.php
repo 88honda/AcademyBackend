@@ -29,8 +29,31 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // return redirect()->intended(RouteServiceProvider::HOME);
+
+                
+
+
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $request->session()->regenerate();
+
+            // ユーザーのロールに基づいてリダイレクト先を決定
+            $role = Auth::user()->role; // ここでユーザーのロールを取得
+
+            if ($role === 'student') {
+                return redirect()->intended('/student');
+            } elseif ($role === 'mentor') {
+                return redirect()->intended('/mentor');
+            } else {
+                return redirect()->intended('/home');
+            }
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
+
 
     /**
      * Destroy an authenticated session.

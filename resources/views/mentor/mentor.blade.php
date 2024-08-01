@@ -24,12 +24,16 @@
 <div class="row">
 
   <div class="col-sm-2 sidebar">
-    <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
+    <h1 class="logo"><a href="{{url('/mentor')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒画面</a></li>
+        {{-- <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒画面</a></li> --}}
         <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター画面</a></li>
-        <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
+        <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
+        <form action="{{ route('logout') }}" method="POST" class="fas">
+          @csrf
+          <button type="submit" class="" style="border: none; background: none; color: #fff; margin-top: 20px; font-weight:bold;">ログアウト</button>
+        </form>
       </ul>
     </nav>
   </div>
@@ -39,10 +43,6 @@
       <div>
         <a href="{{url('/mentor/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
       </div>
-      <form method="POST" action="{{ route('logout') }}" class="sign-up-btn">
-        @csrf
-        <a type="submit" class="fas">Logout</a>
-      </form>
       <form action="{{ route('mentor') }}" method="get">
         <botton class="input-btn col-sm-4" type="submit">
             <input type="text" placeholder="NAME検索" name="keyword" value="{{ old('keyword', $keyword) }}">
