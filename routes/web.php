@@ -57,12 +57,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/mentor/sign-up/add', [MentorController::class, 'add'])->name('mentor.add');
     Route::post('/student/sign-up/add', [StudentController::class, 'add'])->name('student.add');
     Route::post('/sign-up/add', [UserController::class, 'add'])->name('sign-in.add');
-    Route::group(['middleware' => ['auth', 'role:student']], function () {
-        Route::get('/student', [StudentController::class, 'student'])->name('student');
-    });
-    Route::group(['middleware' => ['auth', 'role:mentor']], function () {
-        Route::get('/mentor', [MentorController::class, 'mentor'])->name('mentor');
-    });
+    // Route::group(['middleware' => ['auth', 'role:student']], function () {
+    //     Route::get('/student', [StudentController::class, 'student'])->name('student');
+    // });
+    // Route::group(['middleware' => ['auth', 'role:mentor']], function () {
+    //     Route::get('/mentor', [MentorController::class, 'mentor'])->name('mentor');
+    // });
+    Route::get('/student', [StudentController::class, 'student'])->name('student');
+Route::get('/mentor', [MentorController::class, 'mentor'])->name('mentor');
 });
 
 
