@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+use App\Policies\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        User::class => RolePolicy::class,
     ];
 
     /**
@@ -23,12 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('redirect-student', function ($user) {
-            return $user->role === 'student';
-        });
-
-        Gate::define('redirect-mentor', function ($user) {
-            return $user->role === 'mentor';
-        });
+        Gate::define('student', [RolePolicy::class, 'student']);
+        Gate::define('mentor', [RolePolicy::class, 'mentor']);
     }
 }

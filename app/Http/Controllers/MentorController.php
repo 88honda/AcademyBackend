@@ -12,15 +12,14 @@ class MentorController extends Controller
 {
     public function mentor(Request $request){
 
-        // データベースからユーザー情報を取得
         $keyword = $request->input('keyword');
 
         $query = User::query()
-        ->where('users.role', '=', 'mentor')
-        ->where('users.name', 'LIKE', "%{$keyword}%");
+            ->where('users.role', '=', 'mentor')
+            ->where('users.name', 'LIKE', "%{$keyword}%");
         
-        $user = $query -> get();
-        return view('/mentor/mentor', compact('user', 'keyword'));
+        $user = $query->get();
+        return view('mentor.mentor', compact('user', 'keyword'));
     }
 
     public function add(MentorRequest $request){

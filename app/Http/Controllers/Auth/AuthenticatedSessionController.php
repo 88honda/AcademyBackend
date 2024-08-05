@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Gate;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -23,26 +24,19 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-        
-        if (Auth::attempt($request->only('email', 'password'))) {
+        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
             $request->session()->regenerate();
-
-            $role = Auth::user()->role;
-
-            if ($role === 'student') {
-                return redirect()->intended('/student');
-            } elseif ($role === 'mentor') {
-                return redirect()->intended('/mentor');
-            } else {
-                return redirect()->intended('/home');
+    
+            $user = Auth::user();
+    
+            if (Gate::allows('student', $user)) {
+                return redirect()->intended(RouteServiceProvider::MENTOR_HOME);
+            } elseif (Gate::allows('mentor', $user)) {
+                return redirect()->intended(RouteServiceProvider::STUDENT_HOME);
             }
         }
-
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
