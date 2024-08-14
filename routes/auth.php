@@ -8,6 +8,8 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\MentorController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -51,3 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 });
+    Route::middleware(['auth', 'mentor'])->group(function () {
+        Route::get('/student', [StudentController::class, 'student'])->name('student');
+    });
+
+    Route::middleware(['auth', 'student'])->group(function () {
+        Route::get('/mentor', [MentorController::class, 'mentor'])->name('mentor');
+    });

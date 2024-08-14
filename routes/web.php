@@ -17,9 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::get('/student', [StudentController::class, 'student'])
     ->middleware(['auth', 'verified'])->name('student');
 
@@ -46,9 +43,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/mentor/sign-up/add', [MentorController::class, 'add'])->name('mentor.add');
     Route::post('/student/sign-up/add', [StudentController::class, 'add'])->name('student.add');
     Route::post('/sign-up/add', [UserController::class, 'add'])->name('sign-in.add');
-    Route::get('/student', [StudentController::class, 'student'])->name('student');
-Route::get('/mentor', [MentorController::class, 'mentor'])->name('mentor');
 });
-
 
 require __DIR__.'/auth.php';

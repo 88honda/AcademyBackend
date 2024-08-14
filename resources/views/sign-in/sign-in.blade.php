@@ -26,6 +26,10 @@
 
   <div class="lgheader col-sm-10">
     <div class="lgheader-container col-sm-10">
+      <form action="{{ route('logout') }}" method="POST" class="fas">
+        @csrf
+        <button type="submit" class="" style="border: none; background: none; color: #fff; margin-top: 20px; font-weight:bold;">ログアウト</button>
+      </form>
       <a href="{{url('/sign-up')}}" class="lgsign-up-btn"><i class="fas"></i>新規登録</a>
     </div>
 

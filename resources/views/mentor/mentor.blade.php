@@ -27,7 +27,6 @@
     <h1 class="logo"><a href="{{url('/mentor')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        {{-- <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒画面</a></li> --}}
         <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター画面</a></li>
         <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">

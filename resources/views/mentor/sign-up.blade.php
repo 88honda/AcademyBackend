@@ -25,9 +25,12 @@
     <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒画面</a></li>
         <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター画面</a></li>
         <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
+        <form action="{{ route('logout') }}" method="POST" class="fas">
+          @csrf
+          <button type="submit" class="" style="border: none; background: none; color: #fff; margin-top: 20px; font-weight:bold;">ログアウト</button>
+        </form>
       </ul>
     </nav>
   </div>

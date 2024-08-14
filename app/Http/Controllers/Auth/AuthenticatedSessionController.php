@@ -26,16 +26,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
-            $request->session()->regenerate();
+        if (Auth::attempt($request->only('email', 'password'))) {
+            // $request->session()->regenerate();
     
             $user = Auth::user();
-    
-            if (Gate::allows('student', $user)) {
-                return redirect()->intended(RouteServiceProvider::MENTOR_HOME);
-            } elseif (Gate::allows('mentor', $user)) {
-                return redirect()->intended(RouteServiceProvider::STUDENT_HOME);
+
+            if (Gate::allows('mentor', $user)) {
+                return redirect('student');
+            } elseif (Gate::allows('student', $user)) {
+                return redirect('mentor');
             }
+            return redirect()->intended($this->redirectPath());
         }
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
