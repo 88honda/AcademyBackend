@@ -12,12 +12,12 @@ class RolePolicy
      */
     use HandlesAuthorization;
 
-    public function student(User $user)
+    public function viewAnyStudents(User $user)
     {
         return $user->role === 'student';
     }
 
-    public function mentor(User $user)
+    public function viewAnyMentors(User $user)
     {
         return $user->role === 'mentor';
     }

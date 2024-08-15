@@ -10,7 +10,7 @@ use App\Http\Requests\StudentRequest;
 
 class StudentController extends Controller
 {
-    public function student(Request $request){
+    public function getStudents(Request $request){
 
         $keyword = $request->input('keyword');
 

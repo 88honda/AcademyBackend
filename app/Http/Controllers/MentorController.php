@@ -10,7 +10,7 @@ use App\Http\Requests\MentorRequest;
 
 class MentorController extends Controller
 {
-    public function mentor(Request $request){
+    public function getMentors(Request $request){
 
         $keyword = $request->input('keyword');
 

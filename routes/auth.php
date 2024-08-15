@@ -53,10 +53,11 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 });
-    Route::middleware(['auth', 'mentor'])->group(function () {
-        Route::get('/student', [StudentController::class, 'student'])->name('student');
-    });
 
-    Route::middleware(['auth', 'student'])->group(function () {
-        Route::get('/mentor', [MentorController::class, 'mentor'])->name('mentor');
-    });
+Route::middleware(['auth', 'mentor'])->group(function () {
+    Route::get('/student', [StudentController::class, 'getStudents'])->name('student');
+});
+
+Route::middleware(['auth', 'student'])->group(function () {
+    Route::get('/mentor', [MentorController::class, 'getMentors'])->name('mentor');
+});

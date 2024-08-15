@@ -24,9 +24,9 @@ class RedirectIfAuthenticated
                 $user = Auth::guard($guard)->user();
     
                 if ($user->role === 'student') {
-                    return redirect(RouteServiceProvider::MENTOR_HOME);
+                    return redirect("/mentor");
                 } elseif ($user->role === 'mentor') {
-                    return redirect(RouteServiceProvider::STUDENT_HOME);
+                    return redirect("/student");
                 }
             }
             return $next($request);

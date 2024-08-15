@@ -28,7 +28,10 @@
     <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒画面</a></li>
+        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
+        @if(auth()->user() && auth()->user()->role === 'admin')
+          <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
+        @endif
         <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
@@ -55,7 +58,7 @@
 
     <main class="student-list">
       <div class="container-fluid wrapper">
-        <h4 class="screen-title">生徒画面</h4>
+        <h4 class="screen-title">生徒一覧</h4>
         <p class="result">15件</p>
         <section class="container-fluid contents-area">
           <table class="table">

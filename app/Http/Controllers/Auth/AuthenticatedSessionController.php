@@ -31,15 +31,15 @@ class AuthenticatedSessionController extends Controller
     
             $user = Auth::user();
 
-            if (Gate::allows('mentor', $user)) {
-                return redirect('student');
-            } elseif (Gate::allows('student', $user)) {
-                return redirect('mentor');
+            if (Gate::allows('viewAnyMentors', $user)) {
+                return redirect('/student');
+            } elseif (Gate::allows('viewAnyStudents', $user)) {
+                return redirect('/mentor');
             }
             return redirect()->intended($this->redirectPath());
         }
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'ユーザー名またはパスワードが間違っています。',
         ]);
     }
 
