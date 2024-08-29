@@ -24,7 +24,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::tabel('user_tags', function(Blueprint $table){
+        Schema::table('user_tags', function(Blueprint $table){
             $table->dropColumn('user_id');
             $table->dropColumn('tag_id');
         });

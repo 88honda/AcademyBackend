@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('time_slots', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('mentor_id');
+            // $table->unsignedBigInteger('mentor_id');
+            $table->bigInteger('mentor_id')->unsigned();
             $table->timestamp('start_time');
             $table->timestamp('end_time');
             $table->enum('status', ['available', 'booked']);
@@ -26,7 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::tabel('time_slots', function(Blueprint $table){
+        Schema::table('time_slots', function(Blueprint $table){
             $table->dropColumn('mentor_id');
         });
     }
