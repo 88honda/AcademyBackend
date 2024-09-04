@@ -21,4 +21,8 @@ class RolePolicy
     {
         return $user->role === 'mentor';
     }
+    public function viewAnyAdmin(User $user)
+    {
+        return $user->role === 'admin';
+    }
 }

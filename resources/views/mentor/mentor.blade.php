@@ -27,7 +27,10 @@
     <h1 class="logo"><a href="{{url('/mentor')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
+        @if(auth()->user() && auth()->user()->role === 'admin')
+          <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
+          <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
+        @endif
         <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
@@ -39,9 +42,11 @@
 
   <div class="r-column col-sm-10">
     <div class="header col-sm-10">
+      @if (Auth::user()->role === 'admin')
       <div>
         <a href="{{url('/mentor/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
       </div>
+      @endif
       <form action="{{ route('mentor') }}" method="get">
         <botton class="input-btn col-sm-4" type="submit">
             <input type="text" placeholder="NAME検索" name="keyword" value="{{ old('keyword', $keyword) }}">
@@ -72,18 +77,17 @@
                 <tr>
                   <td>{{$user->name}}</td> 
                   <td>{{$user->email}}</td> 
-                  {{-- <td>{{$user->mentor->teaching_languages}}</td> --}}
                   <td>
                     @if($user->mentor)
                         {{$user->mentor->teaching_languages}}
                     @endif
                   </td>
-                  {{-- <td>{{$user->mentor->experience_years}}</td> --}}
                   <td>
                     @if($user->mentor)
                         {{$user->mentor->experience_years}}
                     @endif
                   </td>
+                  @if (Auth::user()->role === 'admin')
                   <td>
                     <a href="{{ route('mentor.edit', ['id' => $user->id]) }}">
                       <button class="tb-btn tb-btn-edit" method="get">編集</button>
@@ -94,6 +98,7 @@
                       <button type="submit" class="tb-btn tb-btn-del">削除</button>
                     </form>
                   </td>
+                  @endif
                 </tr>
               @endforeach
             </tbody>

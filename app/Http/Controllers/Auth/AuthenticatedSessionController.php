@@ -27,13 +27,13 @@ class AuthenticatedSessionController extends Controller
     public function store(Request $request)
     {
         if (Auth::attempt($request->only('email', 'password'))) {
-            // $request->session()->regenerate();
-    
             $user = Auth::user();
 
             if (Gate::allows('viewAnyMentors', $user)) {
                 return redirect('/student');
             } elseif (Gate::allows('viewAnyStudents', $user)) {
+                return redirect('/mentor');
+            } elseif (Gate::allows('viewAnyAdmin', $user)) {
                 return redirect('/mentor');
             }
             return redirect()->intended($this->redirectPath());

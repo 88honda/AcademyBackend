@@ -39,91 +39,115 @@
                 <section class="container-fluid contents-area">
                 <h2>ユーザー登録</h2>
                 <form action="{{ url('register') }}"  method="post">
-                <div class="form-inner">
-                    @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                    @endforeach
-                    <div class="row" style="display: contents;">
-                    @csrf 
-                        <div class="form-group col-sm-5">
-                            <x-input-label for="name" :value="__('名前')" />
-                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="田中太郎" required autofocus autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                        </div>
-
-                        <div class="form-group col-sm-5">
-                            <x-input-label for="email" :value="__('メールアドレス')" />
-                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="samle@ggmail.com" required autocomplete="username" />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                        </div>
-
-                        <div class="form-group col-sm-5">
-                            <x-input-label for="password" :value="__('パスワード')" />
-
-                            <x-text-input id="password" class="block mt-1 w-full"
-                                            type="password"
-                                            name="password"
-                                            required autocomplete="new-password" />
-                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                        </div>
-
-                        <div class="form-group col-sm-5">
-                            <label>役割</label><br>
-                            <input type="radio" id="student" name="role" value="student" onclick="toggleFields()">
-                            <label for="student">生徒</label>
-                            <input type="radio" id="mentor" name="role" value="mentor" onclick="toggleFields()">
-                            <label for="mentor">メンター</label>
-                        </div>
-
-                            <div id="displayArea">
-                                <div id="studentFields" class="message" style="display: none;">
-                                <div class="form-group col-sm-5">
-                                    <x-input-label for="learning_language" :value="__('プログラミング言語')" />
-                                    <x-text-input id="learning_language" class="block mt-1 w-full" type="text" name="learning_language" :value="old('learning_language')" required autofocus autocomplete="name" />
-                                    <x-input-error :messages="$errors->get('learning_language')" class="mt-2" />
-                                </div>
-                                <div class="form-group col-sm-5">
-                                    <label>経験レベル</label>
-                                    <select class="form-control control-widthl form-control" id="experience_level" name="experience_level">
-                                        <option name="experience_level" value="" {{ old('experience_level') == '' ? 'selected' : '' }}>---</option>
-                                        <option name="experience_level" value="beginner" {{ old('experience_level') == 'beginner' ? 'selected' : '' }}>beginner</option>
-                                        <option name="experience_level" value="intermediate" {{ old('experience_level') == 'intermediate' ? 'selected' : '' }}>intermediate</option>
-                                        <option name="experience_level" value="advanced" {{ old('experience_level') == 'advanced' ? 'selected' : '' }}>advanced</option>
-                                    </select>
-                                </div>
+                    @csrf
+                    <div class="form-inner">
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                        <div class="row" style="display: contents;">
+                        @csrf 
+                            <div class="form-group col-sm-5">
+                                <x-input-label for="name" :value="__('名前')" />
+                                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="田中太郎" required autofocus autocomplete="name" />
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
-        
-                            <div id="mentorFields" class="message" style="display: none;">
-                                <div class="form-group col-sm-5">
-                                    <label>プログラミング言語</label>
-                                    <input type="teaching_languages" name="teaching_languages" class="form-control" placeholder="PHP" value="{{ old('teaching_languages') }}">
+
+                            <div class="form-group col-sm-5">
+                                <x-input-label for="email" :value="__('メールアドレス')" />
+                                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="samle@ggmail.com" required autocomplete="email" />
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            </div>
+
+                            <div class="form-group col-sm-5">
+                                <x-input-label for="password" :value="__('パスワード')" />
+
+                                <x-text-input id="password" class="block mt-1 w-full"
+                                                type="password"
+                                                name="password"
+                                                required autocomplete="new-password" />
+                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            </div>
+
+                            <div class="form-group col-sm-5">
+                                <label>役割</label><br>
+                                <input type="radio" id="student" name="role" value="student" onclick="toggleFields()">
+                                <label for="student">生徒</label>
+                                <input type="radio" id="mentor" name="role" value="mentor" onclick="toggleFields()">
+                                <label for="mentor">メンター</label>
+                                <input type="radio" id="admin" name="role" value="admin" onclick="toggleFields()">
+                                <label for="mentor">管理者</label>
+                            </div>
+
+                                <div id="displayArea">
+                                    <div id="studentFields" class="message" style="display: none;">
+                                    <div class="form-group col-sm-5">
+                                        <x-input-label for="learning_language" :value="__('プログラミング言語')" />
+                                        <x-text-input id="learning_language" class="block mt-1 w-full" type="text" name="learning_language" :value="old('learning_language')" required autocomplete="learning_language" />
+                                        <x-input-error :messages="$errors->get('learning_language')" class="mt-2" />
+                                    </div>
+                                    <div class="form-group col-sm-5">
+                                        <label>経験レベル</label>
+                                        <select class="form-control control-widthl form-control" id="experience_level" name="experience_level">
+                                            <option name="experience_level" value="" {{ old('experience_level') == '' ? 'selected' : '' }}>---</option>
+                                            <option name="experience_level" value="beginner" {{ old('experience_level') == 'beginner' ? 'selected' : '' }}>beginner</option>
+                                            <option name="experience_level" value="intermediate" {{ old('experience_level') == 'intermediate' ? 'selected' : '' }}>intermediate</option>
+                                            <option name="experience_level" value="advanced" {{ old('experience_level') == 'advanced' ? 'selected' : '' }}>advanced</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="form-group col-sm-5">
-                                    <label>経験年数</label>
-                                    <input type="experience_years" name="experience_years" class="form-control" placeholder="1" value="{{ old('experience_years') }}" >
+            
+                                <div id="mentorFields" class="message" style="display: none;">
+                                    <div class="form-group col-sm-5">
+                                        <x-input-label for="teaching_languages" :value="__('プログラミング言語')" />
+                                        <x-text-input id="teaching_languages" class="block mt-1 w-full" type="text" name="teaching_languages" :value="old('teaching_languages')" required autocomplete="teaching_languages" />
+                                        <x-input-error :messages="$errors->get('teaching_languages')" class="mt-2" />
+                                    </div>
+                                    <div class="form-group col-sm-5">
+                                        <x-input-label for="experience_years" :value="__('経験年数')" />
+                                        <x-text-input id="experience_years" class="block mt-1 w-full" type="text" name="experience_years" :value="old('experience_years')" required autocomplete="experience_years" />
+                                        <x-input-error :messages="$errors->get('experience_years')" class="mt-2" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <button type="submit"  value="送信" class="form-btn">登録する</button>
+                    <button type="submit"  value="送信" class="form-btn">登録する</button>
                 </form>
 
     @section('scripts')
     <script>
     function toggleFields() {
-        var studentFields = document.getElementById('studentFields');
-        var mentorFields = document.getElementById('mentorFields');
-        var studentRadio = document.getElementById('student');
-        var mentorRadio = document.getElementById('mentor');
+    var studentFields = document.getElementById('studentFields');
+    var mentorFields = document.getElementById('mentorFields');
+    var studentRadio = document.getElementById('student');
+    var mentorRadio = document.getElementById('mentor');
+    var studentFieldsInputs = studentFields.querySelectorAll('input');
+    var mentorFieldsInputs = mentorFields.querySelectorAll('input');
 
-        if (studentRadio.checked) {
-            studentFields.style.display = 'block';
-            mentorFields.style.display = 'none';
-        } else if (mentorRadio.checked) {
-            mentorFields.style.display = 'block';
-            studentFields.style.display = 'none';
-        }
+    if (studentRadio.checked) {
+        studentFields.style.display = 'block';
+        mentorFields.style.display = 'none';
+
+        studentFieldsInputs.forEach(function(input) {
+            input.required = true;
+        });
+
+        mentorFieldsInputs.forEach(function(input) {
+            input.required = false;
+        });
+
+    } else if (mentorRadio.checked) {
+        mentorFields.style.display = 'block';
+        studentFields.style.display = 'none';
+
+        mentorFieldsInputs.forEach(function(input) {
+            input.required = true;
+        });
+
+        studentFieldsInputs.forEach(function(input) {
+            input.required = false;
+        });
     }
+}
     </script>
 </x-guest-layout>

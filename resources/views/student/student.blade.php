@@ -28,8 +28,8 @@
     <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
         @if(auth()->user() && auth()->user()->role === 'admin')
+          <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
           <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
         @endif
         <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
@@ -44,10 +44,11 @@
 
   <div class="r-column col-sm-10">
     <div class="header col-sm-10">
+      @if (Auth::user()->role === 'admin')
       <div>
         <a href="{{url('/student/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
       </div>
-
+      @endif
       <form action="{{ route('student') }}" method="get">
         <botton class="input-btn col-sm-4" type="submit">
             <input type="text" placeholder="NAME検索" name="keyword" value="{{ old('keyword', $keyword) }}">
@@ -89,7 +90,7 @@
                         {{$user->student->experience_level}}
                     @endif
                   </td>
-
+                  @if (Auth::user()->role === 'admin')
                   <td>
                     <a href="{{ route('student.edit', ['id' => $user->id]) }}">
                       <button class="tb-btn tb-btn-edit" method="get">編集</button>
@@ -100,6 +101,7 @@
                       <button type="submit" class="tb-btn tb-btn-del">削除</button>
                     </form>
                   </td>
+                  @endif
                 </tr>
               @endforeach
             </tbody>
