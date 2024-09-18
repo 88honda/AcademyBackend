@@ -12,7 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use App\Http\Requests\UserRequest;
 
@@ -45,6 +45,15 @@ class RegisteredUserController extends Controller
             $student->save();
             $detail_id = $student->id;
 
+            $user = User::create([
+                'name' => $request->input('name'),
+                'email' => Str::random(10) . '@example.com',
+                'password' => Hash::make($request->password),
+                'role' => 'student', 
+                'detail_id' => $detail_id,
+            ]);
+            $user->save();
+
         } else if ($request['role'] == 'mentor') {
             $mentor = new Mentor();
             $mentor->fill(
@@ -57,19 +66,16 @@ class RegisteredUserController extends Controller
             );
             $mentor->save();
             $detail_id = $mentor->id;
-        };
-
-        $user = new User();
-        $user->fill(
-            [
+            $user = User::create([
                 'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
-                'role' => $request->input('role'),
+                'email' => Str::random(10) . '@example.com',
+                'password' => Hash::make($request->password),
+                'role' => 'mentor',
                 'detail_id' => $detail_id,
-            ]
-        );
-        $user->save();
+            ]);
+            $user->save();
+        };
+            
         return redirect('/login')->with('message', '追加しました');
     }
 }

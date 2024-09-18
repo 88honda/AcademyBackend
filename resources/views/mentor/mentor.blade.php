@@ -29,8 +29,8 @@
       <ul>
         @if(auth()->user() && auth()->user()->role === 'admin')
           <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
-          <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
         @endif
+          <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
         <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
@@ -89,10 +89,10 @@
                   </td>
                   @if (Auth::user()->role === 'admin')
                   <td>
-                    <a href="{{ route('mentor.edit', ['id' => $user->id]) }}">
-                      <button class="tb-btn tb-btn-edit" method="get">編集</button>
-                    </a>
-                  
+                    <form action="{{ route('mentor.edit', ['id' => $user->id]) }}" method="get" style="display: inline;">
+                      <button type="submit" class="tb-btn tb-btn-edit">編集</button>
+                    </form>
+
                     <form action="{{ route('mentor.delete', ['id' => $user->id]) }}" method="POST" style="display: inline;">
                       @csrf
                       <button type="submit" class="tb-btn tb-btn-del">削除</button>

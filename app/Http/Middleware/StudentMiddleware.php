@@ -18,8 +18,10 @@ class StudentMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check() && (Auth::user()->role === 'student'|| Auth::user()->role === 'admin')) {
+
             return $next($request);
         }
+        \Log::debug("aaa");
 
         abort(404, 'not found');
     }

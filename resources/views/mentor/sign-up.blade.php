@@ -25,7 +25,8 @@
     <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター画面</a></li>
+        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
+        <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
         <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
@@ -60,6 +61,11 @@
                   <label for="name">名前</label>
                   <div>{{ $errors->first('message') }}</div>
                   <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value="{{(old('name', $mentors->name))}}">
+                </div>
+                <div class="form-group col-sm-5">
+                  <label for="email">メールアドレス</label>
+                  <div>{{ $errors->first('message') }}</div>
+                  <input type="text" name="email" class="form-control" id="email" placeholder="田中太郎" value="{{(old('email', $mentors->email))}}">
                 </div>
                 <div class="form-group col-sm-5">
                   <label for="teaching_languages">プログラミング言語</label>

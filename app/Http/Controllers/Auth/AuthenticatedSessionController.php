@@ -29,11 +29,11 @@ class AuthenticatedSessionController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
 
-            if (Gate::allows('viewAnyMentors', $user)) {
+            if (Gate::allows('isRoleMentor', $user)) {
                 return redirect('/student');
-            } elseif (Gate::allows('viewAnyStudents', $user)) {
+            } elseif (Gate::allows('isRoleStudent', $user)) {
                 return redirect('/mentor');
-            } elseif (Gate::allows('viewAnyAdmin', $user)) {
+            } elseif (Gate::allows('isRoleAdmin', $user)) {
                 return redirect('/mentor');
             }
             return redirect()->intended($this->redirectPath());

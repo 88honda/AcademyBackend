@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -25,11 +28,18 @@ class StudentController extends Controller
     public function add(StudentRequest $request){
 
         $students = new Student();
-
         $students->name = $request['name'];
         $students->learning_language = $request['learning_language'];
         $students->experience_level = $request['experience_level'];
         $students->save();
+
+        $user = new User();
+        $user->name = $request['name'];
+        $user->email = Str::random(10) . '@example.com';
+        $user->password = bcrypt(Str::random(8));
+        $user->role = 'student';
+        $user->detail_id =  $students->id;
+        $user->save();
 
         return redirect('/student')->with('message', '追加しました');
     }   
@@ -47,20 +57,31 @@ class StudentController extends Controller
     }
     public function update(StudentRequest $request, $id)
     {
-        $data = $request->all();
-        $students = User::findOrFail($id);
-        $students->name = $data['name'];
-        $students->learning_language = $data['learning_language'];
-        $students->experience_level = $data['experience_level'];
+        // \Log::debug($request);
+        
+        $user = User::find($id);
+        $students = Student::find($user->detail_id);
+        $students->name = $request['name'];
+        $students->learning_language = $request['learning_language'];
+        $students->experience_level = $request['experience_level'];
+
         $students->save();
 
-        return redirect('/student')->with('message', '編集しました');
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->detail_id = $students->id;
+
+        $user->save();
+
+        return redirect()->route('student')->with('message', '編集しました');
     }
 
     public function destroy($id)
     {
-        $students = Student::findOrFail($id);
-        $students->delete();
-        return redirect('/student')->with('message', '削除しました');
+        $user = User::find($id);
+        $student = Student::find($user->detail_id);
+        $student->delete();
+        
+        return redirect('student')->with('message', '削除しました');
     }
 }

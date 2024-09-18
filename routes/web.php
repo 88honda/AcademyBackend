@@ -44,5 +44,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/student/sign-up/add', [StudentController::class, 'add'])->name('student.add');
     Route::post('/sign-up/add', [UserController::class, 'add'])->name('sign-in.add');
 });
+Route::middleware(['auth', 'mentor'])->group(function () {
+    Route::get('/student', [StudentController::class, 'getStudents'])->name('student');
+
+});
+
+Route::middleware(['auth', 'student'])->group(function () {
+    Route::get('/mentor', [MentorController::class, 'getMentors'])->name('mentor');
+});
 
 require __DIR__.'/auth.php';
