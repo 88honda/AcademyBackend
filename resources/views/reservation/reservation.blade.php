@@ -25,7 +25,7 @@
 <div class="row">
 
   <div class="col-sm-2 sidebar">
-    <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
+    <h1 class="logo"><a href="{{url('/reservation')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
         <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
@@ -49,10 +49,10 @@
     <div class="header col-sm-10">
       @if (Auth::user()->role === 'admin')
       <div>
-        <a href="{{url('/student/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
+        <a href="{{url('/reservation/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
       </div>
       @endif
-      <form action="{{ route('student') }}" method="get">
+      <form action="{{ route('reservation') }}" method="get">
         <botton class="input-btn col-sm-4" type="submit">
             <input type="text" placeholder="NAME検索" name="keyword" value="{{ old('keyword', $keyword) }}">
             <i class="fas fa-search"></i>
@@ -62,44 +62,35 @@
 
     <main class="student-list">
       <div class="container-fluid wrapper">
-        <h4 class="screen-title">生徒一覧</h4>
+        <h4 class="screen-title">予約枠登録一覧</h4>
         <p class="result">15件</p>
         <section class="container-fluid contents-area">
           <table class="table">
             <thead>
               <tr>
                 <th>名前</th>
-                <th>email</th>
-                <th>プログラミング言語</th>
-                <th>経験レベル</th>
+                <th>開始時間</th>
+                <th>終了時間</th>
+                <th>状態</th>
               </tr>
             </thead>
             <tbody>
               @if(session('message'))
               <div class="alert alert-success">{{ session('message') }}</div>
               @endif
-              @foreach($user as $user)
+              @foreach($timeslot as $timeslot)
                 <tr>
-                  <td>{{$user->name}}</td> 
-                  <td>{{$user->email}}</td>
+                  <td>{{$timeslot->start_time}}</td> 
+                  <td>{{$timeslot->end_time}}</td>
+                  <td>{{$timeslot->status}}</td>
 
-                  <td>
-                    @if($user->student)
-                        {{$user->student->learning_language}}
-                    @endif
-                  </td>
-                  <td>
-                    @if($user->student)
-                        {{$user->student->experience_level}}
-                    @endif
-                  </td>
                   @if (Auth::user()->role === 'admin')
                   <td>
-                    <a href="{{ route('student.edit', ['id' => $user->id]) }}">
+                    <a href="{{ route('reservation.edit', ['id' => $timeslot->id]) }}">
                       <button class="tb-btn tb-btn-edit" method="get">編集</button>
                     </a>
                   
-                    <form action="{{ route('student.delete', ['id' => $user->id]) }}" method="POST" style="display: inline;">
+                    <form action="{{ route('reservation.delete', ['id' => $timeslot->id]) }}" method="POST" style="display: inline;">
                       @csrf
                       <button type="submit" class="tb-btn tb-btn-del">削除</button>
                     </form>

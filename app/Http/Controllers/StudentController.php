@@ -57,7 +57,7 @@ class StudentController extends Controller
     }
     public function update(StudentRequest $request, $id)
     {
-        // \Log::debug($request);
+
         
         $user = User::find($id);
         $students = Student::find($user->detail_id);

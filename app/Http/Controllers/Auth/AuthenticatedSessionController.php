@@ -27,6 +27,7 @@ class AuthenticatedSessionController extends Controller
     public function store(Request $request)
     {
         if (Auth::attempt($request->only('email', 'password'))) {
+
             $user = Auth::user();
 
             if (Gate::allows('isRoleMentor', $user)) {
@@ -36,6 +37,7 @@ class AuthenticatedSessionController extends Controller
             } elseif (Gate::allows('isRoleAdmin', $user)) {
                 return redirect('/mentor');
             }
+
             return redirect()->intended($this->redirectPath());
         }
         return back()->withErrors([

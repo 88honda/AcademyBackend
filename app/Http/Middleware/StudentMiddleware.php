@@ -21,7 +21,6 @@ class StudentMiddleware
 
             return $next($request);
         }
-        \Log::debug("aaa");
 
         abort(404, 'not found');
     }
