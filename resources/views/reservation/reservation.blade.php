@@ -65,7 +65,7 @@
                 <th>予約開始時間</th>
                 <th></th>
                 <th>予約終了時間</th>
-                <th>ステータス</th>
+                <th>予約状況</th>
               </tr>
             </thead>
             <tbody>
@@ -80,16 +80,20 @@
                   <td>{{$timeslot->status}}</td>
 
                   @if (in_array(Auth::user()->role, ['admin', 'mentor']))
-                  <td>
-                    <a href="{{ route('reservation.edit', ['id' => $timeslot->id]) }}">
-                      <button class="tb-btn tb-btn-edit" method="get">編集</button>
-                    </a>
-                  
-                    <form action="{{ route('reservation.delete', ['id' => $timeslot->id]) }}" method="POST" style="display: inline;">
-                      @csrf
-                      <button type="submit" class="tb-btn tb-btn-del">削除</button>
-                    </form>
-                  </td>
+                    @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'mentor' && $timeslot->status !== 'booked'))
+                      <td>
+                        <a href="{{ route('reservation.edit', ['id' => $timeslot->id]) }}">
+                          <button class="tb-btn tb-btn-edit" method="get">編集</button>
+                        </a>
+                      
+                        <form action="{{ route('reservation.delete', ['id' => $timeslot->id]) }}" method="POST" style="display: inline;">
+                          @csrf
+                          @if (Auth::user()->role === 'admin')
+                          <button type="submit" class="tb-btn tb-btn-del">削除</button>
+                          @endif
+                        </form>
+                      </td>
+                    @endif
                   @endif
                 </tr>
               @endforeach

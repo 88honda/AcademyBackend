@@ -34,7 +34,7 @@ class ReservationRequest extends FormRequest
         return [
             'start_time' => '予約開始時間',
             'end_time' => '予約終了時間',
-            'status' => 'ステータス',
+            'status' => '予約状況',
         ];
     }
 

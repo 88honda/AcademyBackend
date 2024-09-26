@@ -69,11 +69,14 @@
                   <input type="text" name="end_time" class="form-control" id="end_time" placeholder="yyyy/mm/dd 00:00" value="{{ \Carbon\Carbon::parse(old('end_time', $timeslot->end_time))->format('Y/m/d H:i') }}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="status">ステータス</label>
+                  <label for="status">予約状況</label>
                   <select class="form-control" id="status" name="status" placeholder="booked" value="{{(old('status', $timeslot->status))}}">
-                    @foreach($experienceLevels as $key => $value)
-                      <option value="{{ $key }}" {{ $timeslot->status == $key ? 'selected' : '' }}@if(old('status') == $timeslot->id) selected @endif>{{ $value }}</option>
-                    @endforeach
+                    @if(Auth::user()->role === 'admin')>
+                      <option name="status" value="available" {{ old('status', $timeslot->status ?? '') == 'available' ? 'selected' : '' }}>available</option>
+                      <option name="status" value="booked" {{ old('status', $timeslot->status ?? '') == 'booked' ? 'selected' : '' }}>booked</option>
+                    @else
+                      <option name="status" value="available" {{ old('status', $timeslot->status ?? '') == 'available' ? 'selected' : '' }}>available</option>
+                    @endif
                   </select> 
                 </div>
               </div>
@@ -110,10 +113,13 @@
                   <input type="text" name="end_time" class="form-control" id="end_time" placeholder="yyyy/mm/dd 00:00" value="{{(old('end_time'))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="status">ステータス</label>
+                  <label for="status">予約状況</label>
                   <select class="form-control" id="status" name="status">
+                    @if(Auth::user()->role === 'admin')>
                     <option name="status" value="available" {{ old('status') == 'available' ? 'selected' : '' }}>available</option>
-                    <option name="status" value="booked" {{ old('status') == 'booked' ? 'selected' : '' }}>booked</option>
+                    @else
+                    <option name="status" value="available" {{ old('status') == 'available' ? 'selected' : '' }}>available</option>
+                  @endif
                   </select>
                 </div>
               </div>
