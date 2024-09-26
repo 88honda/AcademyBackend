@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ESA ACADEMY 生徒管理システム</title>
-  
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!-- Font Awesome -->
@@ -47,17 +47,11 @@
 
   <div class="r-column col-sm-10">
     <div class="header col-sm-10">
-      @if (Auth::user()->role === 'admin')
+      @if (in_array(Auth::user()->role, ['admin', 'mentor']))
       <div>
-        <a href="{{url('/reservation/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
+        <a href="{{url('/reservation/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>予約枠登録画面</a>
       </div>
       @endif
-      <form action="{{ route('reservation') }}" method="get">
-        <botton class="input-btn col-sm-4" type="submit">
-            <input type="text" placeholder="NAME検索" name="keyword" value="{{ old('keyword', $keyword) }}">
-            <i class="fas fa-search"></i>
-        </botton>
-      </form>
     </div>
 
     <main class="student-list">
@@ -68,10 +62,10 @@
           <table class="table">
             <thead>
               <tr>
-                <th>名前</th>
-                <th>開始時間</th>
-                <th>終了時間</th>
-                <th>状態</th>
+                <th>予約開始時間</th>
+                <th></th>
+                <th>予約終了時間</th>
+                <th>ステータス</th>
               </tr>
             </thead>
             <tbody>
@@ -80,11 +74,12 @@
               @endif
               @foreach($timeslot as $timeslot)
                 <tr>
-                  <td>{{$timeslot->start_time}}</td> 
-                  <td>{{$timeslot->end_time}}</td>
+                  <td>{{ \Carbon\Carbon::parse($timeslot->start_time)->format('Y/m/d H:i') }}</td>
+                  <td>〜</td> 
+                  <td>{{ \Carbon\Carbon::parse($timeslot->end_time)->format('Y/m/d H:i') }}</td>
                   <td>{{$timeslot->status}}</td>
 
-                  @if (Auth::user()->role === 'admin')
+                  @if (in_array(Auth::user()->role, ['admin', 'mentor']))
                   <td>
                     <a href="{{ route('reservation.edit', ['id' => $timeslot->id]) }}">
                       <button class="tb-btn tb-btn-edit" method="get">編集</button>

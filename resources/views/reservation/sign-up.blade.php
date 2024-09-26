@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>新規登録画面 | ESA ACADEMY 生徒管理システム</title>
+  <title>予約登録画面 | ESA ACADEMY 生徒管理システム</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!-- Font Awesome -->
@@ -41,14 +41,13 @@
 
   <div class="r-column col-sm-10">
 
-
     <main class="sign-up">
       <div class="container-fluid wrapper">
         <section class="container-fluid contents-area">
           @if(isset($editMode) && $editMode)
               <h2>編集登録画面</h2>
           @else
-              <h2>新規登録画面</h2>
+              <h2>予約枠登録画面</h2>
           @endif
           <!-- 編集登録画面 -->
           @if(isset($editMode) && $editMode)
@@ -60,17 +59,17 @@
             @endforeach
               <div class="row">
                 <div class="form-group col-sm-5">
-                  <label for="start_time">開始時間</label>
+                  <label for="start_time">予約開始時間</label>
                   <div>{{ $errors->first('message') }}</div>
-                  <input type="text" name="start_time" class="form-control" id="start_time" placeholder="hhmmmdd" value="{{(old('start_time', $timeslot->start_time))}}">
+                  <input type="text" name="start_time" class="form-control" id="start_time" placeholder="yyyy/mm/dd 00:00" value="{{ \Carbon\Carbon::parse(old('start_time', $timeslot->start_time))->format('Y/m/d H:i') }}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="end_time">終了時間</label>
+                  <label for="end_time">予約終了時間</label>
                   <div>{{ $errors->first('message') }}</div>
-                  <input type="text" name="end_time" class="form-control" id="end_time" placeholder="hhmmmdd" value="{{(old('end_time', $timeslot->end_time))}}">
+                  <input type="text" name="end_time" class="form-control" id="end_time" placeholder="yyyy/mm/dd 00:00" value="{{ \Carbon\Carbon::parse(old('end_time', $timeslot->end_time))->format('Y/m/d H:i') }}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="status">予約状態</label>
+                  <label for="status">ステータス</label>
                   <select class="form-control" id="status" name="status" placeholder="booked" value="{{(old('status', $timeslot->status))}}">
                     @foreach($experienceLevels as $key => $value)
                       <option value="{{ $key }}" {{ $timeslot->status == $key ? 'selected' : '' }}@if(old('status') == $timeslot->id) selected @endif>{{ $value }}</option>
@@ -103,18 +102,18 @@
             @endforeach
               <div class="row">
                 <div class="form-group col-sm-5">
-                  <label for="start_time">開始時間</label>
-                  <input type="text" name="start_time" class="form-control" id="start_time" placeholder="PHP" value="{{(old('start_time'))}}">
+                  <label for="start_time">予約開始時間</label>
+                  <input type="text" name="start_time" class="form-control" id="start_time" placeholder="yyyy/mm/dd 00:00" value="{{(old('start_time'))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="end_time">終了時間</label>
-                  <input type="text" name="end_time" class="form-control" id="end_time" placeholder="PHP" value="{{(old('end_time'))}}">
+                  <label for="end_time">予約終了時間</label>
+                  <input type="text" name="end_time" class="form-control" id="end_time" placeholder="yyyy/mm/dd 00:00" value="{{(old('end_time'))}}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="status">予約状態</label>
+                  <label for="status">ステータス</label>
                   <select class="form-control" id="status" name="status">
-                    <option name="status" value="" {{ old('status') == 'available' ? 'selected' : '' }}>available</option>
-                    <option name="status" value="beginner" {{ old('status') == 'booked' ? 'selected' : '' }}>booked</option>
+                    <option name="status" value="available" {{ old('status') == 'available' ? 'selected' : '' }}>available</option>
+                    <option name="status" value="booked" {{ old('status') == 'booked' ? 'selected' : '' }}>booked</option>
                   </select>
                 </div>
               </div>

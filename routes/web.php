@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/student', [StudentController::class, 'student'])
-    ->middleware(['auth', 'verified'])->name('student');
 
 Route::middleware(['auth', 'mentor'])->group(function () {
     Route::get('/student', [StudentController::class, 'getStudents'])->name('student');
@@ -27,6 +25,10 @@ Route::middleware(['auth', 'mentor'])->group(function () {
     Route::get('reservation/sign-up', function () {
         return view('reservation.sign-up');
     });
+    Route::post('/reservation/sign-up/add', [ReservationController::class, 'add'])->name('reservation.add');
+    Route::post('/reservation/update/{id}', [ReservationController::class, 'update'])->name('reservation.update');
+    Route::get('/reservation/edit/{id}', [ReservationController::class, 'edit'])->name('reservation.edit');
+    Route::post('/reservation/delete/{id}', [ReservationController::class, 'destroy'])->name('reservation.delete');
 });
 
 Route::middleware(['auth', 'student'])->group(function () {
@@ -42,19 +44,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
     Route::post('/mentor/update/{id}', [MentorController::class, 'update'])->name('mentor.update');
     Route::post('/student/update/{id}', [StudentController::class, 'update'])->name('student.update');
-    Route::post('/reservation/update/{id}', [ReservationController::class, 'update'])->name('reservation.update');
 
     Route::get('/mentor/edit/{id}', [MentorController::class, 'edit'])->name('mentor.edit');
     Route::get('/student/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
-    Route::get('/reservation/edit/{id}', [ReservationController::class, 'edit'])->name('reservation.edit');
 
     Route::post('/mentor/delete/{id}', [MentorController::class, 'destroy'])->name('mentor.delete');
     Route::post('/student/delete/{id}', [StudentController::class, 'destroy'])->name('student.delete');
-    Route::post('/reservation/delete/{id}', [ReservationController::class, 'destroy'])->name('reservation.delete');
 
     Route::post('/mentor/sign-up/add', [MentorController::class, 'add'])->name('mentor.add');
     Route::post('/student/sign-up/add', [StudentController::class, 'add'])->name('student.add');
-    Route::post('/reservation/sign-up/add', [ReservationController::class, 'add'])->name('reservation.add');
     Route::post('/sign-up/add', [UserController::class, 'add'])->name('sign-in.add');
 });
 
