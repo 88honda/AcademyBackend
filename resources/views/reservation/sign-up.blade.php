@@ -68,17 +68,17 @@
                   <div>{{ $errors->first('message') }}</div>
                   <input type="text" name="end_time" class="form-control" id="end_time" placeholder="yyyy/mm/dd 00:00" value="{{ \Carbon\Carbon::parse(old('end_time', $timeslot->end_time))->format('Y/m/d H:i') }}">
                 </div>
-                <div class="form-group col-sm-5">
+                {{-- <div class="form-group col-sm-5">
                   <label for="status">予約状況</label>
                   <select class="form-control" id="status" name="status" placeholder="booked" value="{{(old('status', $timeslot->status))}}">
                     @if(Auth::user()->role === 'admin')>
-                      <option name="status" value="available" {{ old('status', $timeslot->status ?? '') == 'available' ? 'selected' : '' }}>available</option>
-                      <option name="status" value="booked" {{ old('status', $timeslot->status ?? '') == 'booked' ? 'selected' : '' }}>booked</option>
+                      <option name="status" value="available" {{ old('status', $timeslot->status ?? '') == 'available' ? 'selected' : '' }}>予約可能</option>
+                      <option name="status" value="予約済み" {{ old('status', $timeslot->status ?? '') == '予約済み' ? 'selected' : '' }}>予約済み</option>
                     @else
-                      <option name="status" value="available" {{ old('status', $timeslot->status ?? '') == 'available' ? 'selected' : '' }}>available</option>
+                      <option name="status" value="available" {{ old('status', $timeslot->status ?? '') == 'available' ? 'selected' : '' }}>予約可能</option>
                     @endif
                   </select> 
-                </div>
+                </div> --}}
               </div>
               <!-- /.row -->
           </div>
@@ -112,7 +112,7 @@
                   <label for="end_time">予約終了時間</label>
                   <input type="text" name="end_time" class="form-control" id="end_time" placeholder="yyyy/mm/dd 00:00" value="{{(old('end_time'))}}">
                 </div>
-                <div class="form-group col-sm-5">
+                {{-- <div class="form-group col-sm-5">
                   <label for="status">予約状況</label>
                   <select class="form-control" id="status" name="status">
                     @if(Auth::user()->role === 'admin')>
@@ -121,7 +121,7 @@
                     <option name="status" value="available" {{ old('status') == 'available' ? 'selected' : '' }}>available</option>
                   @endif
                   </select>
-                </div>
+                </div> --}}
               </div>
               <!-- /.row -->
           </div>

@@ -77,7 +77,7 @@
                   <td>{{ \Carbon\Carbon::parse($timeslot->start_time)->format('Y/m/d H:i') }}</td>
                   <td>〜</td> 
                   <td>{{ \Carbon\Carbon::parse($timeslot->end_time)->format('Y/m/d H:i') }}</td>
-                  <td>{{$timeslot->status}}</td>
+                  <td>{{ $status[$timeslot->status] }}</td>
 
                   @if (in_array(Auth::user()->role, ['admin', 'mentor']))
                     @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'mentor' && $timeslot->status !== 'booked'))

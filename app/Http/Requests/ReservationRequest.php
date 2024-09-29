@@ -21,7 +21,6 @@ class ReservationRequest extends FormRequest
         return [
             'start_time' => 'required|date_format:Y/m/d H:i',
             'end_time' => 'required|date_format:Y/m/d H:i',
-            'status' => 'required',
         ];
     }
 
@@ -34,7 +33,6 @@ class ReservationRequest extends FormRequest
         return [
             'start_time' => '予約開始時間',
             'end_time' => '予約終了時間',
-            'status' => '予約状況',
         ];
     }
 
@@ -46,7 +44,6 @@ class ReservationRequest extends FormRequest
         return [
             'start_time.required' => ':attributeは必須項目です。',
             'end_time.required' => ':attributeは必須項目です。',
-            'status.required' => ':attributeは必須項目です。',
             'start_time.date_format' => ':attribute の形式が正しくありません。',
             'end_time.date_format' => ':attribute の形式が正しくありません。',
         ];

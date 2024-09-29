@@ -15,7 +15,11 @@ class ReservationController extends Controller
     public function index(Request $request){
 
         $timeslot = Timeslot::all();
-        return view('reservation.reservation',compact('timeslot'));
+        $status = [
+            'available' => '予約可能',
+            'booked' => '予約済み',
+        ];
+        return view('reservation.reservation',compact('timeslot', 'status'));
     }
     public function add(ReservationRequest $request){
 
@@ -24,7 +28,7 @@ class ReservationController extends Controller
         $timeslot->mentor_id = Auth::user()->detail_id;
         $timeslot->start_time = $request['start_time'];
         $timeslot->end_time = $request['end_time'];
-        $timeslot->status = $request['status'];
+        $timeslot->status = 'available';
         $timeslot->save();
 
         return redirect('/reservation')->with('message', '追加しました');
@@ -33,11 +37,7 @@ class ReservationController extends Controller
     {
         $timeslot = TimeSlot::findOrFail($id);
         $editMode = true;
-        $experienceLevels = [
-            'available' => 'available',
-            'booked' => 'booked',
-        ];
-        return view('/reservation/sign-up', compact('timeslot', 'editMode', 'experienceLevels'));
+        return view('/reservation/sign-up', compact('timeslot', 'editMode'));
     }
     public function update(ReservationRequest $request, $id)
     {
@@ -46,7 +46,6 @@ class ReservationController extends Controller
         $timeslot->mentor_id = Auth::user()->detail_id;
         $timeslot->start_time = $request['start_time'];
         $timeslot->end_time = $request['end_time'];
-        $timeslot->status = $request['status'];
         $timeslot->save();
 
         return redirect()->route('reservation')->with('message', '編集しました');
