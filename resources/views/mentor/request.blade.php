@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>新規登録画面 | ESA ACADEMY 生徒管理システム</title>
+  <title>予約登録画面 | ESA ACADEMY 生徒管理システム</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!-- Font Awesome -->
@@ -22,12 +22,16 @@
 <div class="container-fluid">
 <div class="row">
   <div class="col-sm-2 sidebar">
-    <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
+    <h1 class="logo"><a href="{{url('/mentor')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
+        @if(auth()->user() && auth()->user()->role === 'admin')
         <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
+        @endif
         <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
-        <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
+        <li><a href="{{url('/mentor/reservation')}}" class="mentor-btn"><i class="fas"></i>予約枠一覧</a></li>
+
+        <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
           <button type="submit" class="" style="border: none; background: none; color: #fff; margin-top: 20px; font-weight:bold;">ログアウト</button>
@@ -39,18 +43,17 @@
 
   <div class="r-column col-sm-10">
 
-
     <main class="sign-up">
       <div class="container-fluid wrapper">
         <section class="container-fluid contents-area">
           @if(isset($editMode) && $editMode)
               <h2>編集登録画面</h2>
           @else
-              <h2>新規登録画面</h2>
+              <h2>予約枠申請画面</h2>
           @endif
-
+          <!-- 編集登録画面 -->
           @if(isset($editMode) && $editMode)
-          <form method="post" action="{{ route('mentor.update', ['id' => $mentors->id]) }}">
+          <form method="post" action="{{ route('reservation.update', ['id' => $timeslot->id]) }}">
             @csrf
             <div class="form-inner">
             @foreach ($errors->all() as $error)
@@ -58,22 +61,14 @@
             @endforeach
               <div class="row">
                 <div class="form-group col-sm-5">
-                  <label for="name">名前</label>
+                  <label for="start_time">予約開始時間</label>
                   <div>{{ $errors->first('message') }}</div>
-                  <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value="{{(old('name', $mentors->name))}}">
+                  <input type="text" name="start_time" class="form-control" id="start_time" placeholder="yyyy/mm/dd 00:00" value="{{ \Carbon\Carbon::parse(old('start_time', $timeslot->start_time))->format('Y/m/d H:i') }}">
                 </div>
                 <div class="form-group col-sm-5">
-                  <label for="email">メールアドレス</label>
+                  <label for="end_time">予約終了時間</label>
                   <div>{{ $errors->first('message') }}</div>
-                  <input type="text" name="email" class="form-control" id="email" placeholder="田中太郎" value="{{(old('email', $mentors->email))}}">
-                </div>
-                <div class="form-group col-sm-5">
-                  <label for="teaching_languages">プログラミング言語</label>
-                  <input type="text" name="teaching_languages" class="form-control" id="teaching_languages" placeholder="PHP" value="{{(old('teaching_languages', $mentors->teaching_languages))}}">
-                </div>
-                <div class="form-group col-sm-5">
-                  <label for="experience_years">経験年数</label>
-                  <input type="text" name="experience_years" class="form-control" id="experience_years" placeholder="1" value="{{(old('experience_years', $mentors->experience_years))}}">
+                  <input type="text" name="end_time" class="form-control" id="end_time" placeholder="yyyy/mm/dd 00:00" value="{{ \Carbon\Carbon::parse(old('end_time', $timeslot->end_time))->format('Y/m/d H:i') }}">
                 </div>
               </div>
               <!-- /.row -->
@@ -85,32 +80,38 @@
             @if(isset($editMode) && $editMode)
               <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>編集登録</button>
             @else
-              <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>新規登録</button>
+              <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>申請登録</button>
             @endif
             
           </div>
 
           </form>
           @else
-          <form action="{{ url('/mentor/sign-up/add') }}" method="post">
+          <!-- 予約申請 -->
+          <form action="{{ url('/mentor/request/submit') }}" method="post">
             @csrf
             <div class="form-inner">
             @foreach ($errors->all() as $error)
               <li>{{$error}}</li>
             @endforeach
               <div class="row">
-                <div class="form-group col-sm-5">
-                  <label for="name">名前</label>
-                  <input type="text" name="name" class="form-control" id="name" placeholder="田中太郎" value="{{(old('name'))}}">
+                <div class="form-group col-sm-5" placeholder="yyyy/mm/dd 00:00">
+                  <label for="mentor-select">メンターを選択</label>
+                  <select id="mentor-select" name="mentor" class="form-control control-widthl">
+                    <option name="mentor" value="" {{ old('mentor') == '' ? 'selected' : '' }}>---</option>
+                    @foreach($mentor as $mentor)
+                      <option value="{{ $mentor->id }}">{{ $mentor->name }}</option>
+                    @endforeach
+                  </select>
                 </div>
-                <div class="form-group col-sm-5">
-                  <label for="teaching_languages">プログラミング言語</label>
-                  <input type="text" name="teaching_languages" class="form-control" id="teaching_languages" placeholder="PHP" value="{{(old('teaching_languages'))}}">
-                </div>
-                <div class="form-group col-sm-5">
-                  <label for="experience_years">経験年数</label>
-                  <input type="text" name="experience_years" class="form-control" id="experience_years" placeholder="1" value="{{(old('experience_years'))}}">
-                </div>
+                <div class="form-group col-sm-5" placeholder="yyyy/mm/dd 00:00">
+                  <label for="time-slot-select">予約可能時間を選択</label>
+                  <select id="time-slot-select" name="time_slot" class="form-control control-widthl">
+                    @foreach($timeslot as $timeslot)
+                      <option name="mentor" value="" {{ old('mentor') == '' ? 'selected' : '' }}>---</option>
+                    @endforeach
+                  </select>
+                </div> 
               </div>
               <!-- /.row -->
           </div>
@@ -120,7 +121,7 @@
             @if(isset($editMode) && $editMode)
               <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>編集登録</button>
             @else
-              <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>新規登録</button>
+              <button type="submit" value="送信" class="form-btn"><i class="fas fa-plus"></i>予約申請</button>
             @endif
           </div>
           </form>
@@ -134,12 +135,34 @@
 
   </div>
   <!-- /.r-column .col-sm-10 -->
-
-
 </div>
 <!-- /.row -->
 </div>
 <!-- /.container-fluid -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var mentorSelect = document.getElementById('mentor-select');
 
+  mentorSelect.addEventListener('change', function() {
+    var mentorId = mentorSelect.value; 
+
+    fetch('/get-timeslots?mentor_id=' + mentorId, {
+      method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+      var timeSlotSelect = document.getElementById('time-slot-select');
+      timeSlotSelect.innerHTML = '';
+
+      data.timeslots.forEach(function(timeslot) {
+        var option = document.createElement('option');
+        option.value = timeslot.id;
+        option.textContent = `${timeslot.start_time} 〜 ${timeslot.end_time}`;
+        timeSlotSelect.appendChild(option);
+      });
+    })
+  });
+});
+</script>
 </body>
 </html>

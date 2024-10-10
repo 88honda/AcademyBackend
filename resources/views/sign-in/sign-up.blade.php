@@ -94,23 +94,6 @@
 
 
     <script>
-// document.addEventListener('DOMContentLoaded', (event) => {
-//     const radioButtons = document.querySelectorAll('input[name="role"]');
-//     const messages = document.querySelectorAll('.message');
-
-//     radioButtons.forEach(radio => {
-//         radio.addEventListener('change', () => {
-//             messages.forEach(message => {
-//                 message.style.display = 'none';
-//             });
-            
-//             const selectedMessage = document.getElementById(`message${radio.value}`);
-//             if (selectedMessage) {
-//                 selectedMessage.style.display = 'block';
-//             }
-//         });
-//     });
-// });
 function toggleFields() {
     var studentFields = document.getElementById('studentFields');
     var mentorFields = document.getElementById('mentorFields');

@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ESA ACADEMY 生徒管理システム</title>
-  
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!-- Font Awesome -->
@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
   <!-- Optional JavaScript -->
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -24,15 +25,17 @@
 <div class="row">
 
   <div class="col-sm-2 sidebar">
-    <h1 class="logo"><a href="{{url('/mentor')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
+    <h1 class="logo"><a href="{{url('/reservation')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
+        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
         @if(auth()->user() && auth()->user()->role === 'admin')
-          <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
-        @endif
           <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
-          <li><a href="{{url('/mentor/reservation')}}" class="mentor-btn"><i class="fas"></i>予約申請一覧</a></li>
-        <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
+        @endif
+
+        <li><a href="{{url('/student/reservation/')}}" class="mentor-btn"><i class="fas"></i>予約枠登録一覧</a></li>
+
+        <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
           <button type="submit" class="" style="border: none; background: none; color: #fff; margin-top: 20px; font-weight:bold;">ログアウト</button>
@@ -41,70 +44,57 @@
     </nav>
   </div>
 
+
   <div class="r-column col-sm-10">
     <div class="header col-sm-10">
-      @if (Auth::user()->role === 'admin')
+      @if (in_array(Auth::user()->role, ['admin', 'mentor']))
       <div>
-        <a href="{{url('/mentor/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
+        <a href="{{url('/student/request')}}" class="sign-up-btn"><i class="fas fa-plus"></i>予約枠登録画面</a>
       </div>
       @endif
-      <form action="{{ route('mentor') }}" method="get">
-        <botton class="input-btn col-sm-4" type="submit">
-            <input type="text" placeholder="NAME検索" name="keyword" value="{{ old('keyword', $keyword) }}">
-            <i action="{{ route('mentor') }}" class="fas fa-search"></i>
-        </botton>
-      </form>
     </div>
 
     <main class="student-list">
       <div class="container-fluid wrapper">
-        <h4 class="screen-title">メンター一覧</h4>
+        <h4 class="screen-title">予約枠登録一覧</h4>
         <p class="result">15件</p>
         <section class="container-fluid contents-area">
           <table class="table">
             <thead>
               <tr>
-                <th>名前</th>
-                <th>email</th>
-                <th>プログラミング言語</th>
-                <th>経験年数</th>
+                <th>予約開始時間</th>
+                <th></th>
+                <th>予約終了時間</th>
+                <th>予約状況</th>
               </tr>
             </thead>
             <tbody>
               @if(session('message'))
               <div class="alert alert-success">{{ session('message') }}</div>
               @endif
-              @foreach($user as $user)
+              @foreach($timeslot as $timeslot)
                 <tr>
-                  <td>{{$user->name}}</td> 
-                  <td>{{$user->email}}</td> 
-                  <td>
-                    @if($user->mentor)
-                        {{$user->mentor->teaching_languages}}
-                    @endif
-                  </td>
-                  <td>
-                    @if($user->mentor)
-                        {{$user->mentor->experience_years}}
-                    @endif
-                  </td>
-                  
-                  <td>
-                    @if (Auth::user()->role === 'admin')
-                    <form action="{{ route('mentor.edit', ['id' => $user->id]) }}" method="get" style="display: inline;">
-                      <button type="submit" class="tb-btn tb-btn-edit">編集</button>
-                    </form>
+                  <td>{{ \Carbon\Carbon::parse($timeslot->start_time)->format('Y/m/d H:i') }}</td>
+                  <td>〜</td> 
+                  <td>{{ \Carbon\Carbon::parse($timeslot->end_time)->format('Y/m/d H:i') }}</td>
+                  <td>{{ $status[$timeslot->status] }}</td>
 
-                    <form action="{{ route('mentor.delete', ['id' => $user->id]) }}" method="POST" style="display: inline;">
-                      @csrf
-                      <button type="submit" class="tb-btn tb-btn-del">削除</button>
-                    </form>
+                  @if (in_array(Auth::user()->role, ['admin', 'mentor']))
+                    @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'mentor' && $timeslot->status !== 'booked'))
+                      <td>
+                        <a href="{{ route('reservation.edit', ['id' => $timeslot->id]) }}">
+                          <button class="tb-btn tb-btn-edit" method="get">編集</button>
+                        </a>
+                      
+                        <form action="{{ route('reservation.delete', ['id' => $timeslot->id]) }}" method="POST" style="display: inline;">
+                          @csrf
+                          @if (Auth::user()->role === 'admin')
+                          <button type="submit" class="tb-btn tb-btn-del">削除</button>
+                          @endif
+                        </form>
+                      </td>
                     @endif
-                    <a href="{{ route('mentor.reservation') }}">
-                      <button class="tb-btn tb-btn-edit" method="get">詳細</button>
-                    </a>
-                  </td>
-                  
+                  @endif
                 </tr>
               @endforeach
             </tbody>

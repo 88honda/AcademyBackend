@@ -33,7 +33,7 @@
           <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
         @endif
 
-        <li><a href="{{url('/reservation')}}" class="mentor-btn"><i class="fas"></i>予約枠登録一覧</a></li>
+        <li><a href="{{url('/student/reservation')}}" class="mentor-btn"><i class="fas"></i>予約枠登録一覧</a></li>
 
         <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">

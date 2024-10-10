@@ -28,14 +28,15 @@
     <h1 class="logo"><a href="{{url('/reservation')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
         @if(auth()->user() && auth()->user()->role === 'admin')
-          <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
+        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
         @endif
+          <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
 
-        <li><a href="{{url('/reservation')}}" class="mentor-btn"><i class="fas"></i>予約枠登録一覧</a></li>
 
-        <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
+        <li><a href="{{url('/mentor/reservation')}}" class="mentor-btn"><i class="fas"></i>予約申請一覧</a></li>
+
+        <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
           <button type="submit" class="" style="border: none; background: none; color: #fff; margin-top: 20px; font-weight:bold;">ログアウト</button>
@@ -47,16 +48,16 @@
 
   <div class="r-column col-sm-10">
     <div class="header col-sm-10">
-      @if (in_array(Auth::user()->role, ['admin', 'mentor']))
+      @if (in_array(Auth::user()->role, ['admin', 'student']))
       <div>
-        <a href="{{url('/reservation/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>予約枠登録画面</a>
+        <a href="{{url('/mentor/request')}}" class="sign-up-btn"><i class="fas fa-plus"></i>予約枠申請画面</a>
       </div>
       @endif
     </div>
 
     <main class="student-list">
       <div class="container-fluid wrapper">
-        <h4 class="screen-title">予約枠登録一覧</h4>
+        <h4 class="screen-title">予約枠一覧</h4>
         <p class="result">15件</p>
         <section class="container-fluid contents-area">
           <table class="table">

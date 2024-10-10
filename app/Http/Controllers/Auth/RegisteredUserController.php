@@ -47,7 +47,7 @@ class RegisteredUserController extends Controller
 
             $user = User::create([
                 'name' => $request->input('name'),
-                'email' => Str::random(10) . '@example.com',
+                'email' => $request->input('email'),
                 'password' => Hash::make($request->password),
                 'role' => 'student', 
                 'detail_id' => $detail_id,
@@ -68,7 +68,7 @@ class RegisteredUserController extends Controller
             $detail_id = $mentor->id;
             $user = User::create([
                 'name' => $request->input('name'),
-                'email' => Str::random(10) . '@example.com',
+                'email' => $request->input('email'),
                 'password' => Hash::make($request->password),
                 'role' => 'mentor',
                 'detail_id' => $detail_id,
