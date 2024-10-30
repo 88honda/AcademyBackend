@@ -25,17 +25,13 @@
 <div class="row">
 
   <div class="col-sm-2 sidebar">
-    <h1 class="logo"><a href="{{url('/reservation')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
+    <h1 class="logo"><a href="{{url('/mentor')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
         @if(auth()->user() && auth()->user()->role === 'admin')
         <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
         @endif
           <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
-
-
-        <li><a href="{{url('/mentor/reservation')}}" class="mentor-btn"><i class="fas"></i>予約申請一覧</a></li>
-
         <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
@@ -47,60 +43,64 @@
 
 
   <div class="r-column col-sm-10">
-    <div class="header col-sm-10">
-      @if (in_array(Auth::user()->role, ['admin', 'student']))
-      <div>
-        <a href="{{url('/mentor/request')}}" class="sign-up-btn"><i class="fas fa-plus"></i>予約枠申請画面</a>
-      </div>
-      @endif
-    </div>
 
     <main class="student-list">
       <div class="container-fluid wrapper">
-        <h4 class="screen-title">予約枠一覧</h4>
+        <h4 class="screen-title">{{ $mentors->name }}予約枠一覧</h4>
         <p class="result">15件</p>
-        <section class="container-fluid contents-area">
+        <section class="container-fluid contents-area" style="margin-bottom: 40px">
           <table class="table">
             <thead>
               <tr>
-                <th>予約開始時間</th>
+                <th style="width: 20%;">予約開始時間</th>
                 <th></th>
-                <th>予約終了時間</th>
-                <th>予約状況</th>
+                <th style="width: 20%;">予約終了時間</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style="width: 25%;">
               @if(session('message'))
-              <div class="alert alert-success">{{ session('message') }}</div>
+                <div class="alert alert-success">{{ session('message') }}</div>
               @endif
-              @foreach($timeslot as $timeslot)
+
+              
+              @foreach ($timeslots as $timeslot)
+              {{-- @if ($timeslot->status !== 'booked') --}}
                 <tr>
                   <td>{{ \Carbon\Carbon::parse($timeslot->start_time)->format('Y/m/d H:i') }}</td>
-                  <td>〜</td> 
+                  <td>〜</td>
                   <td>{{ \Carbon\Carbon::parse($timeslot->end_time)->format('Y/m/d H:i') }}</td>
-                  <td>{{ $status[$timeslot->status] }}</td>
+                  <td>
+                    <form action="{{ route('reservation.submit', $timeslot->id) }}" method="POST">
+                      @csrf
+                      <input type="hidden" name="time_slot_id" value="{{ $timeslot->id }}">
 
+                      @if ($timeslot->status !== 'booked')
+                      <button type="submit" class="tb-btn tb-btn-reservation">申請</button>
+                      @endif
+                    </form>
+                  </td>
                   @if (in_array(Auth::user()->role, ['admin', 'mentor']))
-                    @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'mentor' && $timeslot->status !== 'booked'))
-                      <td>
+                    <td>
+                      @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'mentor'))
                         <a href="{{ route('reservation.edit', ['id' => $timeslot->id]) }}">
                           <button class="tb-btn tb-btn-edit" method="get">編集</button>
                         </a>
-                      
                         <form action="{{ route('reservation.delete', ['id' => $timeslot->id]) }}" method="POST" style="display: inline;">
                           @csrf
                           @if (Auth::user()->role === 'admin')
-                          <button type="submit" class="tb-btn tb-btn-del">削除</button>
+                            <button type="submit" class="tb-btn tb-btn-del">削除</button>
                           @endif
                         </form>
-                      </td>
-                    @endif
+                      @endif
+                    </td>
                   @endif
                 </tr>
+                {{-- @endif --}}
               @endforeach
             </tbody>
           </table>
         </section>
+
         <!-- /.container-fluid .contents-area -->
         <nav class="pager">
           <ul class="pagination justify-content-center">
@@ -126,6 +126,14 @@
 @section('scripts')
 <script>
 $(function(){
+            $(".tb-btn-reservation").click(function(){
+                if(confirm("本当に予約してよろしいでしょうか？")){
+                    }else {
+                return false;
+                }
+            });
+        });
+        $(function(){
             $(".tb-btn-del").click(function(){
                 if(confirm("本当に削除しますか？")){
                     }else {

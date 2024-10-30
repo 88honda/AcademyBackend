@@ -32,10 +32,10 @@ Route::middleware(['auth', 'mentor'])->group(function () {
 
 Route::middleware(['auth', 'student'])->group(function () {
     Route::get('/mentor', [MentorController::class, 'getMentors'])->name('mentor');
-    Route::get('mentor/reservation', [ReservationController::class, 'index'])->name('mentor.reservation');
-    Route::get('mentor/request', [ReservationController::class, 'request'])->name('mentor.request');
+    Route::get('mentor/reservation/{id}', [ReservationController::class, 'index'])->name('mentor.reservation');
+    Route::get('mentor/request/{id}', [ReservationController::class, 'request'])->name('mentor.request');
     Route::get('/get-timeslots', [ReservationController::class, 'getTimeslots']);
-    Route::post('/mentor/request/submit', [ReservationController::class, 'submitReservation']);
+    Route::post('/reservation/submit/{id}', [ReservationController::class, 'submitReservation'])->name('reservation.submit');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

@@ -8,19 +8,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MentorRequest;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class MentorController extends Controller
 {
     public function getMentors(Request $request){
 
         $keyword = $request->input('keyword');
+        $mentors = User::query()
+            ->with('mentor')
+            ->get();
 
-        $query = User::query()
-            ->where('users.role', '=', 'mentor')
-            ->where('users.name', 'LIKE', "%{$keyword}%");
-        
-        $user = $query->get();
-        return view('mentor.mentor', compact('user', 'keyword'));
+        return view('mentor.mentor', compact('keyword', 'mentors'));
     }
 
     public function add(MentorRequest $request){

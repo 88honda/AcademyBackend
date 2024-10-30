@@ -29,12 +29,12 @@
         <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
         @endif
         <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
-        <li><a href="{{url('/mentor/reservation')}}" class="mentor-btn"><i class="fas"></i>予約枠一覧</a></li>
+        <li><a href="{{url('/mentor/reservation/{id}')}}" class="mentor-btn"><i class="fas"></i>予約枠一覧</a></li>
 
         <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
-          <button type="submit" class="" style="border: none; background: none; color: #fff; margin-top: 20px; font-weight:bold;">ログアウト</button>
+          <button type="submit" style="border: none; background: none; color: #fff; margin-top: 20px; font-weight:bold;">ログアウト</button>
         </form>
       </ul>
     </nav>
@@ -99,7 +99,7 @@
                   <label for="mentor-select">メンターを選択</label>
                   <select id="mentor-select" name="mentor" class="form-control control-widthl">
                     <option name="mentor" value="" {{ old('mentor') == '' ? 'selected' : '' }}>---</option>
-                    @foreach($mentor as $mentor)
+                    @foreach($mentors as $mentor)
                       <option value="{{ $mentor->id }}">{{ $mentor->name }}</option>
                     @endforeach
                   </select>
@@ -107,7 +107,7 @@
                 <div class="form-group col-sm-5" placeholder="yyyy/mm/dd 00:00">
                   <label for="time-slot-select">予約可能時間を選択</label>
                   <select id="time-slot-select" name="time_slot" class="form-control control-widthl">
-                    @foreach($timeslot as $timeslot)
+                    @foreach($timeslots as $timeslot)
                       <option name="mentor" value="" {{ old('mentor') == '' ? 'selected' : '' }}>---</option>
                     @endforeach
                   </select>
@@ -141,21 +141,21 @@
 <!-- /.container-fluid -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  var mentorSelect = document.getElementById('mentor-select');
+  let mentorSelect = document.getElementById('mentor-select');
 
   mentorSelect.addEventListener('change', function() {
-    var mentorId = mentorSelect.value; 
+    let mentorId = mentorSelect.value; 
 
     fetch('/get-timeslots?mentor_id=' + mentorId, {
       method: 'GET',
     })
     .then(response => response.json())
     .then(data => {
-      var timeSlotSelect = document.getElementById('time-slot-select');
+      let timeSlotSelect = document.getElementById('time-slot-select');
       timeSlotSelect.innerHTML = '';
 
       data.timeslots.forEach(function(timeslot) {
-        var option = document.createElement('option');
+        let option = document.createElement('option');
         option.value = timeslot.id;
         option.textContent = `${timeslot.start_time} 〜 ${timeslot.end_time}`;
         timeSlotSelect.appendChild(option);

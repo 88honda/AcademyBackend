@@ -13,8 +13,11 @@ class Mentor extends Model
     protected $fillable = ['name','teaching_languages','experience_years','introduction'];
 
         public function user()
-        
     {
         return $this->hasOne(User::class, 'detail_id');
+    }
+    public function timeslot()
+    {
+        return $this->hasOne(TimeSlot::class, 'mentor_id');
     }
 }
