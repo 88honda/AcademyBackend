@@ -78,28 +78,19 @@
               @if(session('message'))
               <div class="alert alert-success">{{ session('message') }}</div>
               @endif
-              @foreach($user as $user)
+              @foreach($students as $student)
                 <tr>
-                  <td>{{$user->name}}</td> 
-                  <td>{{$user->email}}</td>
-
-                  <td>
-                    @if($user->student)
-                        {{$user->student->learning_language}}
-                    @endif
-                  </td>
-                  <td>
-                    @if($user->student)
-                        {{$user->student->experience_level}}
-                    @endif
-                  </td>
+                  <td>{{$student->name}}</td> 
+                  <td>{{$student->email}}</td>
+                  <td>{{$student->learning_language}}</td>
+                  <td>{{ __('columns.' . $student->experience_level) }}</td>                 
                   @if (Auth::user()->role === 'admin')
                   <td>
-                    <a href="{{ route('student.edit', ['id' => $user->id]) }}">
+                    <a href="{{ route('student.edit', ['id' => $student->detail_id]) }}">
                       <button class="tb-btn tb-btn-edit" method="get">編集</button>
                     </a>
                   
-                    <form action="{{ route('student.delete', ['id' => $user->id]) }}" method="POST" style="display: inline;">
+                    <form action="{{ route('student.delete', ['id' => $student->detail_id]) }}" method="POST" style="display: inline;">
                       @csrf
                       <button type="submit" class="tb-btn tb-btn-del">削除</button>
                     </form>

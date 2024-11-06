@@ -52,7 +52,7 @@
           @endif
           <!-- 編集登録画面 -->
           @if(isset($editMode) && $editMode)
-          <form method="post" action="{{ route('reservation.update', ['id' => $timeslot->id]) }}">
+          <form method="post" action="{{ route('reservation.update', ['id' => $timeslots->id]) }}">
             @csrf
             <div class="form-inner">
             @foreach ($errors->all() as $error)
@@ -62,12 +62,12 @@
                 <div class="form-group col-sm-5">
                   <label for="start_time">予約開始時間</label>
                   <div>{{ $errors->first('message') }}</div>
-                  <input type="text" name="start_time" class="form-control" id="start_time" placeholder="yyyy/mm/dd 00:00" value="{{ \Carbon\Carbon::parse(old('start_time', $timeslot->start_time))->format('Y/m/d H:i') }}">
+                  <input type="text" name="start_time" class="form-control" id="start_time" placeholder="yyyy/mm/dd 00:00" value="{{ \Carbon\Carbon::parse(old('start_time', $timeslots->start_time))->format('Y/m/d H:i') }}">
                 </div>
                 <div class="form-group col-sm-5">
                   <label for="end_time">予約終了時間</label>
                   <div>{{ $errors->first('message') }}</div>
-                  <input type="text" name="end_time" class="form-control" id="end_time" placeholder="yyyy/mm/dd 00:00" value="{{ \Carbon\Carbon::parse(old('end_time', $timeslot->end_time))->format('Y/m/d H:i') }}">
+                  <input type="text" name="end_time" class="form-control" id="end_time" placeholder="yyyy/mm/dd 00:00" value="{{ \Carbon\Carbon::parse(old('end_time', $timeslots->end_time))->format('Y/m/d H:i') }}">
                 </div> 
               </div>
               <!-- /.row -->

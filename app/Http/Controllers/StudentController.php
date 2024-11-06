@@ -13,16 +13,12 @@ use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
-    public function getStudents(Request $request){
+    public function showStudentList(Request $request){
 
         $keyword = $request->input('keyword');
-
-        $query = User::query()
-            ->where('users.role', '=', 'student')
-            ->where('users.name', 'LIKE', "%{$keyword}%");
-            
-        $user = $query->get();
-        return view('student.student',compact('user', 'keyword'));
+        $students =  User::join('students', 'users.detail_id', '=', 'students.id')->get();
+        
+        return view('student.student',compact('keyword', 'students'));
     }
 
     public function add(StudentRequest $request){

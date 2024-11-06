@@ -61,10 +61,8 @@
               @if(session('message'))
                 <div class="alert alert-success">{{ session('message') }}</div>
               @endif
-
               
               @foreach ($timeslots as $timeslot)
-              {{-- @if ($timeslot->status !== 'booked') --}}
                 <tr>
                   <td>{{ \Carbon\Carbon::parse($timeslot->start_time)->format('Y/m/d H:i') }}</td>
                   <td>〜</td>
@@ -73,11 +71,13 @@
                     <form action="{{ route('reservation.submit', $timeslot->id) }}" method="POST">
                       @csrf
                       <input type="hidden" name="time_slot_id" value="{{ $timeslot->id }}">
-
-                      @if ($timeslot->status !== 'booked')
-                      <button type="submit" class="tb-btn tb-btn-reservation">申請</button>
+                      @if ($timeslot->status === 'available')
+                      <button type="submit" class="tb-btn tb-btn-reservation" style="background-color: #52B6DA;">申請</button>
                       @endif
                     </form>
+                    @if ($timeslot->status === 'booked')
+                    <button type="submit" class="tb-btn" style="background-color: yellow;">申請中</button>
+                    @endif
                   </td>
                   @if (in_array(Auth::user()->role, ['admin', 'mentor']))
                     <td>
@@ -95,7 +95,6 @@
                     </td>
                   @endif
                 </tr>
-                {{-- @endif --}}
               @endforeach
             </tbody>
           </table>

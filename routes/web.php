@@ -5,6 +5,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ReservationSlotController;
+use App\Http\Controllers\ReservationRequestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,23 +21,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth', 'mentor'])->group(function () {
-    Route::get('/student', [StudentController::class, 'getStudents'])->name('student');
+    Route::get('/student', [StudentController::class, 'showStudentList'])->name('student');
     Route::get('student/request', function () {
         return view('/student.request');
     });
-    Route::get('student/reservation', [ReservationController::class, 'index'])->name('student.reservation');
-    Route::post('student/request/add', [ReservationController::class, 'addRegistration'])->name('reservation.add');
-    Route::post('student/reservation/update/{id}', [ReservationController::class, 'update'])->name('reservation.update');
-    Route::get('student/reservation/edit/{id}', [ReservationController::class, 'edit'])->name('reservation.edit');
-    Route::post('student/reservation/delete/{id}', [ReservationController::class, 'destroy'])->name('reservation.delete');
+    Route::get('student/reservation', [ReservationSlotController::class, 'showStudentReservations'])->name('student.reservation');
+    Route::post('student/request/add', [ReservationSlotController::class, 'addRegistration'])->name('reservation.add');
+    Route::post('student/reservation/update/{id}', [ReservationSlotController::class, 'update'])->name('reservation.update');
+    Route::get('student/reservation/edit/{id}', [ReservationSlotController::class, 'edit'])->name('reservation.edit');
+    Route::post('student/reservation/delete/{id}', [ReservationSlotController::class, 'destroy'])->name('reservation.delete');
 });
 
 Route::middleware(['auth', 'student'])->group(function () {
-    Route::get('/mentor', [MentorController::class, 'getMentors'])->name('mentor');
-    Route::get('mentor/reservation/{id}', [ReservationController::class, 'index'])->name('mentor.reservation');
-    Route::get('mentor/request/{id}', [ReservationController::class, 'request'])->name('mentor.request');
-    Route::get('/get-timeslots', [ReservationController::class, 'getTimeslots']);
-    Route::post('/reservation/submit/{id}', [ReservationController::class, 'submitReservation'])->name('reservation.submit');
+    Route::get('/mentor', [MentorController::class, 'showMentorList'])->name('mentor');
+    Route::get('mentor/reservation/{id}', [ReservationRequestController::class, 'showMentorReservations'])->name('mentor.reservation');
+    Route::post('/reservation/submit/{id}', [ReservationRequestController::class, 'submitReservation'])->name('reservation.submit');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

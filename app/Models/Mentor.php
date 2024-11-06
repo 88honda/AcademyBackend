@@ -12,9 +12,9 @@ class Mentor extends Model
     use HasFactory;
     protected $fillable = ['name','teaching_languages','experience_years','introduction'];
 
-        public function user()
+        public function users()
     {
-        return $this->hasOne(User::class, 'detail_id');
+        return $this->hasMany(User::class, 'detail_id');
     }
     public function timeslot()
     {

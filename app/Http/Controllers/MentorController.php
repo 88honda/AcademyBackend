@@ -12,18 +12,15 @@ use Illuminate\Support\Facades\DB;
 
 class MentorController extends Controller
 {
-    public function getMentors(Request $request){
+    public function showMentorList(Request $request){
 
         $keyword = $request->input('keyword');
-        $mentors = User::query()
-            ->with('mentor')
-            ->get();
+        $mentors =  User::join('mentors', 'users.detail_id', '=', 'mentors.id')->get();
 
         return view('mentor.mentor', compact('keyword', 'mentors'));
     }
 
     public function add(MentorRequest $request){
-
         $mentors = new Mentor();
         $mentors->name = $request->input('name');
         $mentors->teaching_languages = $request->input('teaching_languages');

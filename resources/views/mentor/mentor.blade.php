@@ -74,29 +74,27 @@
               @if(session('message'))
               <div class="alert alert-success">{{ session('message') }}</div>
               @endif
-              @foreach ($mentors as $user)
-                @if ($user->mentor)
+              @foreach ($mentors as $mentor)
                   <tr>
-                    <td>{{$user->mentor->name}}</td> 
-                    <td>{{$user->email}}</td> 
-                    <td>{{$user->mentor->teaching_languages}}</td>
-                    <td>{{$user->mentor->experience_years}}</td>
+                    <td>{{$mentor->name}}</td>
+                    <td>{{$mentor->email}}</td>
+                    <td>{{$mentor->teaching_languages}}</td>
+                    <td>{{$mentor->experience_years}}</td>
                     <td>
                       @if (Auth::user()->role === 'admin')
-                        <form action="{{ route('mentor.edit', ['id' => $user->id]) }}" method="get" style="display: inline;">
+                        <form action="{{ route('mentor.edit', ['id' => $mentor->detail_id]) }}" method="get" style="display: inline;">
                           <button type="submit" class="tb-btn tb-btn-edit">編集</button>
                         </form>
-                        <form action="{{ route('mentor.delete', ['id' => $user->id]) }}" method="POST" style="display: inline;">
+                        <form action="{{ route('mentor.delete', ['id' => $mentor->detail_id]) }}" method="POST" style="display: inline;">
                           @csrf
                           <button type="submit" class="tb-btn tb-btn-del">削除</button>
                         </form>
                       @endif
-                      <a href="{{ route('mentor.reservation', $user->mentor->id) }}">
+                      <a href="{{ route('mentor.reservation', $mentor->id) }}">
                         <button class="tb-btn tb-btn-edit" method="get">詳細</button>
                       </a>
                     </td>
                   </tr>
-                @endif
               @endforeach
             </tbody>
           </table>
