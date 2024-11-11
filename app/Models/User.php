@@ -16,11 +16,11 @@ class User extends Authenticatable
 
     public function student()
     {
-        return $this->belongsTo(Student::class, 'detail_id');
+        return $this->belongsTo(Student::class, 'detail_id', 'id');
     }
     public function mentor()
     {
-        return $this->belongsTo(Mentor::class, 'detail_id');
+        return $this->belongsTo(Mentor::class, 'detail_id', 'id');
     }
     public function usertags()
     {

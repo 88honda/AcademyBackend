@@ -15,9 +15,11 @@ class MentorController extends Controller
     public function showMentorList(Request $request){
 
         $keyword = $request->input('keyword');
-        $mentors =  User::join('mentors', 'users.detail_id', '=', 'mentors.id')->get();
+        $users = User::with('mentor')
+            ->where('users.role', 'mentor')
+            ->get();
 
-        return view('mentor.mentor', compact('keyword', 'mentors'));
+        return view('mentor.mentor', compact('keyword', 'users'));
     }
 
     public function add(MentorRequest $request){

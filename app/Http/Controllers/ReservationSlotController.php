@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Mentor;
 use App\Models\TimeSlot;
+use App\Models\Student;
 use App\Models\Reservation;
 use App\Http\Requests\ReservationRequest;
 use App\Http\Controllers\Controller;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class ReservationSlotController extends Controller
 {
     public function showStudentReservations(Request $request){
-        $timeslots =  Mentor::join('time_slots', 'time_slots.mentor_id', '=', 'mentors.id')->get();
+        $timeslots =  Timeslot::with('mentor')->get();
 
         return view('student.reservation', compact('timeslots'));
     }
@@ -53,4 +54,19 @@ class ReservationSlotController extends Controller
 
         return redirect('/student/reservation')->with('message', '追加しました');
     }  
+    public function agreementReservation(Request $request, $id){
+        $timeSlot = TimeSlot::find($id);
+        $timeSlot->status = "booked";
+        $timeSlot->save();
+
+        return redirect('/student/reservation')->with('message', '申請を承諾しました。');
+    }
+    public function rejectReservation(Request $request, $id){
+        $timeSlot = TimeSlot::find($id);
+        $timeSlot->status = "available";
+        $timeSlot->save();
+
+        return redirect('/student/reservation')->with('message', '申請を拒否しました。');
+    }
+    
 }

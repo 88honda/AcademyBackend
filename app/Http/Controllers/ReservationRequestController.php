@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Auth;
 class ReservationRequestController extends Controller
 {
     public function showMentorReservations(Request $request, $id){
-        $mentors = Mentor::find($id);
-        $timeslots = Timeslot::where('mentor_id', $id)->get();
-        return view('mentor.reservation', compact('timeslots', 'mentors'));
+
+        $timeslots =  Timeslot::with('mentor')
+            ->where('mentor_id', $id)
+            ->get();
+        return view('mentor.reservation', compact('timeslots'));
     }
 
     public function request(Request $request, $id){
@@ -33,7 +35,7 @@ class ReservationRequestController extends Controller
         $reservation->time_slot_id = $timeSlot->id;
         $reservation->save();
 
-        $timeSlot->status = "booked";
+        $timeSlot->status = "pending";
         $timeSlot->save();
 
         return redirect('/mentor')->with('message', '予約が申請されました。');

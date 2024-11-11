@@ -30,6 +30,8 @@ Route::middleware(['auth', 'mentor'])->group(function () {
     Route::post('student/reservation/update/{id}', [ReservationSlotController::class, 'update'])->name('reservation.update');
     Route::get('student/reservation/edit/{id}', [ReservationSlotController::class, 'edit'])->name('reservation.edit');
     Route::post('student/reservation/delete/{id}', [ReservationSlotController::class, 'destroy'])->name('reservation.delete');
+    Route::post('student/reservation/agreement/{id}', [ReservationSlotController::class, 'agreementReservation'])->name('reservation.agreement');
+    Route::post('student/reservation/reject/{id}', [ReservationSlotController::class, 'rejectReservation'])->name('reservation.reject');
 });
 
 Route::middleware(['auth', 'student'])->group(function () {
@@ -54,8 +56,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/mentor/delete/{id}', [MentorController::class, 'destroy'])->name('mentor.delete');
     Route::post('/student/delete/{id}', [StudentController::class, 'destroy'])->name('student.delete');
 
-    // Route::post('/mentor/sign-up/add', [MentorController::class, 'add'])->name('mentor.add');
-    // Route::post('/student/sign-up/add', [StudentController::class, 'add'])->name('student.add');
     Route::post('/sign-up/add', [UserController::class, 'add'])->name('sign-in.add');
 });
 

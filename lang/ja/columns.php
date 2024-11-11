@@ -8,4 +8,5 @@ return [
     // time_slotsテーブル
     'available' => '予約可能',
     'booked' => '予約済み',
+    'pending' => '申請中',
 ];

@@ -46,7 +46,8 @@
 
     <main class="student-list">
       <div class="container-fluid wrapper">
-        <h4 class="screen-title">{{ $mentors->name }}予約枠一覧</h4>
+        {{-- <h4 class="screen-title">{{ $mentors->name }}予約枠一覧</h4> --}}
+        <h4 class="screen-title">予約枠一覧</h4> 
         <p class="result">15件</p>
         <section class="container-fluid contents-area" style="margin-bottom: 40px">
           <table class="table">
@@ -75,8 +76,11 @@
                       <button type="submit" class="tb-btn tb-btn-reservation" style="background-color: #52B6DA;">申請</button>
                       @endif
                     </form>
-                    @if ($timeslot->status === 'booked')
+                    @if ($timeslot->status === 'pending')
                     <button type="submit" class="tb-btn" style="background-color: yellow;">申請中</button>
+                    @endif
+                    @if ($timeslot->status === 'booked')
+                    <button type="submit" class="tb-btn" style="background-color: gray;">予約済</button>
                     @endif
                   </td>
                   @if (in_array(Auth::user()->role, ['admin', 'mentor']))

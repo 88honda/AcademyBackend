@@ -16,9 +16,11 @@ class StudentController extends Controller
     public function showStudentList(Request $request){
 
         $keyword = $request->input('keyword');
-        $students =  User::join('students', 'users.detail_id', '=', 'students.id')->get();
+        $users = User::with('student')
+            ->where('users.role', 'student')
+            ->get();
         
-        return view('student.student',compact('keyword', 'students'));
+        return view('student.student',compact('keyword', 'users'));
     }
 
     public function add(StudentRequest $request){
