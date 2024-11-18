@@ -9,6 +9,7 @@ use App\Models\Reservation;
 use App\Http\Requests\ReservationRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\DB;
 
 class ReservationRequestController extends Controller
 {
@@ -27,17 +28,29 @@ class ReservationRequestController extends Controller
         return view('mentor.request', compact('timeslots', 'mentors'));
     }
     public function submitReservation(Request $request, $id){
-        $timeSlot = TimeSlot::find($id);
-        $studentId = auth()->user()->id;
 
-        $reservation = new Reservation();
-        $reservation->student_id = $studentId;
-        $reservation->time_slot_id = $timeSlot->id;
-        $reservation->save();
+        DB::beginTransaction();
 
-        $timeSlot->status = "pending";
-        $timeSlot->save();
-
-        return redirect('/mentor')->with('message', '予約が申請されました。');
+        try {
+            $timeSlot = TimeSlot::find($id);
+            $studentId = auth()->user()->id;
+    
+            $reservation = new Reservation();
+            $reservation->student_id = $studentId;
+            $reservation->time_slot_id = $timeSlot->id;
+            $reservation->save();
+    
+            $timeSlot->status = "pending";
+            $timeSlot->save();
+    
+            DB::commit();
+            return redirect('/mentor')->with('message', '予約が申請されました。');
+    
+        } catch (\Exception $e) {
+            DB::rollBack(); 
+            logger()->error("エラー: " . $e->getMessage());
+    
+            echo "エラーが発生しました。";
+        }
     }
 }

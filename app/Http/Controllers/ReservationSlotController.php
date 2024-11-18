@@ -66,6 +66,8 @@ class ReservationSlotController extends Controller
         $timeSlot->status = "available";
         $timeSlot->save();
 
+        Reservation::where('time_slot_id', $id)->delete();
+
         return redirect('/student/reservation')->with('message', '申請を拒否しました。');
     }
     
