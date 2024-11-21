@@ -42,15 +42,13 @@ class ReservationRequestController extends Controller
     
             $timeSlot->status = "pending";
             $timeSlot->save();
-    
+            
             DB::commit();
             return redirect('/mentor')->with('message', '予約が申請されました。');
     
         } catch (\Exception $e) {
             DB::rollBack(); 
-            logger()->error("エラー: " . $e->getMessage());
-    
-            echo "エラーが発生しました。";
+            throw new \Exception($e);
         }
     }
 }
