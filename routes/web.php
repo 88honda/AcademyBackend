@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\DailyReportController;
 use App\Http\Controllers\ReservationSlotController;
 use App\Http\Controllers\ReservationRequestController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +32,14 @@ Route::middleware(['auth', 'mentor'])->group(function () {
     Route::post('student/reservation/delete/{id}', [ReservationSlotController::class, 'destroy'])->name('reservation.delete');
     Route::post('student/reservation/agreement/{id}', [ReservationSlotController::class, 'agreementReservation'])->name('reservation.agreement');
     Route::post('student/reservation/reject/{id}', [ReservationSlotController::class, 'rejectReservation'])->name('reservation.reject');
+    Route::get('daily_reports/{id}', [DailyReportController::class, 'showDailyReports'])->name('daily_reports');
+    Route::get('daily_reports_create/{id}', function ($id) {
+        return view('daily_reports.daily_reports_create', ['id' => $id]);
+    });
+    Route::post('daily_reports_create/add/{id}', [DailyReportController::class, 'addDailyReport'])->name('daily_reports_create.add');
+    Route::get('daily_reports/daily_reports_create/edit/{id}', [DailyReportController::class, 'editDailyReport'])->name('daily_reports_create.edit');
+    Route::post('daily_reports_create/update/{id}', [DailyReportController::class, 'updateDailyReport'])->name('daily_reports_create.update');
+    Route::post('daily_reports/delete/{id}', [DailyReportController::class, 'deleteDailyReport'])->name('daily_reports.delete');
 });
 
 Route::middleware(['auth', 'student'])->group(function () {

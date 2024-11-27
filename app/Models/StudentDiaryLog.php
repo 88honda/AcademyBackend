@@ -9,8 +9,8 @@ use App\Models\Student;
 class StudentDiaryLog extends Model
 {
 	use HasFactory;
-    public function users()
+    public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 }

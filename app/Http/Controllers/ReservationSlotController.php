@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Mentor;
 use App\Models\TimeSlot;
-use App\Models\Student;
 use App\Models\Reservation;
 use App\Http\Requests\ReservationRequest;
 use App\Http\Controllers\Controller;
@@ -22,7 +20,7 @@ class ReservationSlotController extends Controller
     public function edit($id){
         $timeslots = TimeSlot::findOrFail($id);
         $editMode = true;
-        return view('/student/request', compact('timeslots', 'editMode'));
+        return view('student.request', compact('timeslots', 'editMode'));
     }
 
     public function update(ReservationRequest $request, $id){

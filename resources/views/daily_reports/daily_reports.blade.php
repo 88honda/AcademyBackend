@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ESA ACADEMY 生徒管理システム</title>
-
+  
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!-- Font Awesome -->
@@ -25,14 +25,14 @@
 <div class="row">
 
   <div class="col-sm-2 sidebar">
-    <h1 class="logo"><a href="{{url('/mentor')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
+    <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        @if(auth()->user() && auth()->user()->role === 'admin')
-          <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
-        @endif
-        <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
-        <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
+        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
+
+        <li><a href="{{url('/student/reservation')}}" class="mentor-btn"><i class="fas"></i>予約枠登録一覧</a></li>
+
+        <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
           <button type="submit" class="" style="border: none; background: none; color: #fff; margin-top: 20px; font-weight:bold;">ログアウト</button>
@@ -43,67 +43,46 @@
 
 
   <div class="r-column col-sm-10">
+    <div class="header col-sm-10">
+      <div>
+        <a href="{{url('daily_reports_create', ['id' => $studentId])}}" class="sign-up-btn"><i class="fas fa-plus"></i>日報登録画面</a>
+      </div>
+    </div>
 
     <main class="student-list">
       <div class="container-fluid wrapper">
-        {{-- <h4 class="screen-title">{{ $mentors->name }}予約枠一覧</h4> --}}
-        <h4 class="screen-title">予約枠一覧</h4> 
+        <h4 class="screen-title">日報一覧</h4>
         <p class="result">15件</p>
-        <section class="container-fluid contents-area" style="margin-bottom: 40px">
+        <section class="container-fluid contents-area">
           <table class="table">
             <thead>
               <tr>
-                <th style="width: 20%;">予約開始時間</th>
-                <th></th>
-                <th style="width: 20%;">予約終了時間</th>
+                <th>生徒日報</th>
+                <th>作成日時</th>
               </tr>
             </thead>
-            <tbody style="width: 25%;">
+            <tbody>
               @if(session('message'))
                 <div class="alert alert-success">{{ session('message') }}</div>
               @endif
-              
-              @foreach ($timeslots as $timeslot)
+              @foreach($studentdiarylogs as $studentdiarylog)
                 <tr>
-                  <td>{{ \Carbon\Carbon::parse($timeslot->start_time)->format('Y/m/d H:i') }}</td>
-                  <td>〜</td>
-                  <td>{{ \Carbon\Carbon::parse($timeslot->end_time)->format('Y/m/d H:i') }}</td>
+                  <td>{{$studentdiarylog->content}}</td>
+                  <td>{{ \Carbon\Carbon::parse($studentdiarylog->created_at)->format('Y/m/d H:i') }}</td>
                   <td>
-                    <form action="{{ route('reservation.submit', $timeslot->id) }}" method="POST">
+                    <a href="{{ route('daily_reports_create.edit', ['id' => $studentdiarylog->id])}}">
+                      <button class="tb-btn tb-btn-edit" method="get">編集</button>
+                    </a>
+                    <form action="{{ route('daily_reports.delete', ['id' => $studentdiarylog->id]) }}" method="POST" style="display: inline;">
                       @csrf
-                      <input type="hidden" name="time_slot_id" value="{{ $timeslot->id }}">
-                      @if ($timeslot->status === 'available')
-                      <button type="submit" class="tb-btn tb-btn-reservation" style="background-color: #52B6DA;">申請</button>
-                      @endif
+                      <button type="submit" class="tb-btn tb-btn-del">削除</button>
                     </form>
-                    @if ($timeslot->status === 'pending')
-                    <button type="submit" class="tb-btn" style="background-color: yellow;">申請中</button>
-                    @endif
-                    @if ($timeslot->status === 'booked')
-                    <button type="submit" class="tb-btn" style="background-color: gray;">予約済</button>
-                    @endif
                   </td>
-                  @if (in_array(Auth::user()->role, ['admin', 'mentor']))
-                    <td>
-                      @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'mentor'))
-                        <a href="{{ route('reservation.edit', ['id' => $timeslot->id]) }}">
-                          <button class="tb-btn tb-btn-edit" method="get">編集</button>
-                        </a>
-                        <form action="{{ route('reservation.delete', ['id' => $timeslot->id]) }}" method="POST" style="display: inline;">
-                          @csrf
-                          @if (Auth::user()->role === 'admin')
-                            <button type="submit" class="tb-btn tb-btn-del">削除</button>
-                          @endif
-                        </form>
-                      @endif
-                    </td>
-                  @endif
                 </tr>
               @endforeach
             </tbody>
           </table>
         </section>
-
         <!-- /.container-fluid .contents-area -->
         <nav class="pager">
           <ul class="pagination justify-content-center">
@@ -129,14 +108,6 @@
 @section('scripts')
 <script>
 $(function(){
-            $(".tb-btn-reservation").click(function(){
-                if(confirm("本当に予約してよろしいでしょうか？")){
-                    }else {
-                return false;
-                }
-            });
-        });
-        $(function(){
             $(".tb-btn-del").click(function(){
                 if(confirm("本当に削除しますか？")){
                     }else {
