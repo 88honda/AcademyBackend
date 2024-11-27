@@ -33,8 +33,8 @@ Route::middleware(['auth', 'mentor'])->group(function () {
     Route::post('student/reservation/agreement/{id}', [ReservationSlotController::class, 'agreementReservation'])->name('reservation.agreement');
     Route::post('student/reservation/reject/{id}', [ReservationSlotController::class, 'rejectReservation'])->name('reservation.reject');
     Route::get('daily_reports/{id}', [DailyReportController::class, 'showDailyReports'])->name('daily_reports');
-    Route::get('daily_reports_create/{id}', function ($id) {
-        return view('daily_reports.daily_reports_create', ['id' => $id]);
+    Route::get('daily_reports_create/{studentId}', function ($studentId) {
+        return view('daily_reports.daily_reports_create', ['id' => $studentId]);
     });
     Route::post('daily_reports_create/add/{id}', [DailyReportController::class, 'addDailyReport'])->name('daily_reports_create.add');
     Route::get('daily_reports/daily_reports_create/edit/{id}', [DailyReportController::class, 'editDailyReport'])->name('daily_reports_create.edit');
