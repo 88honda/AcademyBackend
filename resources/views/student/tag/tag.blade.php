@@ -35,8 +35,7 @@
 
         <li><a href="{{url('/student/reservation')}}" class="mentor-btn"><i class="fas"></i>予約枠登録一覧</a></li>
         <li><a href="{{url('/student/tag/create')}}" class="tag-btn"><i class="fas"></i>タグ登録</a></li>
-
-
+        <li><a href="{{url('/student/tag')}}" class="tag-btn"><i class="fas"></i>タグ一覧</a></li>
         <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
@@ -48,61 +47,26 @@
 
 
   <div class="r-column col-sm-10">
-    <div class="header col-sm-10">
-      @if (Auth::user()->role === 'admin')
-      <div>
-        <a href="{{url('/student/sign-up')}}" class="sign-up-btn"><i class="fas fa-plus"></i>新規登録画面</a>
-      </div>
-      @endif
-      <form action="{{ route('student') }}" method="get">
-        <botton class="input-btn col-sm-4" type="submit">
-            <input type="text" placeholder="NAME検索" name="keyword" value="{{ old('keyword', $keyword) }}">
-            <i class="fas fa-search"></i>
-        </botton>
-      </form>
-    </div>
+
 
     <main class="student-list">
       <div class="container-fluid wrapper">
-        <h4 class="screen-title">生徒一覧</h4>
+        <h4 class="screen-title"> タグ一覧</h4>
         <p class="result">15件</p>
         <section class="container-fluid contents-area">
           <table class="table">
             <thead>
               <tr>
                 <th>名前</th>
-                <th>email</th>
-                <th>プログラミング言語</th>
-                <th>経験レベル</th>
               </tr>
             </thead>
             <tbody>
               @if(session('message'))
               <div class="alert alert-success">{{ session('message') }}</div>
               @endif
-              @foreach($users as $user)
+              @foreach($tags as $tag)
                 <tr>
-                  <td>{{$user->name}}</td> 
-                  <td>{{$user->email}}</td>
-                  <td>{{$user->student->learning_language}}</td>
-                  <td>{{ __('columns.' . $user->student->experience_level) }}</td>                 
-                  @if (Auth::user()->role === 'admin')
-                    <td>
-                      <a href="{{ route('student.edit', ['id' => $user->detail_id]) }}">
-                        <button class="tb-btn tb-btn-edit" method="get">編集</button>
-                      </a>
-                    
-                      <form action="{{ route('student.delete', ['id' => $user->detail_id]) }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="tb-btn tb-btn-del">削除</button>
-                      </form>
-                    </td>
-                  @endif
-                  <td>
-                    <a href="{{ route('daily_reports', ['id' => $user->student->id]) }}">
-                      <button class="tb-btn tb-btn-edit" method="get">日報</button>
-                    </a>
-                  </td>
+                  <td>{{$tag->name}}</td> 
                 </tr>
               @endforeach
             </tbody>

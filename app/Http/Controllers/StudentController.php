@@ -23,6 +23,11 @@ class StudentController extends Controller
         return view('student.student',compact('keyword', 'users'));
     }
 
+    public function createStudent(){
+
+        return view('student.sign-up');
+    }
+
     public function add(StudentRequest $request){
 
         $students = new Student();
@@ -55,7 +60,6 @@ class StudentController extends Controller
     }
     public function update(StudentRequest $request, $id)
     {
-
         
         $user = User::find($id);
         $students = Student::find($user->detail_id);

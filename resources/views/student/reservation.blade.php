@@ -25,7 +25,7 @@
 <div class="row">
 
   <div class="col-sm-2 sidebar">
-    <h1 class="logo"><a href="{{url('/reservation')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
+    <h1 class="logo"><a href="{{url('/student/reservation')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
         <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>

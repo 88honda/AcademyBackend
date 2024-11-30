@@ -51,7 +51,14 @@
 
     <main class="student-list">
       <div class="container-fluid wrapper">
-        <h4 class="screen-title">日報一覧</h4>
+        @php
+          $firstDiaryLog = $studentdiarylogs->first();
+        @endphp
+
+        @if($firstDiaryLog)
+            <h4 class="screen-title">{{ $firstDiaryLog->student->name }}日報一覧</h4>
+        @endif
+            
         <p class="result">15件</p>
         <section class="container-fluid contents-area">
           <table class="table">

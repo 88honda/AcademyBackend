@@ -16,6 +16,11 @@ class ReservationSlotController extends Controller
 
         return view('student.reservation', compact('timeslots'));
     }
+    
+    public function createStudentReservations(){
+
+        return view('student.request');
+    }
 
     public function edit($id){
         $timeslots = TimeSlot::findOrFail($id);

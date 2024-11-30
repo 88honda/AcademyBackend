@@ -230,13 +230,30 @@ ul {
   -webkit-transition: all .3s;
   transition: all .3s;
 }
+.tag-btn {
+  display: block;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: .1em;
+  background: -webkit-gradient(linear, left top, right top, from(#f6d059), to(#f6d059
+  ));
+  background: linear-gradient(100deg, #f6d059 0%, #f6d059 100%);
+  padding: 16px 0;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 0 14px #f6d059;
+          box-shadow: 0 0 14px #f6d059;
+  margin: 0 auto 28px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
 
-.student-btn i, .mentor-btn i {
+.student-btn i, .mentor-btn i, .tag-btn i {
   font-size: 13px;
   padding-right: 4px;
 }
 
-.student-btn:hover, .mentor-btn:hover {
+.student-btn:hover, .mentor-btn:hover, .tag-btn:hover {
   color: #ffffff;
   text-decoration: none;
   opacity: 0.75;

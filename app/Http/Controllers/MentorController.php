@@ -21,6 +21,10 @@ class MentorController extends Controller
 
         return view('mentor.mentor', compact('keyword', 'users'));
     }
+    public function createMentor(){
+
+        return view('mentor.sign-up');
+    }
 
     public function add(MentorRequest $request){
         $mentors = new Mentor();

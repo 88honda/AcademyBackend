@@ -8,37 +8,38 @@ use App\Models\StudentDiaryLog;
 
 class DailyReportController extends Controller
 {
-    public function showDailyReports(Request $request, $id){
-        $studentId = $id;
-
+    public function showDailyReports($studentId){
         $studentdiarylogs = StudentDiaryLog::with('student')
             ->where('student_id', $studentId)
             ->get();
 
         return view('daily_reports.daily_reports', compact('studentdiarylogs', 'studentId'));
     }
-    public function addDailyReport(StudentDiaryLogRequest $request, $id){
+    public function showDailyReportCreate($studentId){
+
+        return view('daily_reports.daily_reports_create', compact('studentId'));
+    }
+    public function addDailyReport(StudentDiaryLogRequest $request, $studentId){
         $studentdiarylogs = new StudentDiaryLog();
-        $studentdiarylogs->student_id = $id;
+        $studentdiarylogs->student_id = $studentId;
         $studentdiarylogs->content = $request->input('content');
         $studentdiarylogs->save();
 
-        return redirect("/daily_reports/$id")->with('message', '追加しました');
+        return redirect("/daily_reports/$studentId")->with('message', '追加しました');
     }  
-    public function editDailyReport($id){
-        $studentdiarylogs = StudentDiaryLog::find($id);
-
+    public function editDailyReport($studentdiarylogId){
+        $studentdiarylog = StudentDiaryLog::find($studentdiarylogId);
         $editMode = true;
-        return view('daily_reports.daily_reports_create', compact('studentdiarylogs', 'editMode', 'id'));
+
+        return view('daily_reports.daily_reports_create', compact('studentdiarylog', 'editMode'));
     }
 
-    public function updateDailyReport(StudentDiaryLogRequest $request, $id){
+    public function updateDailyReport(StudentDiaryLogRequest $request, $studentdiarylogId){
         
-        $studentdiarylogs = StudentDiaryLog::find($id);
-        $studentdiarylogs->student_id = $studentdiarylogs->student_id;
-        $studentdiarylogs->content = $request->input('content');
-        $studentdiarylogs->save();
-        $studentId = $studentdiarylogs->student_id;
+        $studentdiarylog = StudentDiaryLog::find($studentdiarylogId);
+        $studentdiarylog->content = $request->input('content');
+        $studentdiarylog->save();
+        $studentId = $studentdiarylog->student_id;
 
         return redirect("/daily_reports/$studentId")->with('message', '編集しました');
     }
@@ -46,7 +47,6 @@ class DailyReportController extends Controller
     public function deleteDailyReport($id){
         $studentdiarylogs = StudentDiaryLog::find($id);
         $studentdiarylogs->delete();
-
         $studentId = $studentdiarylogs->student_id;
         
         return redirect("/daily_reports/$studentId")->with('message', '削除しました');

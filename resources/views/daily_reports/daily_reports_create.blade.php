@@ -52,7 +52,7 @@
           @endif
           <!-- 日報編集画面 -->
           @if(isset($editMode) && $editMode)
-          <form method="post" action="{{ route('daily_reports_create.update', ['id' => $studentdiarylogs->id]) }}">
+          <form method="post" action="{{ route('daily_reports_create.update', ['id' => $studentdiarylog->id]) }}">
             @csrf
             <div class="form-inner">
             @foreach ($errors->all() as $error)
@@ -62,7 +62,7 @@
                 <div class="form-group col-sm-10">
                   <label for="content">生徒日報</label>
                   <div>{{ $errors->first('message') }}</div>
-                  <input type="text" name="content" style="height:200px" class="form-control" id="content" placeholder="生徒日報を入力してください" value="{{(old('content', $studentdiarylogs->content))}}">
+                  <input type="text" name="content" style="height:200px" class="form-control" id="content" placeholder="生徒日報を入力してください" value="{{(old('content', $studentdiarylog->content))}}">
                 </div>
                 <!-- /.row -->
               </div>
@@ -79,7 +79,7 @@
           </form>
           @else
           <!-- 日報登録申請 -->
-          <form action="{{ route('daily_reports_create.add', ['id' => $id]) }}" method="post">
+          <form action="{{ route('daily_reports_create.add', ['id' => $studentId]) }}" method="post">
             @csrf
             <div class="form-inner">
             @foreach ($errors->all() as $error)
