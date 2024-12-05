@@ -7,7 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DailyReportController;
 use App\Http\Controllers\ReservationSlotController;
 use App\Http\Controllers\ReservationRequestController;
-use App\Http\Controllers\TagController;
+use App\Http\Controllers\TagMentorController;
+use App\Http\Controllers\TagStudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,15 +38,19 @@ Route::middleware(['auth', 'mentor'])->group(function () {
     Route::get('daily_reports/daily_reports_create/edit/{id}', [DailyReportController::class, 'editDailyReport'])->name('daily_reports_create.edit');
     Route::post('daily_reports_create/update/{id}', [DailyReportController::class, 'updateDailyReport'])->name('daily_reports_create.update');
     Route::post('daily_reports/delete/{id}', [DailyReportController::class, 'deleteDailyReport'])->name('daily_reports.delete');
-    Route::get('student/tag/create', [TagController::class, 'createTag'])->name('student.tag.create');
-    Route::post('student/tag/store', [TagController::class, 'storeTag'])->name('student.tag.store');
-    Route::get('student/tag', [TagController::class, 'showTagList'])->name('tag');
+    Route::get('student/tag/create', [TagMentorController::class, 'createTag'])->name('student.tag.create');
+    Route::post('student/tag/store', [TagMentorController::class, 'storeTag'])->name('student.tag.store');
+    Route::get('student/tag', [TagMentorController::class, 'showTagList'])->name('tag');
+
 });
 
 Route::middleware(['auth', 'student'])->group(function () {
     Route::get('/mentor', [MentorController::class, 'showMentorList'])->name('mentor');
     Route::get('mentor/reservation/{id}', [ReservationRequestController::class, 'showMentorReservations'])->name('mentor.reservation');
     Route::post('/reservation/submit/{id}', [ReservationRequestController::class, 'submitReservation'])->name('reservation.submit');
+
+    Route::get('mentor/tag/create', [TagStudentController::class, 'createTag'])->name('mentor.tag.create');
+    Route::post('mentor/tag/store', [TagStudentController::class, 'storeTag'])->name('mentor.tag.store');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

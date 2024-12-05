@@ -22,8 +22,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Mentor::class, 'detail_id', 'id');
     }
-    public function usertags()
+    public function tags()
     {
-        return $this->hasMany(Usertag::class);
-    }    
+        return $this->belongsToMany(Tag::class, 'user_tags', 'user_id', 'tag_id');
+    } 
 }

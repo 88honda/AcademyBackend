@@ -9,8 +9,8 @@ use App\Models\User;
 class Tag extends Model
 {
     use HasFactory;
-    public function user()
+    public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'user_tags', 'tag_id', 'user_id');
     }
 }

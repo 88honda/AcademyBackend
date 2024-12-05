@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MentorRequest;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth; 
 
 class MentorController extends Controller
 {
     public function showMentorList(Request $request){
 
         $keyword = $request->input('keyword');
-        $users = User::with('mentor')
+        $users = User::with(['mentor', 'tags'])
             ->where('users.role', 'mentor')
             ->get();
 

@@ -8,16 +8,16 @@ use App\Models\UserTag;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Facades\DB;
 
-class TagController extends Controller
+class TagStudentController extends Controller
 {
     public function createTag(){
 
-        return view('student.tag.create');
+        return view('mentor.tag.create');
     }
     public function showTagList(){
         
         $tags = Tag::all();
-        return view('student.tag.tag', compact('tags'));
+        return view('mentor.tag.tag', compact('tags'));
     }
 
     public function storeTag(Request $request){
@@ -41,7 +41,7 @@ class TagController extends Controller
             $usertags->save();
 
             DB::commit();
-            return redirect('/tag/create')->with('message', 'タグを追加しました');;
+            return redirect('mentor/tag/create')->with('message', 'タグを追加しました');;
 
         } catch (\Exception $e) {
             DB::rollBack(); 

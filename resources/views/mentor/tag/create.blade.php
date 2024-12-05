@@ -25,11 +25,9 @@
     <h1 class="logo"><a href="{{url('/student')}}"><img src="{{ asset('img/logo.png') }}" alt="ESA ACADEMY 生徒管理システム" class="img-fluid"></a></h1>
     <nav>
       <ul>
-        <li><a href="{{url('/student')}}" class="student-btn"><i class="fas"></i>生徒一覧</a></li>
-        <li><a href="{{url('/student/reservation')}}" class="mentor-btn"><i class="fas"></i>予約枠登録一覧</a></li>
-        <li><a href="{{url('/student/tag/create')}}" class="tag-btn"><i class="fas"></i>タグ登録</a></li>
-        <li><a href="{{url('/student/tag')}}" class="tag-btn"><i class="fas"></i>タグ一覧</a></li>
-        <li><a href="{{url('/student')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
+        <li><a href="{{url('/mentor')}}" class="mentor-btn"><i class="fas"></i>メンター一覧</a></li>
+        <li><a href="{{url('/mentor/tag/create')}}" class="tag-btn"><i class="fas"></i>タグ登録</a></li>
+        <li><a href="{{url('/mentor')}}" class="top-page-btn"><i class="fas fa-home"></i>トップページ</a></li>
         <form action="{{ route('logout') }}" method="POST" class="fas">
           @csrf
           <button type="submit" class="" style="border: none; background: none; color: #fff; margin-top: 20px; font-weight:bold;">ログアウト</button>
@@ -49,7 +47,7 @@
           @if(session('message'))
             <div class="alert alert-success">{{ session('message') }}</div>
           @endif
-          <form action="{{ url('student/tag/store') }}" method="post">
+          <form action="{{ url('mentor/tag/store') }}" method="post">
           @csrf
           <div class="form-inner">
           @foreach ($errors->all() as $error)
