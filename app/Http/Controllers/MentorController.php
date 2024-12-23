@@ -4,23 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Models\Mentor;
 use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MentorRequest;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Log;
 
 class MentorController extends Controller
 {
     public function showMentorList(Request $request){
 
         $keyword = $request->input('keyword');
-        $users = User::with(['mentor', 'tags'])
+        $loggedInUser = Auth::user();
+        $userTagName = $loggedInUser->tags->pluck('name');
+
+        $matchingTagUsers = User::with(['mentor', 'tags'])
             ->where('users.role', 'mentor')
+            ->whereHas('tags', function ($query) use ($userTagName) {
+                $query->where('tags.name', $userTagName);
+            })
             ->get();
+
+        $nonMatchingTagUsers = User::with(['mentor', 'tags'])
+            ->where('users.role', 'mentor') 
+            ->whereDoesntHave('tags', function ($query) use ($userTagName) { 
+                $query->where('tags.name', $userTagName);
+            })
+            ->get();
+
+        $users = collect($matchingTagUsers)
+        ->merge($nonMatchingTagUsers);
 
         return view('mentor.mentor', compact('keyword', 'users'));
     }
+
     public function createMentor(){
 
         return view('mentor.sign-up');
