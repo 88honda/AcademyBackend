@@ -78,7 +78,7 @@
                 <tr>
                   <td>{{$user->name}}</td>
                   <td>{{$user->email}}</td>
-                  <td>{{$user->mentor->teaching_languages}}</td>
+                  <td>{{ $user->tags->pluck('name')->implode(', ') }} </td>
                   <td>{{$user->mentor->experience_years}}</td>
                   <td>
                     @if (Auth::user()->role === 'admin')

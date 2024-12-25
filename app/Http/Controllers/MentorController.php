@@ -24,14 +24,14 @@ class MentorController extends Controller
         $matchingTagUsers = User::with(['mentor', 'tags'])
             ->where('users.role', 'mentor')
             ->whereHas('tags', function ($query) use ($userTagName) {
-                $query->where('tags.name', $userTagName);
+                $query->whereIn('tags.name', $userTagName);
             })
             ->get();
 
         $nonMatchingTagUsers = User::with(['mentor', 'tags'])
             ->where('users.role', 'mentor') 
             ->whereDoesntHave('tags', function ($query) use ($userTagName) { 
-                $query->where('tags.name', $userTagName);
+                $query->whereIn('tags.name', $userTagName);
             })
             ->get();
 
