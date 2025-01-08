@@ -68,6 +68,7 @@
                 <th>email</th>
                 <th>プログラミング言語</th>
                 <th>経験年数</th>
+                <th>タグ</th>
               </tr>
             </thead>
             <tbody>
@@ -78,8 +79,9 @@
                 <tr>
                   <td>{{$user->name}}</td>
                   <td>{{$user->email}}</td>
-                  <td>{{ $user->tags->pluck('name')->implode(', ') }} </td>
+                  <td>{{$user->mentor->teaching_languages}}</td>
                   <td>{{$user->mentor->experience_years}}</td>
+                  <td>{{ $user->tags->pluck('name')->implode(', ') }} </td>
                   <td>
                     @if (Auth::user()->role === 'admin')
                       <form action="{{ route('mentor.edit', ['id' => $user->detail_id]) }}" method="get" style="display: inline;">
